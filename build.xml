@@ -1,0 +1,74 @@
+<project name="FourInALine" default="build-package-and-clean">
+
+   <property name="buildPath" value="build"/>
+   <property name="srcPath" value="src"/>
+   <property name="jarName" value="fourinaline.jar"/>
+
+   <target name="init">
+      <mkdir dir="${buildPath}"/>
+      <mkdir dir="${srcPath}"/>
+   </target>
+
+   <target name="build" depends="init">
+      <javac srcdir="." destdir="${buildPath}" excludes="${srcPath}/**" debug="true"/>
+      <rmic classname="org.gojul.fourinaline.model.GameServerImpl" base="${buildPath}" stubversion="1.2"/>
+   </target>
+
+   <target name="copy-jar-resources" depends="init">
+      <copy todir="${buildPath}">
+         <fileset dir=".">
+            <include name="**/*.properties"/>
+         </fileset>
+      </copy>
+   </target>
+
+   <target name="jar" depends="build, copy-jar-resources">
+      <jar destfile="${jarName}" basedir="${buildPath}">
+         <manifest>
+            <attribute name="Built-By" value="Julien Aubin"/>
+            <attribute name="Sealed" value="true"/>
+            <attribute name="Main-Class" value="org.gojul.fourinaline.main.FourInALine"/>
+            <attribute name="Class-Path" value="./ ./fourinaline.jar"/>
+         </manifest>
+      </jar>
+   </target>
+
+   <target name="copy-src" depends="init">
+      <copy todir="${srcPath}">
+         <fileset dir=".">
+            <exclude name="javadoc/**"/>
+            <exclude name="**/*.zip"/>
+            <exclude name="**/*.jar"/>
+            <include name="**/build.xml"/>
+            <include name="**/*.java"/>
+            <include name="**/*.properties"/>
+            <include name="**/package.html"/>
+         </fileset>
+      </copy> 
+   </target>
+
+   <target name="build-package" depends="jar, copy-src">
+      <zip basedir="." destfile="fourinaline.zip" includes="fourinaline.jar rmipolicy.policy readme.txt license.txt ${srcPath}/**/*.java ${srcPath}/**/*.properties ${srcPath}/**/*.xml ${srcPath}/**/package.html"/>
+   </target>
+
+   <target name="build-package-and-clean" depends="build-package">
+      <delete dir="${buildPath}"/>
+      <delete dir="${srcPath}"/>
+      <delete file="${jarName}"/>
+   </target>
+
+
+   <property name="javadocDir" value="javadoc"/>
+
+   <target name="javadoc">
+      <mkdir dir="javadoc"/>
+      <javadoc destdir="${javadocDir}">
+         <fileset dir=".">
+            <exclude name="${srcPath}/**"/>
+            <exclude name="javadoc/**"/>
+            <include name="**/*.java"/>
+         </fileset>
+      </javadoc>
+   </target>
+
+</project> 
