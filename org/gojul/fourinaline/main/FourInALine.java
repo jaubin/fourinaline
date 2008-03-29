@@ -50,70 +50,68 @@ public class FourInALine
 		/**
 		 * The inputstream from the process.
 		 */
-	    private InputStream is;
+		private InputStream is;
 	    
-	    /**
-	     * Constructor.
-	     * @param is the inputstream from the process.
-	     * @throws NullPointerException if <code>is</code> is null.
-	     */
-	    StreamGobbler(final InputStream is) throws NullPointerException
-	    {
-	    	if (is == null)
-	    		throw new NullPointerException();
+		/**
+		 * Constructor.
+		 * @param is the inputstream from the process.
+		 * @throws NullPointerException if <code>is</code> is null.
+		 */
+		StreamGobbler(final InputStream is) throws NullPointerException
+		{
+			if (is == null)
+				throw new NullPointerException();
 	    	
-	        this.is = is;
-	    }
+			this.is = is;
+		}
 	    
 	    
-	    /**
-	     * @see java.lang.Thread#run()
-	     */
-	    public void run()
-	    {
-	        try
-	        {	                
-	            InputStreamReader isr = new InputStreamReader(is);
-	            BufferedReader br = new BufferedReader(isr);
-	            String line=null;
-	            while ( (line = br.readLine()) != null)
-	            {
-	                System.out.println(line);    
-	            }
-	        } 
-	        catch (IOException ioe)
-	        {
-	        	ioe.printStackTrace();  
-	        }
-	    }
+		/**
+		 * @see java.lang.Thread#run()
+		 */
+		public void run()
+		{
+			try
+			{	                
+				InputStreamReader isr = new InputStreamReader(is);
+				BufferedReader br = new BufferedReader(isr);
+				String line=null;
+				while ( (line = br.readLine()) != null)
+				{
+					System.out.println(line);    
+				}
+			} 
+			catch (IOException ioe)
+			{
+				ioe.printStackTrace();  
+			}
+		}
 	}
     
-    /**
-     * Runs the command <code>command</code>.
-     * @param command the command to run.
-     * @throws Throwable if any error occurs while running the command.
-     */
-    public final static void execCommand(final String command) throws Throwable
-    {
-    	System.out.println("Running command : " + command);
+	/**
+	 * Runs the command <code>command</code>.
+	 * @param command the command to run.
+	 * @throws Throwable if any error occurs while running the command.
+	 */
+	public final static void execCommand(final String command) throws Throwable
+	{
+		System.out.println("Running command : " + command);
 		Process proc = Runtime.getRuntime().exec(command);
 		
 		// any error message?
-        StreamGobbler errorGobbler = new 
-            StreamGobbler(proc.getErrorStream());            
+		StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream());            
         
-        // any output?
-        StreamGobbler outputGobbler = new 
-            StreamGobbler(proc.getInputStream());
+		// any output?
+		StreamGobbler outputGobbler = new StreamGobbler(proc.getInputStream());
             
-        // kick them off
-        errorGobbler.start();
-        outputGobbler.start();
+		// kick them off
+		errorGobbler.start();
+		outputGobbler.start();
                                 
-        // any error???
-        int exitVal = proc.waitFor();
-        System.out.println("Exit Value: " + exitVal); 
-    }
+		// any error???
+		int exitVal = proc.waitFor();
+		System.out.println("Exit Value: " + exitVal); 
+	}
 
 	/**
 	 * @param args
