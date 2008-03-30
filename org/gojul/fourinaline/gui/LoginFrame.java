@@ -344,6 +344,7 @@ public final class LoginFrame extends JDialog implements ChangeListener, ActionL
 				}
 				catch (RemoteException e)
 				{
+					e.printStackTrace();
 					JOptionPane.showMessageDialog(this, GUIMessages.LOST_CONNECTION_TO_SERVER_MESSAGE, GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
 					quit();
 				}
