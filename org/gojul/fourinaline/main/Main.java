@@ -21,6 +21,8 @@
  */
 package org.gojul.fourinaline.main;
 
+import javax.swing.UIManager;
+
 import org.gojul.fourinaline.gui.LoginFrame;
 
 /**
@@ -33,6 +35,7 @@ public final class Main
 
 	public static void main(String[] args) throws Throwable
 	{
+		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		new LoginFrame().setVisible(true);
 	}
 }
