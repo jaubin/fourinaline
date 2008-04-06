@@ -333,7 +333,8 @@ public final class GameModelPanel extends JPanel implements Observer
 			}
 			
 			// Marks the last inserted chip differently
-			if (lastInsertedCell != null)
+			// in case the game is running.
+			if (gameModel.getGameStatus().equals(GameStatus.CONTINUE_STATUS) && lastInsertedCell != null)
 			{
 				// The circle mark width.
 				final int CIRCLE_WIDTH = 5;
