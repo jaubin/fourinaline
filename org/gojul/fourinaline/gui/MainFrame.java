@@ -39,6 +39,7 @@ import javax.swing.KeyStroke;
 
 import org.gojul.fourinaline.model.GameModel;
 import org.gojul.fourinaline.model.HumanGameClient;
+import org.gojul.fourinaline.model.GameClient.ComputerGameClient;
 import org.gojul.fourinaline.model.GameModel.GameStatus;
 import org.gojul.fourinaline.model.GameModel.PlayerMark;
 
@@ -395,7 +396,8 @@ public final class MainFrame extends JFrame implements Observer, WindowListener
 		if (answerResult == JOptionPane.YES_OPTION)
 		{
 			gameClient.disconnect();
-			setVisible(false);
+			ComputerGameClient.disconnectLocalComputerClients();
+			dispose();
 			System.exit(0);
 		}
 	}

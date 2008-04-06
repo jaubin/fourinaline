@@ -63,6 +63,7 @@ import org.gojul.fourinaline.model.GamePlayer;
 import org.gojul.fourinaline.model.GameServer;
 import org.gojul.fourinaline.model.GameServerImpl;
 import org.gojul.fourinaline.model.HumanGameClient;
+import org.gojul.fourinaline.model.GameClient.ComputerGameClient;
 import org.gojul.fourinaline.model.GameModel.PlayerMark;
 import org.gojul.fourinaline.model.GameServer.PlayerRegisterException;
 import org.gojul.fourinaline.model.GameServer.ServerTicketException;
@@ -400,6 +401,7 @@ public final class LoginFrame extends JDialog implements ChangeListener, ActionL
 			{
 				isPlayerListUpdateRunning = false;
 			}
+			ComputerGameClient.disconnectLocalComputerClients();
 			System.exit(0);
 		}
 		
@@ -641,6 +643,10 @@ public final class LoginFrame extends JDialog implements ChangeListener, ActionL
 					{
 						ex.printStackTrace();
 					}
+					finally
+					{
+						ComputerGameClient.disconnectLocalComputerClients();
+					}
 					
 					System.exit(0);
 				}
@@ -673,6 +679,10 @@ public final class LoginFrame extends JDialog implements ChangeListener, ActionL
 				catch (RuntimeException ex)
 				{
 					ex.printStackTrace();
+				}
+				finally
+				{
+					ComputerGameClient.disconnectLocalComputerClients();
 				}
 				
 				System.exit(0);

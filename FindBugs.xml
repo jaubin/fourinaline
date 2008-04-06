@@ -180,7 +180,7 @@
     <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="168" end="168" startBytecode="115" endBytecode="115" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
   </BugInstance>
   <Errors></Errors>
-  <FindBugsSummary timestamp="Thu, 6 Mar 2008 22:44:52 +0100" total_classes="23" total_bugs="12" total_size="880" num_packages="2" cpu_seconds="17.78" clock_seconds="53.32" peak_mbytes="135.52" gc_seconds="2.44" priority_2="11" priority_1="1">
+  <FindBugsSummary timestamp="Thu, 6 Mar 2008 22:44:52 +0100" total_classes="23" total_bugs="12" total_size="880" num_packages="2" cpu_seconds="69.23" clock_seconds="152.10" peak_mbytes="172.03" gc_seconds="4.13" priority_2="11" priority_1="1">
     <PackageStats package="org.gojul.fourinaline.gui" total_bugs="7" total_types="2" total_size="0" priority_2="6" priority_1="1">
       <ClassStats class="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourceFile="LoginFrame.java" interface="false" size="0" bugs="5" priority_2="4" priority_1="1"/>
       <ClassStats class="org.gojul.fourinaline.gui.MainFrame" sourceFile="MainFrame.java" interface="false" size="0" bugs="2" priority_2="2"/>

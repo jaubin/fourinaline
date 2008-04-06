@@ -23,6 +23,8 @@ package org.gojul.fourinaline.model;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Set;
 
@@ -36,7 +38,11 @@ import org.gojul.fourinaline.model.GameServer.ServerTicketException;
  * The <code>GameClient</code> interface is the interface of the
  * client side of the game.<br/>
  * A part of the implementor should run in a thread, waiting for
- * its turn before playing.
+ * its turn before playing.<br/>
+ * The AI game clients must implement the <code>ComputerGameClient</code>
+ * class instead of this one.
+ * 
+ * @see org.gojul.fourinaline.model.GameClient.ComputerGameClient
  * 
  * @author Julien Aubin
  */
@@ -406,5 +412,67 @@ public abstract class GameClient extends Observable implements Runnable, Seriali
 		disconnect();
 	}
 	
-	
+	/**
+	 * The <code>ComputerGameClient</code> class is the class which all the
+	 * computer players should inherit.<br/>
+	 * It implements a mechanism that makes all the computer players disconnect
+	 * from the server properly.
+	 *
+	 * @author Julien Aubin
+	 */
+	public static abstract class ComputerGameClient extends GameClient
+	{
+		/**
+		 * The serial version UID.
+		 */
+		final static long serialVersionUID = 1;
+		
+		/**
+		 * The list of instances.
+		 */
+		private final static List<ComputerGameClient> instanceList = new ArrayList<ComputerGameClient>();
+		
+		/**
+		 * Constructor.
+		 * @param server the server.
+		 * @param playerName the player name.
+		 * @throws NullPointerException if any of the method parameter is null.
+		 * @throws RemoteException if a remote error occurs while registering
+		 * the player.
+		 * @throws ServerTicketException if an error occurs while initializing the client.
+		 * @throws PlayerRegisterException if an error occurs while registering the
+		 * player represented here.
+		 */
+		public ComputerGameClient(final GameServer server, final String playerName)
+			throws NullPointerException, ServerTicketException, PlayerRegisterException, RemoteException
+		{
+			super(server, playerName);
+			instanceList.add(this);
+		}
+		
+		/**
+		 * Disconnects all the local computer clients from the server.<br/>
+		 * This method must be called by all the user client when quitting the
+		 * game.<br/>
+		 * Note that this disconnects only the clients that have been created locally,
+		 * not the other ones.
+		 */
+		public final static void disconnectLocalComputerClients()
+		{
+			for (ComputerGameClient client: instanceList)
+			{
+				if (client != null)
+				{
+					try
+					{
+						client.disconnect();
+					}
+					catch (Throwable t)
+					{
+						t.printStackTrace();
+					}
+				}
+			}
+		}
+	}
 }

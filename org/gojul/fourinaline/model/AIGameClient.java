@@ -25,6 +25,7 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.Collection;
 
+import org.gojul.fourinaline.model.GameClient.ComputerGameClient;
 import org.gojul.fourinaline.model.GameModel.GameModelException;
 import org.gojul.fourinaline.model.GameModel.GameStatus;
 import org.gojul.fourinaline.model.GameModel.PlayerMark;
@@ -42,7 +43,7 @@ import org.gojul.fourinaline.model.GameServer.ServerTicketException;
  * 
  * @author Julien Aubin.
  */
-public final class AIGameClient extends GameClient
+public final class AIGameClient extends ComputerGameClient
 {
 	/**
 	 * The serial version UID.
