@@ -28,6 +28,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.Serializable;
@@ -165,7 +167,7 @@ public final class LoginFrame extends JDialog implements ChangeListener, ActionL
 	 * 
 	 * @author Julien Aubin
 	 */
-	private final static class PlayerSelectionFrame extends JDialog implements Runnable, WindowListener, ActionListener
+	private final static class PlayerSelectionFrame extends JDialog implements Runnable, WindowListener, ActionListener, KeyListener
 	{
 
 		/**
@@ -292,6 +294,7 @@ public final class LoginFrame extends JDialog implements ChangeListener, ActionL
 			
 			playerNameTextField = new JTextField();
 			namePanel.add(playerNameTextField);
+			playerNameTextField.addKeyListener(this);
 		}
 		
 		/**
@@ -445,6 +448,63 @@ public final class LoginFrame extends JDialog implements ChangeListener, ActionL
 				}
 			}
 		}
+		
+		/**
+		 * Launches the game, or connects
+		 * to it.<br/>
+		 * In case there's an error while launching the game,
+		 * halts the program.
+		 */
+		private void launchGame()
+		{
+			String playerName = playerNameTextField.getText();
+			
+			if (playerName == null || playerName.trim().length() == 0)
+			{
+				JOptionPane.showMessageDialog(this, GUIMessages.YOU_MUST_SPECIFY_A_PLAYER_NAME_MESSAGE, GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
+				playerNameTextField.requestFocusInWindow();					
+				return;
+			}
+			
+			playerName = playerName.trim();
+			
+			HumanGameClient gameClient = null;
+			
+			try
+			{
+				gameClient = new HumanGameClient(gameServer, playerName);
+			}
+			catch (PlayerRegisterException ex)
+			{
+				JOptionPane.showMessageDialog(this, GUIMessages.FAILED_TO_REGISTER_MESSAGE, GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			catch (RemoteException ex)
+			{
+				JOptionPane.showMessageDialog(this, GUIMessages.DISCONNECTED_FROM_SERVER_MESSAGE, GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
+				quit();
+			}
+			catch (ServerTicketException ex)
+			{
+				JOptionPane.showMessageDialog(this, GUIMessages.NO_PLAYER_AVAILABLE_MESSAGE, GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			
+			synchronized(this)
+			{
+				isPlayerListUpdateRunning = false;
+			}
+			
+			if (aiPlayerGameLevel != null)
+				createAIGameClientIfNecessary();
+			
+			okButton.setEnabled(false);
+			cancelButton.setEnabled(false);
+			playerNameTextField.setEnabled(false);
+			setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+			
+			new Thread(new WaitThread(this, gameClient)).start();
+		}
 
 		/**
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
@@ -453,62 +513,45 @@ public final class LoginFrame extends JDialog implements ChangeListener, ActionL
 		{
 			if (e.getSource() == okButton)
 			{
-				String playerName = playerNameTextField.getText();
-				
-				if (playerName == null || playerName.trim().length() == 0)
-				{
-					JOptionPane.showMessageDialog(this, GUIMessages.YOU_MUST_SPECIFY_A_PLAYER_NAME_MESSAGE, GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
-					playerNameTextField.requestFocusInWindow();					
-					return;
-				}
-				
-				playerName = playerName.trim();
-				
-				HumanGameClient gameClient = null;
-				
-				try
-				{
-					gameClient = new HumanGameClient(gameServer, playerName);
-				}
-				catch (PlayerRegisterException ex)
-				{
-					JOptionPane.showMessageDialog(this, GUIMessages.FAILED_TO_REGISTER_MESSAGE, GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-				catch (RemoteException ex)
-				{
-					JOptionPane.showMessageDialog(this, GUIMessages.DISCONNECTED_FROM_SERVER_MESSAGE, GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
-					quit();
-				}
-				catch (ServerTicketException ex)
-				{
-					JOptionPane.showMessageDialog(this, GUIMessages.NO_PLAYER_AVAILABLE_MESSAGE, GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-				
-				synchronized(this)
-				{
-					isPlayerListUpdateRunning = false;
-				}
-				
-				if (aiPlayerGameLevel != null)
-					createAIGameClientIfNecessary();
-				
-				okButton.setEnabled(false);
-				cancelButton.setEnabled(false);
-				playerNameTextField.setEnabled(false);
-				setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-				
-				new Thread(new WaitThread(this, gameClient)).start();
-				
+				launchGame();
 			}
 			else if (e.getSource() == cancelButton)
 			{
 				quit();
 			}
-			
 		}
 		
+		/**
+		 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+		 */
+		public void keyPressed(final KeyEvent e)
+		{
+			
+		}
+
+		/**
+		 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+		 */
+		public void keyReleased(final KeyEvent e)
+		{
+			
+		}
+
+		/**
+		 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+		 */
+		public void keyTyped(final KeyEvent e)
+		{
+			if (e.getSource() == playerNameTextField)
+			{
+				if (e.getKeyChar() == KeyEvent.VK_ENTER)
+				{
+					e.consume();
+					launchGame();
+				}
+			}
+		}
+
 		/**
 		 * The wait thread is a small thread that disables the player selection
 		 * frame until all the players have been logged.

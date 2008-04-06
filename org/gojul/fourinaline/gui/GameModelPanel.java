@@ -259,6 +259,11 @@ public final class GameModelPanel extends JPanel implements Observer
 		private HumanGameClient gameClient;
 		
 		/**
+		 * The last inserted cell coordinates.
+		 */
+		private CellCoord lastInsertedCell;
+		
+		/**
 		 * Constructor.
 		 * @param model the game model to draw.
 		 * @throws NullPointerException if any of the method parameter is null.
@@ -272,6 +277,7 @@ public final class GameModelPanel extends JPanel implements Observer
 			
 			gameModel = model;
 			gameClient = client;
+			lastInsertedCell = null;
 			
 			setBackground(Color.BLUE);
 			addMouseListener(this);
@@ -326,6 +332,26 @@ public final class GameModelPanel extends JPanel implements Observer
 				}
 			}
 			
+			// Marks the last inserted chip differently
+			if (lastInsertedCell != null)
+			{
+				// The circle mark width.
+				final int CIRCLE_WIDTH = 5;
+				// The circle color : a kind of green.
+				final Color CIRCLE_COLOR = new Color(0, 255, 100);
+				
+				int j = lastInsertedCell.getColIndex();
+				int i = lastInsertedCell.getRowIndex();
+				g.setColor(CIRCLE_COLOR);
+				
+				g.fillOval(cellWidth * j, cellHeight * i, cellWidth, cellHeight);
+				
+				PlayerMark mark = gameModel.getCell(i, j);
+				g.setColor(PlayerColorRepresentation.valueOf(mark).getPlayerColor());
+				
+				g.fillOval(cellWidth * j + CIRCLE_WIDTH, cellHeight * i + CIRCLE_WIDTH, cellWidth - 2 * CIRCLE_WIDTH, cellHeight - 2 * CIRCLE_WIDTH);
+			}
+			
 			if (gameModel.getGameStatus().equals(GameStatus.WON_STATUS))
 			{
 				List<CellCoord> winningLine = gameModel.getWinLine();
@@ -371,6 +397,45 @@ public final class GameModelPanel extends JPanel implements Observer
 		}
 		
 		/**
+		 * Returns the coordinates of the last inserted chip, in case <code>model</code>
+		 * is the current game model plus one inserted chip.<br/>
+		 * Otherwise returns null.
+		 * @param model the model from which we want to get an evolution.
+		 * @return the coordinates of the last inserted chip, in case <code>model</code>
+		 * is the current game model plus one inserted chip.
+		 */
+		private synchronized CellCoord getLastInsertedChip(final GameModel model)
+		{
+			CellCoord result = null;
+			
+			// In case the dimensions of model are not the same as the dimensions
+			// of gameModel, returns null.
+			if (model.getRowCount() != gameModel.getRowCount()
+					|| model.getColCount() != gameModel.getColCount())
+				return result;
+			
+			// There must be only one different cell between model and gameModel
+			// and this must be a newly played cell.
+			for (int i = 0; i < model.getRowCount(); i++)
+			{
+				for (int j = 0; j < model.getColCount(); j++)
+				{
+					if (model.getCell(i, j) != null && !model.getCell(i, j).equals(gameModel.getCell(i, j)))
+					{
+						if (result == null)
+							result = new CellCoord(i, j);
+						else
+							// Here the new model is not a successor of the old one, so we do not
+							// return any information.
+							return null;
+					}
+				}
+			}
+			
+			return result;
+		}
+		
+		/**
 		 * Updates the model this panel paints.
 		 * @param model the model to update.
 		 * @throws NullPointerException if 
@@ -385,6 +450,7 @@ public final class GameModelPanel extends JPanel implements Observer
 			if (model == null)
 				throw new NullPointerException();
 			
+			lastInsertedCell = getLastInsertedChip(model);
 			gameModel = model;
 			
 			validate();
