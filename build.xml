@@ -48,7 +48,8 @@
    </target>
 
    <target name="build-package" depends="jar, copy-src">
-      <zip basedir="." destfile="fourinaline.zip" includes="fourinaline.jar rmipolicy.policy readme.txt license.txt ${srcPath}/**/*.java ${srcPath}/**/*.properties ${srcPath}/**/*.xml ${srcPath}/**/package.html"/>
+      <zip basedir="." destfile="fourinaline.zip" includes="fourinaline.jar rmipolicy.policy readme.txt license.txt"/>
+      <zip basedir="." destfile="fourinaline-src.zip" includes="rmipolicy.policy readme.txt license.txt ${srcPath}/**/*.java ${srcPath}/**/*.properties ${srcPath}/**/*.xml ${srcPath}/**/package.html"/>
    </target>
 
    <target name="build-package-and-clean" depends="build-package">
