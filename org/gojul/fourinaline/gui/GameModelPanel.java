@@ -24,8 +24,11 @@ package org.gojul.fourinaline.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Paint;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.rmi.RemoteException;
@@ -78,6 +81,11 @@ public final class GameModelPanel extends JPanel implements Observer
 		private final static List<PlayerColorRepresentation> playerIcons = new ArrayList<PlayerColorRepresentation>();
 		
 		/**
+		 * The value of a dark color channel.
+		 */
+		private final static int DARK_COLOR_CHANNEL_VALUE = 100;
+		
+		/**
 		 * The player mark to consider.
 		 */
 		private PlayerMark playerMark;
@@ -106,6 +114,23 @@ public final class GameModelPanel extends JPanel implements Observer
 		public Color getPlayerColor()
 		{
 			return playerColor;
+		}
+		
+		/**
+		 * Returns the player gradient color.
+		 * @param x1 the gradient origin along the x axis.
+		 * @param y1 the gradient origin along the y axis.
+		 * @param x2 the gradient destination along the x axis.
+		 * @param y2 the gradient destination along the y axis.
+		 * @return the player gradient color.
+		 */
+		public Paint getPlayerPaint(final int x1, final int y1, final int x2, final int y2)
+		{
+			return new GradientPaint(x1, y1, playerColor, x2, y2, 
+					// The color here is a darker version of the player color.
+					new Color(Math.min(playerColor.getRed(), DARK_COLOR_CHANNEL_VALUE), 
+					Math.min(playerColor.getGreen(), DARK_COLOR_CHANNEL_VALUE), 
+					Math.min(playerColor.getBlue(), DARK_COLOR_CHANNEL_VALUE)), false);
 		}
 		
 		/**
@@ -279,7 +304,6 @@ public final class GameModelPanel extends JPanel implements Observer
 			gameClient = client;
 			lastInsertedCell = null;
 			
-			setBackground(Color.BLUE);
 			addMouseListener(this);
 		}
 		
@@ -313,6 +337,12 @@ public final class GameModelPanel extends JPanel implements Observer
 			
 			super.paintComponent(g);
 			
+			Graphics2D g2d = (Graphics2D) g;
+			
+			// Background.
+			g2d.setPaint(new GradientPaint(0, 0, Color.BLUE, getWidth(), getHeight(), new Color(0, 0, 100), false));
+			g2d.fillRect(0, 0, getWidth(), getHeight());
+			
 			int cellHeight = getCellHeight();
 			int cellWidth = getCellWidth();
 			
@@ -320,15 +350,20 @@ public final class GameModelPanel extends JPanel implements Observer
 			{
 				for (int j = 0; j < gameModel.getColCount(); j++)
 				{
-					Color currentColor = Color.WHITE;
+					int cellOrigX = cellWidth * j;
+					int cellOrigY = cellHeight * i;
+					int cellDestX = cellOrigX + cellWidth;
+					int cellDestY = cellOrigY + cellHeight;
+					
+					Paint currentGradient = Color.WHITE;
 					
 					PlayerMark mark = gameModel.getCell(i, j);
 					
 					if (mark != null)
-						currentColor = PlayerColorRepresentation.valueOf(mark).getPlayerColor();
+						currentGradient = PlayerColorRepresentation.valueOf(mark).getPlayerPaint(cellOrigX, cellOrigY, cellDestX, cellDestY);
 					
-					g.setColor(currentColor);
-					g.fillOval(cellWidth * j, cellHeight * i, cellWidth, cellHeight);
+					g2d.setPaint(currentGradient);
+					g2d.fillOval(cellOrigX, cellOrigY, cellWidth, cellHeight);
 				}
 			}
 			
@@ -343,14 +378,14 @@ public final class GameModelPanel extends JPanel implements Observer
 				
 				int j = lastInsertedCell.getColIndex();
 				int i = lastInsertedCell.getRowIndex();
-				g.setColor(CIRCLE_COLOR);
+				g2d.setColor(CIRCLE_COLOR);
 				
-				g.fillOval(cellWidth * j, cellHeight * i, cellWidth, cellHeight);
+				g2d.fillOval(cellWidth * j, cellHeight * i, cellWidth, cellHeight);
 				
 				PlayerMark mark = gameModel.getCell(i, j);
-				g.setColor(PlayerColorRepresentation.valueOf(mark).getPlayerColor());
+				g2d.setPaint(PlayerColorRepresentation.valueOf(mark).getPlayerPaint(cellWidth * j, cellHeight * i, cellWidth * (j + 1), cellHeight * (i + 1)));
 				
-				g.fillOval(cellWidth * j + CIRCLE_WIDTH, cellHeight * i + CIRCLE_WIDTH, cellWidth - 2 * CIRCLE_WIDTH, cellHeight - 2 * CIRCLE_WIDTH);
+				g2d.fillOval(cellWidth * j + CIRCLE_WIDTH, cellHeight * i + CIRCLE_WIDTH, cellWidth - 2 * CIRCLE_WIDTH, cellHeight - 2 * CIRCLE_WIDTH);
 			}
 			
 			if (gameModel.getGameStatus().equals(GameStatus.WON_STATUS))
