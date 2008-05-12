@@ -12,6 +12,7 @@
    <target name="build" depends="init">
       <javac srcdir="." destdir="${buildPath}" excludes="${srcPath}/**" debug="true"/>
       <rmic classname="org.gojul.fourinaline.model.GameServerImpl" base="${buildPath}" stubversion="1.2"/>
+      <rmic classname="org.gojul.fourinaline.model.GlobalServerImpl" base="${buildPath}" stubversion="1.2"/>
    </target>
 
    <target name="copy-jar-resources" depends="init">

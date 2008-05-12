@@ -19,6 +19,16 @@
     </Method>
     <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" start="176" end="176" startBytecode="18" endBytecode="18" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
   </BugInstance>
+  <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE">
+    <UserAnnotation designation="NOT_A_BUG"/>
+    <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame">
+      <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" name="quit" signature="()V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" start="400" end="406" startBytecode="0" endBytecode="102" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" start="405" end="405" startBytecode="21" endBytecode="21" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+  </BugInstance>
   <BugInstance type="ESync_EMPTY_SYNC" priority="2" abbrev="ESync" category="MT_CORRECTNESS">
     <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame">
       <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
@@ -28,7 +38,27 @@
     </Method>
     <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" start="141" end="141" startBytecode="91" endBytecode="91" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
   </BugInstance>
+  <BugInstance type="ESync_EMPTY_SYNC" priority="2" abbrev="ESync" category="MT_CORRECTNESS" last="0" removedByChange="true">
+    <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame">
+      <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" name="run" signature="()V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" start="112" end="163" startBytecode="0" endBytecode="384" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" start="141" end="141" startBytecode="91" endBytecode="91" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+  </BugInstance>
   <BugInstance type="NP_ALWAYS_NULL" priority="1" abbrev="NP" category="CORRECTNESS">
+    <UserAnnotation/>
+    <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame">
+      <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" name="run" signature="()V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" start="112" end="163" startBytecode="0" endBytecode="384" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+    </Method>
+    <LocalVariable name="currentPlayersServer" register="3" pc="77" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" start="135" end="135" startBytecode="78" endBytecode="78" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java" role="SOURCE_LINE_DEREF"/>
+  </BugInstance>
+  <BugInstance type="NP_ALWAYS_NULL" priority="1" abbrev="NP" category="CORRECTNESS" last="0" removedByChange="true">
     <UserAnnotation/>
     <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame">
       <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
@@ -49,11 +79,45 @@
     </Method>
     <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" start="135" end="135" startBytecode="76" endBytecode="76" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
   </BugInstance>
+  <BugInstance type="NP_LOAD_OF_KNOWN_NULL_VALUE" priority="2" abbrev="NP" category="STYLE" last="0" removedByChange="true">
+    <UserAnnotation/>
+    <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame">
+      <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" name="run" signature="()V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" start="112" end="163" startBytecode="0" endBytecode="72" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" start="135" end="135" startBytecode="76" endBytecode="76" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+  </BugInstance>
   <BugInstance type="SIC_INNER_SHOULD_BE_STATIC" priority="2" abbrev="SIC" category="PERFORMANCE">
     <UserAnnotation/>
     <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame">
       <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
     </Class>
+  </BugInstance>
+  <BugInstance type="SIC_INNER_SHOULD_BE_STATIC" priority="2" abbrev="SIC" category="PERFORMANCE" last="0" removedByChange="true">
+    <UserAnnotation/>
+    <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame">
+      <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+    </Class>
+  </BugInstance>
+  <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE">
+    <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread">
+      <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread" name="actionPerformed" signature="(Ljava/awt/event/ActionEvent;)V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread" start="672" end="689" startBytecode="0" endBytecode="176" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread" start="688" end="688" startBytecode="51" endBytecode="51" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+  </BugInstance>
+  <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE">
+    <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread">
+      <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread" name="run" signature="()V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread" start="614" end="665" startBytecode="0" endBytecode="337" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread" start="651" end="651" startBytecode="99" endBytecode="99" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
   </BugInstance>
   <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE">
     <UserAnnotation designation="NOT_A_BUG"/>
@@ -70,10 +134,30 @@
     <Class classname="org.gojul.fourinaline.gui.MainFrame">
       <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
     </Class>
+    <Method classname="org.gojul.fourinaline.gui.MainFrame" name="disconnectionFromServer" signature="()V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" start="414" end="418" startBytecode="0" endBytecode="85" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" start="417" end="417" startBytecode="20" endBytecode="20" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+  </BugInstance>
+  <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE">
+    <UserAnnotation designation="NOT_A_BUG"/>
+    <Class classname="org.gojul.fourinaline.gui.MainFrame">
+      <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+    </Class>
     <Method classname="org.gojul.fourinaline.gui.MainFrame" name="quit" signature="()V" isStatic="false">
       <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" start="357" end="365" startBytecode="0" endBytecode="103" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
     </Method>
     <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" start="363" end="363" startBytecode="28" endBytecode="28" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+  </BugInstance>
+  <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE">
+    <UserAnnotation designation="NOT_A_BUG"/>
+    <Class classname="org.gojul.fourinaline.gui.MainFrame">
+      <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.gui.MainFrame" name="quit" signature="()V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" start="394" end="403" startBytecode="0" endBytecode="109" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" start="401" end="401" startBytecode="30" endBytecode="30" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
   </BugInstance>
   <BugInstance type="IS2_INCONSISTENT_SYNC" priority="2" abbrev="IS" category="MT_CORRECTNESS">
     <UserAnnotation/>
@@ -179,8 +263,34 @@
     </Method>
     <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="168" end="168" startBytecode="115" endBytecode="115" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
   </BugInstance>
+  <BugInstance type="SC_START_IN_CTOR" priority="2" abbrev="SC" category="MT_CORRECTNESS" last="0" removedByChange="true">
+    <UserAnnotation designation="NOT_A_BUG"/>
+    <Class classname="org.gojul.fourinaline.model.GameClient">
+      <SourceLine classname="org.gojul.fourinaline.model.GameClient" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.model.GameClient" name="&lt;init&gt;" signature="(Lorg/gojul/fourinaline/model/GameServer;Ljava/lang/String;)V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="132" end="169" startBytecode="0" endBytecode="268" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
+    </Method>
+    <Method classname="java.lang.Thread" name="start" signature="()V" isStatic="false" role="METHOD_CALLED">
+      <SourceLine classname="java.lang.Thread" start="570" end="575" startBytecode="0" endBytecode="76" sourcefile="Thread.java" sourcepath="java/lang/Thread.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="168" end="168" startBytecode="115" endBytecode="115" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
+  </BugInstance>
+  <BugInstance type="SC_START_IN_CTOR" priority="2" abbrev="SC" category="MT_CORRECTNESS">
+    <UserAnnotation designation="NOT_A_BUG"/>
+    <Class classname="org.gojul.fourinaline.model.GameClient">
+      <SourceLine classname="org.gojul.fourinaline.model.GameClient" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.model.GameClient" name="&lt;init&gt;" signature="(Lorg/gojul/fourinaline/model/GameServer;Ljava/lang/String;)V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="171" end="214" startBytecode="0" endBytecode="318" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
+    </Method>
+    <Method classname="java.lang.Thread" name="start" signature="()V" isStatic="false" role="METHOD_CALLED">
+      <SourceLine classname="java.lang.Thread" start="570" end="575" startBytecode="0" endBytecode="76" sourcefile="Thread.java" sourcepath="java/lang/Thread.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="213" end="213" startBytecode="121" endBytecode="121" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
+  </BugInstance>
   <Errors></Errors>
-  <FindBugsSummary timestamp="Thu, 6 Mar 2008 22:44:52 +0100" total_classes="23" total_bugs="12" total_size="880" num_packages="2" cpu_seconds="73.10" clock_seconds="49.76" peak_mbytes="169.59" gc_seconds="3.20" priority_2="11" priority_1="1">
+  <FindBugsSummary timestamp="Thu, 6 Mar 2008 22:44:52 +0100" total_classes="23" total_bugs="12" total_size="880" num_packages="2" cpu_seconds="91.83" clock_seconds="1925.14" peak_mbytes="216.51" gc_seconds="4.87" priority_2="11" priority_1="1">
     <PackageStats package="org.gojul.fourinaline.gui" total_bugs="7" total_types="2" total_size="0" priority_2="6" priority_1="1">
       <ClassStats class="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourceFile="LoginFrame.java" interface="false" size="0" bugs="5" priority_2="4" priority_1="1"/>
       <ClassStats class="org.gojul.fourinaline.gui.MainFrame" sourceFile="MainFrame.java" interface="false" size="0" bugs="2" priority_2="2"/>
