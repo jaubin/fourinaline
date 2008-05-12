@@ -483,10 +483,11 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 		GamePlayer p = players.remove(playerName);
 		usedPlayerMarks.remove(p.getPlayerMark());
 		
-		// Unassigns the game owner in order ensure another player can be
-		// the owner of the current game.
+		// If the game owner disconnects, the server must be destroyed.
+		// The other clients will be automatically notified that the server
+		// no longer exists and will be disconnected.
 		if (playerName.equals(gameOwnerPlayerName))
-			gameOwnerPlayerName = null;
+			releaseServer();
 		
 		// The server is not released here, even if there are no more players. Actually
 		// this is because game clients are supposed to release their player while they
