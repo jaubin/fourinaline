@@ -25,7 +25,6 @@ import java.io.Serializable;
 import java.rmi.AlreadyBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.Observer;
 import java.util.Set;
 
 /**
@@ -37,7 +36,7 @@ import java.util.Set;
  *
  * @author Julien Aubin
  */
-public interface GlobalServer extends Remote, Observer, Serializable
+public interface GlobalServer extends Remote, Serializable
 {
 	/**
 	 * The global server stub name.

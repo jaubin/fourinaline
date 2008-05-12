@@ -29,6 +29,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -42,7 +43,7 @@ import java.util.TreeMap;
  *
  * @author Julien Aubin
  */
-public final class GlobalServerImpl implements GlobalServer
+public final class GlobalServerImpl implements GlobalServer, Observer
 {
 	/**
 	 * The serial version UID of this game.
@@ -120,7 +121,7 @@ public final class GlobalServerImpl implements GlobalServer
 	/**
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
-	public synchronized void update(final Observable o, final Object arg) throws RemoteException
+	public synchronized void update(final Observable o, final Object arg)
 	{
 		if (o != null && arg != null && o instanceof GameServer && arg instanceof String)
 		{
