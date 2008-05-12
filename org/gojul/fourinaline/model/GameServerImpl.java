@@ -21,6 +21,8 @@
  */
 package org.gojul.fourinaline.model;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -31,9 +33,12 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Observable;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Semaphore;
+
+import javax.swing.Timer;
 
 import org.gojul.fourinaline.model.GameModel.GameModelException;
 import org.gojul.fourinaline.model.GameModel.GameStatus;
@@ -44,11 +49,13 @@ import org.gojul.fourinaline.model.GameModel.PlayerMark;
  * of the game server.<br/>
  * This implementation is completely synchronous, i.e. it does not need
  * to use the callback pattern. Each client gets the game when it's up
- * to them to play.
+ * to them to play.<br/>
+ * <br/>
+ * This server extends the <code>Observable</code> class in order
  * 
  * @author Julien Aubin
  */
-public final class GameServerImpl implements GameServer
+public final class GameServerImpl extends Observable implements GameServer, ActionListener
 {
 	
 	/**
@@ -99,21 +106,52 @@ public final class GameServerImpl implements GameServer
 	private boolean debugMode;
 	
 	/**
+	 * The server name, in case the server is running on a multi-server instance.
+	 */
+	private String serverName;
+	
+	/**
+	 * The timer that notifies the global server repository that the game
+	 * must be ended. It is reset every time a player plays.<br/>
+	 * It has a 30 minute delay.
+	 */
+	private Timer timeoutTimer;
+	
+	/**
 	 * Constructor.
 	 */
 	public GameServerImpl()
 	{
-		this(false);
+		this(null, false);
 	}
 	
 	/**
 	 * Constructor.
+	 * @param name the server name. This parameter may be null if the server
+	 * is running as a single game server, i.e. belonging to a global game
+	 * server.
+	 */
+	public GameServerImpl(final String name)
+	{
+		this(name, false);
+	}
+	
+	/**
+	 * Constructor.
+	 * @param name the server name. This parameter may be null if the server
+	 * is running as a single game server, i.e. belonging to a global game
+	 * server.
 	 * @param debug true if the server must be started in debug mode,
 	 * false elsewhere.
 	 */
-	private GameServerImpl(final boolean debug)
+	private GameServerImpl(final String name, final boolean debug)
 	{
 		debugMode = debug;
+		
+		serverName = name;
+		
+		// The timer has a 30 minute delay.
+		timeoutTimer = new Timer(30 * 60 * 1000, this);
 		
 		players = new LinkedHashMap<String, GamePlayer>();
 		// We use a map there that is thread safe.
@@ -130,6 +168,17 @@ public final class GameServerImpl implements GameServer
 			unusedTickets.add(new ServerTicket());
 			playerMarkSemaphores.put(playerMark, new Semaphore(0));
 		}
+	}
+	
+	/**
+	 * In case this server is used in global mode, informs the
+	 * server repository that this server instance must be deleted
+	 * as it is no longer used.
+	 */
+	private void releaseServer()
+	{
+		setChanged();
+		notifyObservers(serverName);
 	}
 	
 	/**
@@ -188,21 +237,28 @@ public final class GameServerImpl implements GameServer
 		
 		usedTickets.remove(serverTicket);
 		unusedTickets.add(serverTicket);
+		
+		// Notifies the global server that the game must be ended.
+		if (usedTickets.isEmpty())
+			releaseServer();
 	}
 
 	/**
-	 * Checks that the ticket <code>serverTicket</code> is valid.
+	 * Checks that the ticket <code>serverTicket</code> is valid, and if so resets
+	 * the time out timer.
 	 * @param serverTicket the server ticket to test.
 	 * @throws NullPointerException if <code>serverTicket</code> is null.
 	 * @throws ServerTicketException if <code>serverTicket</code> is not valid.
 	 */
 	private synchronized void checkTicket(final ServerTicket serverTicket) throws NullPointerException, ServerTicketException
-	{
+	{		
 		if (serverTicket == null)
 			throw new NullPointerException();
 		
 		if (! usedTickets.contains(serverTicket))
 			throw new ServerTicketException("Invalid server ticket");
+		
+		timeoutTimer.restart();
 	}
 
 	
@@ -407,6 +463,11 @@ public final class GameServerImpl implements GameServer
 			throw new PlayerRegisterException("There's no player with name " + playerName);
 		
 		players.remove(playerName);
+		
+		// The server is not released here, even if there are no more players. Actually
+		// this is because game clients are supposed to release their player while they
+		// release their ticket. Thus, we can imagine that a client just wants to change
+		// the connected player without releasing the server.
 	}
 
 	/**
@@ -481,6 +542,14 @@ public final class GameServerImpl implements GameServer
 	}
 	
 	/**
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
+	public void actionPerformed(final ActionEvent e)
+	{
+		releaseServer();		
+	}
+
+	/**
 	 * The game server instance is kept locally, in order to
 	 * avoid system GCs at RMI startup.<br/>
 	 * See <A href="http://forum.java.sun.com/thread.jspa?threadID=5155806&messageID=9589670">there</A>
@@ -499,7 +568,7 @@ public final class GameServerImpl implements GameServer
             System.setSecurityManager(new SecurityManager());
         }
         try {
-            serverInstance = new GameServerImpl(debugMode);
+            serverInstance = new GameServerImpl("local", debugMode);
             
             GameServer stub = (GameServer) UnicastRemoteObject.exportObject(serverInstance, 0);
             
@@ -545,8 +614,6 @@ public final class GameServerImpl implements GameServer
 			gameServer.newGame(firstClient.getTicket());
 			
 			while (gameServer.isGameRunning());
-			
-			
 		}
 		
 		
