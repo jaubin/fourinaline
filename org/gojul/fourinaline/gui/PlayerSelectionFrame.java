@@ -57,6 +57,7 @@ import org.gojul.fourinaline.model.HumanGameClient;
 import org.gojul.fourinaline.model.GameClient.ComputerGameClient;
 import org.gojul.fourinaline.model.GameModel.PlayerMark;
 import org.gojul.fourinaline.model.GameServer.PlayerRegisterException;
+import org.gojul.fourinaline.model.GameServer.ServerTicket;
 import org.gojul.fourinaline.model.GameServer.ServerTicketException;
 
 /**
@@ -195,14 +196,21 @@ final class PlayerSelectionFrame extends JDialog implements Runnable, WindowList
 	private AIGameLevel aiPlayerGameLevel;
 	
 	/**
+	 * The server ticket used for authentication.
+	 */
+	private ServerTicket serverTicket;
+	
+	/**
 	 * Constructor.
 	 * @param server the game server.
 	 * @param aiGameLevel the AI game level, in case the adversory is an AI,
 	 * null otherwise.
 	 * @throws NullPointerException if <code>server</code> is null.
+	 * @throws ServerTicketException if the connection to the server fails.
+	 * @throws RemoteException if the connection to the server fails.
 	 */
 	public PlayerSelectionFrame(final GameServer server, final AIGameLevel aiGameLevel)
-		throws NullPointerException
+		throws NullPointerException, ServerTicketException, RemoteException
 	{
 		super();
 		setSize(500, 200);
@@ -217,6 +225,7 @@ final class PlayerSelectionFrame extends JDialog implements Runnable, WindowList
 			throw new NullPointerException();
 		
 		gameServer = server;
+		serverTicket = gameServer.getTicket();
 		isPlayerListUpdateRunning = true;
 		aiPlayerGameLevel = aiGameLevel;
 		
@@ -382,8 +391,18 @@ final class PlayerSelectionFrame extends JDialog implements Runnable, WindowList
 		synchronized(this)
 		{
 			isPlayerListUpdateRunning = false;
-		}
+		}		
 		ComputerGameClient.disconnectLocalComputerClients();
+		
+		try
+		{
+			gameServer.releaseTicket(serverTicket);
+		}
+		catch (Throwable t)
+		{
+			t.printStackTrace();
+		}
+		
 		System.exit(0);
 	}
 	
@@ -399,16 +418,21 @@ final class PlayerSelectionFrame extends JDialog implements Runnable, WindowList
 		boolean continueTryingCreateAIGameClient = true;
 		int computerPlayerIndex = 0;
 		
+		ServerTicket aiServerTicket = null;
+		
 		while (continueTryingCreateAIGameClient)
 		{
 			try
 			{
+				if (aiServerTicket == null)
+					aiServerTicket = gameServer.getTicket();
+				
 				String playerName = "Computer";
 				
 				if (computerPlayerIndex != 0)
 					playerName += " " + computerPlayerIndex;
 				
-				GameClient AIclient = new AIGameClient(gameServer, GUIMessages.COMPUTER_ADVERSORY_TEXT.toString(), new DefaultEvalScore(), aiPlayerGameLevel.getLevel());
+				GameClient AIclient = new AIGameClient(gameServer, aiServerTicket, GUIMessages.COMPUTER_ADVERSORY_TEXT.toString(), new DefaultEvalScore(), aiPlayerGameLevel.getLevel());
 				new Thread(AIclient).start();
 				continueTryingCreateAIGameClient = false;
 			}
@@ -453,7 +477,7 @@ final class PlayerSelectionFrame extends JDialog implements Runnable, WindowList
 		
 		try
 		{
-			gameClient = new HumanGameClient(gameServer, playerName);
+			gameClient = new HumanGameClient(gameServer, serverTicket, playerName);
 		}
 		catch (PlayerRegisterException ex)
 		{

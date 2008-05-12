@@ -33,6 +33,7 @@ import java.util.Observer;
 import org.gojul.fourinaline.model.GameModel.GameModelException;
 import org.gojul.fourinaline.model.GameModel.GameStatus;
 import org.gojul.fourinaline.model.GameServer.PlayerRegisterException;
+import org.gojul.fourinaline.model.GameServer.ServerTicket;
 import org.gojul.fourinaline.model.GameServer.ServerTicketException;
 
 /**
@@ -59,6 +60,7 @@ public final class HumanGameClient extends GameClient
 	/**
 	 * Constructor.
 	 * @param gameServer the game server.
+	 * @param ticket the server ticket.
 	 * @param playerName the player name.
 	 * @throws NullPointerException if any method parameter is null.
 	 * @throws PlayerRegisterException if there's an error while registering
@@ -66,10 +68,10 @@ public final class HumanGameClient extends GameClient
 	 * @throws RemoteException if a remote error occurs while registering the game.
 	 * @throws ServerTicketException if no more server ticket is available.
 	 */	
-	public HumanGameClient(final GameServer gameServer, final String playerName)
+	public HumanGameClient(final GameServer gameServer, final ServerTicket ticket, final String playerName)
 		throws NullPointerException, PlayerRegisterException, RemoteException, ServerTicketException
 	{
-		super(gameServer, playerName);
+		super(gameServer, ticket, playerName);
 		currentGameModel = null;
 	}
 	
@@ -248,10 +250,10 @@ public final class HumanGameClient extends GameClient
 			
 			GameServer gameServer = (GameServer) registry.lookup(GameServer.STUB_NAME);
 			
-			HumanGameClient playerClient = new HumanGameClient(gameServer, "Julek"); 
+			HumanGameClient playerClient = new HumanGameClient(gameServer, gameServer.getTicket(), "Julek"); 
 			playerClient.addObserver(new SimpleObserver());
 			new Thread(playerClient).start();
-			new Thread(new AIGameClient(gameServer, "bougo", new DefaultEvalScore(), 4)).start();
+			new Thread(new AIGameClient(gameServer, gameServer.getTicket(), "bougo", new DefaultEvalScore(), 4)).start();
 			
 			gameServer.newGame(playerClient.getTicket());
 		}

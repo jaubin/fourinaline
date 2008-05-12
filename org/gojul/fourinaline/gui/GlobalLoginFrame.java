@@ -51,6 +51,7 @@ import org.gojul.fourinaline.gui.PlayerSelectionFrame.AIGameLevel;
 import org.gojul.fourinaline.model.GameServer;
 import org.gojul.fourinaline.model.GlobalServer;
 import org.gojul.fourinaline.model.GameModel.PlayerMark;
+import org.gojul.fourinaline.model.GameServer.ServerTicketException;
 
 /**
  * The <code>GlobalLoginFrame</code> class enables the user to login to 
@@ -363,19 +364,29 @@ public final class GlobalLoginFrame extends JDialog implements ActionListener, C
 			return;
 		}
 		
-		dispose();
-		
 		PlayerSelectionFrame psFrame = null;
 		
-		if (computerAdversoryRadioButton.isSelected())
+		try
 		{
-			AIGameLevel aiLevel = (AIGameLevel) aiLevelComboBox.getSelectedItem();
-			psFrame = new PlayerSelectionFrame(gameServer, aiLevel);
+			if (computerAdversoryRadioButton.isSelected())
+			{
+				AIGameLevel aiLevel = (AIGameLevel) aiLevelComboBox.getSelectedItem();
+				psFrame = new PlayerSelectionFrame(gameServer, aiLevel);
+			}
+			else
+				psFrame = new PlayerSelectionFrame(gameServer, null);
+		
+			dispose();
+			psFrame.setVisible(true);
 		}
-		else
-			psFrame = new PlayerSelectionFrame(gameServer, null);
-			
-		psFrame.setVisible(true);
+		catch (RemoteException ex)
+		{
+			JOptionPane.showMessageDialog(this, GUIMessages.UNABLE_TO_CONNECT_TO_SERVER_MESSAGE + ex.getMessage(), GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
+		}
+		catch (ServerTicketException ex)
+		{
+			JOptionPane.showMessageDialog(this, GUIMessages.FAILED_TO_REGISTER_MESSAGE + ex.getMessage(), GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	/**
@@ -412,10 +423,22 @@ public final class GlobalLoginFrame extends JDialog implements ActionListener, C
 			return;
 		}
 		
-		dispose();
-		
 		// Here we never have to init a player selection frame with any AI.
-		new PlayerSelectionFrame(gameServer, null).setVisible(true);
+		try
+		{
+			PlayerSelectionFrame psFrame = new PlayerSelectionFrame(gameServer, null);
+			
+			dispose();			
+			psFrame.setVisible(true);
+		}
+		catch (RemoteException ex)
+		{
+			JOptionPane.showMessageDialog(this, GUIMessages.UNABLE_TO_CONNECT_TO_SERVER_MESSAGE + ex.getMessage(), GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
+		}
+		catch (ServerTicketException ex)
+		{
+			JOptionPane.showMessageDialog(this, GUIMessages.FAILED_TO_REGISTER_MESSAGE + ex.getMessage(), GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	/**

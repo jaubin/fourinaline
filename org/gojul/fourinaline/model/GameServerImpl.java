@@ -27,6 +27,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -88,9 +89,9 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 	private Set<ServerTicket> unusedTickets;
 	
 	/**
-	 * The set of used server tickets.
+	 * The map that ties a server ticket to a player name.
 	 */
-	private Set<ServerTicket> usedTickets;
+	private Map<ServerTicket, String> usedTickets;
 	
 	/**
 	 * The set of used player marks.<br/>
@@ -162,7 +163,7 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 		playerMarkSemaphores = new ConcurrentHashMap<PlayerMark, Semaphore>();
 		
 		unusedTickets = new HashSet<ServerTicket>();
-		usedTickets = new HashSet<ServerTicket>();
+		usedTickets = new HashMap<ServerTicket, String>();
 		usedPlayerMarks = new HashSet<PlayerMark>();
 		gameOwnerPlayerName = null;
 		
@@ -229,7 +230,7 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 		ServerTicket ticket = unusedTickets.iterator().next();
 		
 		unusedTickets.remove(ticket);
-		usedTickets.add(ticket);
+		usedTickets.put(ticket, null);
 		
 		return ticket;
 	}
@@ -241,11 +242,16 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 	{
 		checkTicket(serverTicket);	
 		
-		usedTickets.remove(serverTicket);
+		String playerName = usedTickets.remove(serverTicket);
+		
+		if (playerName != null)
+			unregisterPlayer(playerName);
+		
 		unusedTickets.add(serverTicket);
 		
 		// Notifies the global server that the game must be ended.
-		if (usedTickets.isEmpty())
+		// This is the case if there's no more player or if the game owner has left.
+		if (usedTickets.isEmpty() || playerName != null && playerName.equals(gameOwnerPlayerName))
 			releaseServer();
 	}
 
@@ -261,7 +267,7 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 		if (serverTicket == null)
 			throw new NullPointerException();
 		
-		if (! usedTickets.contains(serverTicket))
+		if (! usedTickets.containsKey(serverTicket))
 			throw new ServerTicketException("Invalid server ticket");
 		
 		timeoutTimer.restart();
@@ -429,6 +435,11 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 		if (isGameRunning())
 			throw new RuntimeException("There's already a running game.");
 		
+		String name = usedTickets.get(serverTicket);
+		
+		if (name != null)
+			throw new PlayerRegisterException("The ticket with which you attempt to register a player has already been used.");
+		
 		GamePlayer result = players.get(playerName);
 		
 		if (result == null)
@@ -459,6 +470,8 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 		else
 			throw new PlayerRegisterException("There's already a player with name " + playerName);
 		
+		usedTickets.put(serverTicket, playerName);
+		
 		// Assigns the game owner.
 		boolean isGameOwner = gameOwnerPlayerName == null;
 		if (isGameOwner)
@@ -468,31 +481,18 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 	}
 	
 	/**
-	 * @see org.gojul.fourinaline.model.GameServer#unregisterPlayer(java.lang.String, org.gojul.fourinaline.model.GameServer.ServerTicket)
+	 * Unregisters from the server the player which has for name
+	 * <code>playerName</code>, and ends the current game if any.
+	 * @param playerName the player name.
+	 * @throws NullPointerException if any of the method parameter is null.
 	 */
-	public synchronized void unregisterPlayer(final String playerName, final ServerTicket serverTicket) throws NullPointerException, ServerTicketException, PlayerRegisterException, RemoteException
-	{
-		checkTicket(serverTicket);
-		
+	private synchronized void unregisterPlayer(final String playerName) throws NullPointerException
+	{		
 		if (playerName == null)
 			throw new NullPointerException();
 		
-		if (!players.containsKey(playerName))
-			throw new PlayerRegisterException("There's no player with name " + playerName);
-		
 		GamePlayer p = players.remove(playerName);
 		usedPlayerMarks.remove(p.getPlayerMark());
-		
-		// If the game owner disconnects, the server must be destroyed.
-		// The other clients will be automatically notified that the server
-		// no longer exists and will be disconnected.
-		if (playerName.equals(gameOwnerPlayerName))
-			releaseServer();
-		
-		// The server is not released here, even if there are no more players. Actually
-		// this is because game clients are supposed to release their player while they
-		// release their ticket. Thus, we can imagine that a client just wants to change
-		// the connected player without releasing the server.
 	}
 
 	/**
@@ -631,10 +631,10 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 			
 			GameServer gameServer = (GameServer) registry.lookup(STUB_NAME);
 			
-			GameClient firstClient = new AIGameClient(gameServer, "bougo", new DefaultEvalScore(), 4); 
+			GameClient firstClient = new AIGameClient(gameServer, gameServer.getTicket(), "bougo", new DefaultEvalScore(), 4); 
 			
 			new Thread(firstClient).start();
-			new Thread(new AIGameClient(gameServer, "bougoéland", new DefaultEvalScore(), 4)).start();
+			new Thread(new AIGameClient(gameServer, gameServer.getTicket(), "bougoéland", new DefaultEvalScore(), 4)).start();
 			
 			gameServer.newGame(firstClient.getTicket());
 			

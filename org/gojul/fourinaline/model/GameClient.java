@@ -160,6 +160,7 @@ public abstract class GameClient extends Observable implements Runnable, Seriali
 	/**
 	 * Constructor.
 	 * @param server the server.
+	 * @param ticket the server ticket.
 	 * @param playerName the player name.
 	 * @throws NullPointerException if any of the method parameter is null.
 	 * @throws RemoteException if a remote error occurs while registering
@@ -168,10 +169,10 @@ public abstract class GameClient extends Observable implements Runnable, Seriali
 	 * @throws PlayerRegisterException if an error occurs while registering the
 	 * player represented here.
 	 */
-	public GameClient(final GameServer server, final String playerName)
+	public GameClient(final GameServer server, final ServerTicket ticket, final String playerName)
 		throws NullPointerException, ServerTicketException, PlayerRegisterException, RemoteException
 	{
-		if (server == null || playerName == null)
+		if (server == null || playerName == null || ticket == null)
 			throw new NullPointerException();
 		
 		gameServer = server;
@@ -180,32 +181,11 @@ public abstract class GameClient extends Observable implements Runnable, Seriali
 		// it is inizialized before any thread can be running.
 		connectedToServer = true;
 		
-		try
-		{
-			serverTicket = gameServer.getTicket();
-		}
-		catch (RemoteException e)
-		{
-			throw e;
-		}
-		catch (ServerTicketException e)
-		{
-			throw e;
-		}
-		
-		try
-		{
-			PlayerDescriptor descriptor = gameServer.registerPlayer(playerName, serverTicket); 
-			gamePlayer = descriptor.getGamePlayer();
-			isGameOwner = descriptor.isGameOwner();
-		}
-		catch (PlayerRegisterException e)
-		{
-			// Releases the ticket immediately if the player could not register
-			// in order to avoid lock ups.
-			gameServer.releaseTicket(serverTicket);
-			throw e;
-		}
+		serverTicket = ticket;
+
+		PlayerDescriptor descriptor = gameServer.registerPlayer(playerName, serverTicket); 
+		gamePlayer = descriptor.getGamePlayer();
+		isGameOwner = descriptor.isGameOwner();
 		
 		// Here the fact that we launch the thread in the class constructor
 		// is not a bug. The thread acts as a daemon that is supposed to
@@ -390,7 +370,6 @@ public abstract class GameClient extends Observable implements Runnable, Seriali
 				setConnectedToServer(false);
 				
 				gameServer.endGame(serverTicket);
-				gameServer.unregisterPlayer(gamePlayer.getName(), serverTicket);
 				gameServer.releaseTicket(serverTicket);
 			}
 		}
@@ -435,6 +414,7 @@ public abstract class GameClient extends Observable implements Runnable, Seriali
 		/**
 		 * Constructor.
 		 * @param server the server.
+		 * @param ticket the server ticket.
 		 * @param playerName the player name.
 		 * @throws NullPointerException if any of the method parameter is null.
 		 * @throws RemoteException if a remote error occurs while registering
@@ -443,10 +423,10 @@ public abstract class GameClient extends Observable implements Runnable, Seriali
 		 * @throws PlayerRegisterException if an error occurs while registering the
 		 * player represented here.
 		 */
-		public ComputerGameClient(final GameServer server, final String playerName)
+		public ComputerGameClient(final GameServer server, final ServerTicket ticket, final String playerName)
 			throws NullPointerException, ServerTicketException, PlayerRegisterException, RemoteException
 		{
-			super(server, playerName);
+			super(server, ticket, playerName);
 			instanceList.add(this);
 		}
 		

@@ -229,7 +229,10 @@ public interface GameServer extends Remote, Serializable
 	
 	/**
 	 * Release a server ticket so that it can be used by other
-	 * clients.
+	 * clients.<br/>
+	 * If there's a player bound to this ticket, unregisters the player. If
+	 * this player is the game owner and the server is running as a child of
+	 * a global server, releases the game server.
 	 * @param serverTicket the server ticket to release.
 	 * @throws ServerTicketException if <code>serverTicket</code> does not
 	 * belong to the list of tickets currently in use.
@@ -291,7 +294,9 @@ public interface GameServer extends Remote, Serializable
 	 * @throws ServerTicketException if <code>serverTicket</code>
 	 * is not valid.
 	 * @throws PlayerRegisterException if there are already too many players,
-	 * or if there's already a player with name <code>playerName</code>.
+	 * or if there's already a player with name <code>playerName</code>, or
+	 * if the ticket <code>serverTicket</code> has already been used to register
+	 * another player.
 	 * @throws RemoteException if a remote exception occurs while registering
 	 * the player which has for name <code>playerName</code>.
 	 * @throws RuntimeException if an unexpected error occurs.
@@ -300,22 +305,6 @@ public interface GameServer extends Remote, Serializable
 		throws NullPointerException, ServerTicketException, PlayerRegisterException, RemoteException,
 		RuntimeException;
 	
-	/**
-	 * Unregisters from the server the player which has for name
-	 * <code>playerName</code>, and ends the current game if any.
-	 * @param playerName the player name.
-	 * @param serverTicket the ticket of the
-	 * @throws NullPointerException if any of the method parameter is null.
-	 * @throws ServerTicketException if <code>serverTicket</code>
-	 * is not valid.
-	 * @throws PlayerRegisterException if <code>playerName</code> is not the name
-	 * of a known player, and there are already too many players.
-	 * @throws RemoteException if a remote exception occurs while registering
-	 * the player which has for name <code>playerName</code>.
-	 */
-	public void unregisterPlayer(final String playerName, final ServerTicket serverTicket)
-		throws NullPointerException, ServerTicketException, PlayerRegisterException, RemoteException;
-
 	/**
 	 * Returns a copy of the current game for display purposes, or null if there's no current game.<br/>
 	 * This method must not be used by client in order to wait for their turn ! They

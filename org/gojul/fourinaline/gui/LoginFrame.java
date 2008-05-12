@@ -27,6 +27,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
@@ -45,6 +46,7 @@ import javax.swing.event.ChangeListener;
 import org.gojul.fourinaline.gui.PlayerSelectionFrame.AIGameLevel;
 import org.gojul.fourinaline.model.GameServer;
 import org.gojul.fourinaline.model.GameServerImpl;
+import org.gojul.fourinaline.model.GameServer.ServerTicketException;
 
 /**
  * The login frame makes it possible for the user to select
@@ -273,60 +275,54 @@ public final class LoginFrame extends JDialog implements ChangeListener, ActionL
 	}
 	
 	/**
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 * Action launched when the user clicks the OK button.
 	 */
-	public void actionPerformed(final ActionEvent e)
+	private void okButtonAction()
 	{
-		if (e.getSource() == cancelButton)
+		String serverHost = "";
+		
+		if (localHostRadioButton.isSelected())
 		{
-			dispose();
+			serverHost = "127.0.0.1";
+			
+			if (!GameServerImpl.startDaemon())
+			{
+				JOptionPane.showMessageDialog(this, GUIMessages.UNABLE_TO_START_SERVER_MESSAGE.toString(), GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 		}
-		else if (e.getSource() == okButton)
+		else
 		{
-			String serverHost = "";
+			serverHost = remoteHostTextField.getText();
 			
-			if (localHostRadioButton.isSelected())
+			if (serverHost == null || serverHost.trim().length() == 0)
 			{
-				serverHost = "127.0.0.1";
-				
-				if (!GameServerImpl.startDaemon())
-				{
-					JOptionPane.showMessageDialog(this, GUIMessages.UNABLE_TO_START_SERVER_MESSAGE.toString(), GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-			}
-			else
-			{
-				serverHost = remoteHostTextField.getText();
-				
-				if (serverHost == null || serverHost.trim().length() == 0)
-				{
-					JOptionPane.showMessageDialog(this, GUIMessages.YOU_MUST_SELECT_A_SERVER_MESSAGE.toString(), GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
-					remoteHostTextField.requestFocusInWindow();
-					return;
-				}
-				
-				serverHost = serverHost.trim();
-			}
-			
-			GameServer gameServer = null;
-			
-			try
-			{
-				Registry registry = LocateRegistry.getRegistry(serverHost);
-				gameServer = (GameServer) registry.lookup(GameServer.STUB_NAME);
-			}
-			catch (Throwable t)
-			{
-				JOptionPane.showMessageDialog(this, GUIMessages.UNABLE_TO_CONNECT_TO_SERVER_MESSAGE + t.getMessage(), GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
-				t.printStackTrace();
+				JOptionPane.showMessageDialog(this, GUIMessages.YOU_MUST_SELECT_A_SERVER_MESSAGE.toString(), GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
+				remoteHostTextField.requestFocusInWindow();
 				return;
 			}
 			
-			dispose();
-			
-			PlayerSelectionFrame psFrame = null;
-			
+			serverHost = serverHost.trim();
+		}
+		
+		GameServer gameServer = null;
+		
+		try
+		{
+			Registry registry = LocateRegistry.getRegistry(serverHost);
+			gameServer = (GameServer) registry.lookup(GameServer.STUB_NAME);
+		}
+		catch (Throwable t)
+		{
+			JOptionPane.showMessageDialog(this, GUIMessages.UNABLE_TO_CONNECT_TO_SERVER_MESSAGE + t.getMessage(), GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
+			t.printStackTrace();
+			return;
+		}
+		
+		PlayerSelectionFrame psFrame = null;
+		
+		try
+		{
 			// If the user decided to join an existing game, it is harmless
 			// here to indicate that we want to create an AI player. This will
 			// do nothing.
@@ -337,8 +333,32 @@ public final class LoginFrame extends JDialog implements ChangeListener, ActionL
 			}
 			else
 				psFrame = new PlayerSelectionFrame(gameServer, null);
-				
+			
+			dispose();
 			psFrame.setVisible(true);
+		}
+		catch (RemoteException ex)
+		{
+			JOptionPane.showMessageDialog(this, GUIMessages.UNABLE_TO_CONNECT_TO_SERVER_MESSAGE + ex.getMessage(), GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
+		}
+		catch (ServerTicketException ex)
+		{
+			JOptionPane.showMessageDialog(this, GUIMessages.FAILED_TO_REGISTER_MESSAGE + ex.getMessage(), GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	/**
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
+	public void actionPerformed(final ActionEvent e)
+	{
+		if (e.getSource() == cancelButton)
+		{
+			dispose();
+		}
+		else if (e.getSource() == okButton)
+		{
+			okButtonAction();
 		}
 	}
 

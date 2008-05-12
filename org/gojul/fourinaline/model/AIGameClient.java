@@ -30,6 +30,7 @@ import org.gojul.fourinaline.model.GameModel.GameModelException;
 import org.gojul.fourinaline.model.GameModel.GameStatus;
 import org.gojul.fourinaline.model.GameModel.PlayerMark;
 import org.gojul.fourinaline.model.GameServer.PlayerRegisterException;
+import org.gojul.fourinaline.model.GameServer.ServerTicket;
 import org.gojul.fourinaline.model.GameServer.ServerTicketException;
 
 /**
@@ -81,6 +82,7 @@ public final class AIGameClient extends ComputerGameClient
 	/**
 	 * Constructor.
 	 * @param server the game server.
+	 * @param ticket the server ticket.
 	 * @param playerName the player name.
 	 * @param evalScore the game evaluation function.
 	 * @param deepness the search deepness.
@@ -91,10 +93,10 @@ public final class AIGameClient extends ComputerGameClient
 	 * @throws ServerTicketException if no more server ticket is available.
 	 * @throws RemoteException if a remote error occurs while registering the game.
 	 */
-	public AIGameClient(final GameServer server, final String playerName, final EvalScore evalScore, final int deepness)
+	public AIGameClient(final GameServer server, final ServerTicket ticket, final String playerName, final EvalScore evalScore, final int deepness)
 		throws NullPointerException, IllegalArgumentException, PlayerRegisterException, RemoteException, ServerTicketException
 	{
-		super(server, playerName);
+		super(server, ticket, playerName);
 		
 		if (evalScore == null)
 			throw new NullPointerException();
