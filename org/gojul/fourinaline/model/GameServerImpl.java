@@ -32,7 +32,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Observable;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -74,10 +73,9 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 	private Map<String, GamePlayer> players;
 	
 	/**
-	 * The iterator over the player marks, in order
-	 * to update the player marks.
+	 * The name of the game owner.
 	 */
-	private transient Iterator<PlayerMark> itPlayerMark;
+	private String gameOwnerPlayerName;
 	
 	/**
 	 * The map, that ties a player mark to a semaphore.
@@ -93,6 +91,12 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 	 * The set of used server tickets.
 	 */
 	private Set<ServerTicket> usedTickets;
+	
+	/**
+	 * The set of used player marks.<br/>
+	 * The first mark found as unused is assigned to the next player.
+	 */
+	private Set<PlayerMark> usedPlayerMarks;
 	
 	/**
 	 * Boolean that indicates whether the score is updated for
@@ -159,6 +163,8 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 		
 		unusedTickets = new HashSet<ServerTicket>();
 		usedTickets = new HashSet<ServerTicket>();
+		usedPlayerMarks = new HashSet<PlayerMark>();
+		gameOwnerPlayerName = null;
 		
 		Iterator<PlayerMark> it = PlayerMark.getPlayerIterator();
 		
@@ -423,28 +429,40 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 		if (isGameRunning())
 			throw new RuntimeException("There's already a running game.");
 		
-		boolean isGameOwner = players.isEmpty();
-		
 		GamePlayer result = players.get(playerName);
 		
 		if (result == null)
 		{
-			if (itPlayerMark == null)
-				itPlayerMark = PlayerMark.getPlayerIterator();
+			// Looks for the next free mark and assigns it to the player.
+			PlayerMark mark = null;
 			
-			try
+			Iterator<PlayerMark> it = PlayerMark.getPlayerIterator();
+			
+			while (it.hasNext() && mark == null)
 			{
-				result = new GamePlayerImpl(playerName, itPlayerMark.next());
+				PlayerMark markTest = it.next();
+				
+				if (!usedPlayerMarks.contains(markTest))
+				{
+					mark = markTest;
+					usedPlayerMarks.add(markTest);
+				}
 			}
-			catch (NoSuchElementException e)
-			{
+			
+			if (mark == null)
 				throw new RuntimeException("Unable to add another player.");
-			}
+			
+			result = new GamePlayerImpl(playerName, mark);
 			
 			players.put(playerName, result);
 		}
 		else
 			throw new PlayerRegisterException("There's already a player with name " + playerName);
+		
+		// Assigns the game owner.
+		boolean isGameOwner = gameOwnerPlayerName == null;
+		if (isGameOwner)
+			gameOwnerPlayerName = playerName;
 		
 		return new PlayerDescriptor(new UnmodifiableGamePlayer(result), isGameOwner);
 	}
@@ -462,7 +480,13 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 		if (!players.containsKey(playerName))
 			throw new PlayerRegisterException("There's no player with name " + playerName);
 		
-		players.remove(playerName);
+		GamePlayer p = players.remove(playerName);
+		usedPlayerMarks.remove(p.getPlayerMark());
+		
+		// Unassigns the game owner in order ensure another player can be
+		// the owner of the current game.
+		if (playerName.equals(gameOwnerPlayerName))
+			gameOwnerPlayerName = null;
 		
 		// The server is not released here, even if there are no more players. Actually
 		// this is because game clients are supposed to release their player while they
@@ -510,7 +534,7 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 	{
 		checkTicket(serverTicket);
 		
-		if (itPlayerMark == null || itPlayerMark.hasNext())
+		if (usedPlayerMarks.size() < PlayerMark.getNumberOfPlayerMarks())
 			throw new RuntimeException("Not all the players have been registered !");
 		
 		if (isGameRunning())
