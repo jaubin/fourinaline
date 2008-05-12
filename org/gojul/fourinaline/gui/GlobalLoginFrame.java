@@ -228,6 +228,7 @@ public final class GlobalLoginFrame extends JDialog implements ActionListener, C
 		gameCreationModeButtonGroup.add(joinGameRadioButton);
 		
 		gameJoinComboBox = new JComboBox();
+		gameJoinComboBox.setEditable(true);
 		GridBagConstraints gameJoinComboBoxConstraints = new GridBagConstraints();
 		gameJoinComboBoxConstraints.gridx = 1;
 		gameJoinComboBoxConstraints.gridy = 1;
@@ -411,6 +412,8 @@ public final class GlobalLoginFrame extends JDialog implements ActionListener, C
 			return;
 		}
 		
+		dispose();
+		
 		// Here we never have to init a player selection frame with any AI.
 		new PlayerSelectionFrame(gameServer, null).setVisible(true);
 	}
@@ -460,7 +463,7 @@ public final class GlobalLoginFrame extends JDialog implements ActionListener, C
 		}
 		
 	}
-	
+
 	public static void main(String[] args)
 	{
 		try
