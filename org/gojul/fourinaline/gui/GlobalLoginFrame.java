@@ -353,12 +353,12 @@ public final class GlobalLoginFrame extends JDialog implements ActionListener, C
 		}
 		catch (RemoteException e)
 		{
-			JOptionPane.showMessageDialog(this, GUIMessages.UNABLE_TO_CONNECT_TO_SERVER_MESSAGE, GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, GUIMessages.UNABLE_TO_CONNECT_TO_SERVER_MESSAGE + e.getMessage(), GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		catch (NotBoundException e)
 		{
-			JOptionPane.showMessageDialog(this, GUIMessages.UNABLE_TO_CONNECT_TO_SERVER_MESSAGE, GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, GUIMessages.UNABLE_TO_CONNECT_TO_SERVER_MESSAGE + e.getMessage(), GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		catch (AlreadyBoundException e)
@@ -407,7 +407,7 @@ public final class GlobalLoginFrame extends JDialog implements ActionListener, C
 		}
 		catch (RemoteException e)
 		{
-			JOptionPane.showMessageDialog(this, GUIMessages.UNABLE_TO_CONNECT_TO_SERVER_MESSAGE, GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, GUIMessages.UNABLE_TO_CONNECT_TO_SERVER_MESSAGE + e.getMessage(), GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		catch (NotBoundException e)
@@ -475,7 +475,8 @@ public final class GlobalLoginFrame extends JDialog implements ActionListener, C
 		}
 		catch (Throwable t)
 		{
-			JOptionPane.showMessageDialog(null, GUIMessages.UNABLE_TO_CONNECT_TO_SERVER_MESSAGE, GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, GUIMessages.UNABLE_TO_CONNECT_TO_SERVER_MESSAGE + t.getMessage(), GUIMessages.ERROR_TEXT.toString(), JOptionPane.ERROR_MESSAGE);
+			t.printStackTrace();
 		}
 	}
 

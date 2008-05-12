@@ -26,12 +26,12 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
-import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * The <code>GlobalServerImpl</code> is a simple implementation of the
@@ -73,7 +73,7 @@ public final class GlobalServerImpl implements GlobalServer, Observer
 		if (reg == null)
 			throw new NullPointerException();
 		
-		serverMap = new TreeMap<String, GameServer>();		
+		serverMap = new HashMap<String, GameServer>();		
 		registry = reg;
 	}
 
@@ -115,7 +115,7 @@ public final class GlobalServerImpl implements GlobalServer, Observer
 	 */
 	public synchronized Set<String> getGames() throws RemoteException
 	{
-		return Collections.unmodifiableSet(serverMap.keySet());
+		return new TreeSet<String>(serverMap.keySet());
 	}
 
 	/**
