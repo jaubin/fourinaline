@@ -176,7 +176,7 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 	 * as it is no longer used.
 	 */
 	private void releaseServer()
-	{
+	{		
 		setChanged();
 		notifyObservers(serverName);
 	}

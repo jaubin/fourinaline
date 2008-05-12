@@ -199,17 +199,14 @@ public final class GlobalLoginFrame extends JDialog implements ActionListener, C
 		gameCreationPanelConstraints.weighty = 0.5;
 		getContentPane().add(gameCreationPanel, gameCreationPanelConstraints);
 		
-		gameCreationPanel.setLayout(new GridLayout(2, 1));
-		
-		JPanel createPanel = new JPanel();
-		createPanel.setLayout(new GridBagLayout());
-		gameCreationPanel.add(createPanel);
+		gameCreationPanel.setLayout(new GridBagLayout());
 		
 		createGameRadioButton = new JRadioButton(GUIMessages.CREATE_GAME_MESSAGE.toString());
 		GridBagConstraints createGameRadioButtonConstraints = new GridBagConstraints();
 		createGameRadioButtonConstraints.gridx = 0;
 		createGameRadioButtonConstraints.gridy = 0;
-		createPanel.add(createGameRadioButton, createGameRadioButtonConstraints);
+		createGameRadioButtonConstraints.anchor = GridBagConstraints.WEST;
+		gameCreationPanel.add(createGameRadioButton, createGameRadioButtonConstraints);
 		
 		gameCreationModeButtonGroup = new ButtonGroup();
 		gameCreationModeButtonGroup.add(createGameRadioButton);
@@ -220,26 +217,23 @@ public final class GlobalLoginFrame extends JDialog implements ActionListener, C
 		gameCreationNameTextFieldConstraints.gridy = 0;
 		gameCreationNameTextFieldConstraints.fill = GridBagConstraints.HORIZONTAL;
 		gameCreationNameTextFieldConstraints.weightx = 1.0;
-		createPanel.add(gameCreationNameTextField, gameCreationNameTextFieldConstraints);
-		
-		JPanel joinGamePanel = new JPanel();
-		joinGamePanel.setLayout(new GridBagLayout());
-		gameCreationPanel.add(joinGamePanel);
+		gameCreationPanel.add(gameCreationNameTextField, gameCreationNameTextFieldConstraints);
 		
 		joinGameRadioButton = new JRadioButton(GUIMessages.JOIN_GAME_MESSAGE.toString());
 		GridBagConstraints joinGameRadioButtonConstraints = new GridBagConstraints();
 		joinGameRadioButtonConstraints.gridx = 0;
-		joinGameRadioButtonConstraints.gridy = 0;
-		joinGamePanel.add(joinGameRadioButton, joinGameRadioButtonConstraints);
+		joinGameRadioButtonConstraints.gridy = 1;
+		joinGameRadioButtonConstraints.anchor = GridBagConstraints.WEST;
+		gameCreationPanel.add(joinGameRadioButton, joinGameRadioButtonConstraints);
 		gameCreationModeButtonGroup.add(joinGameRadioButton);
 		
 		gameJoinComboBox = new JComboBox();
 		GridBagConstraints gameJoinComboBoxConstraints = new GridBagConstraints();
 		gameJoinComboBoxConstraints.gridx = 1;
-		gameJoinComboBoxConstraints.gridy = 0;
+		gameJoinComboBoxConstraints.gridy = 1;
 		gameJoinComboBoxConstraints.fill = GridBagConstraints.HORIZONTAL;
 		gameCreationNameTextFieldConstraints.weightx = 1.0;
-		joinGamePanel.add(gameJoinComboBox, gameJoinComboBoxConstraints);
+		gameCreationPanel.add(gameJoinComboBox, gameJoinComboBoxConstraints);
 		
 		createGameRadioButton.setSelected(true);
 		gameCreationNameTextField.setEnabled(createGameRadioButton.isSelected());

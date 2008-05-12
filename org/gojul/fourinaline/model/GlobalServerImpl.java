@@ -94,6 +94,8 @@ public final class GlobalServerImpl implements GlobalServer, Observer
 			GameServerImpl gameServer = new GameServerImpl(name);
 			gameServer.addObserver(this);	
 			
+			serverMap.put(name, gameServer);
+			
 			GameServer stub = (GameServer) UnicastRemoteObject.exportObject(gameServer, 0);
 			registry.bind(SINGLE_GAME_SERVER_STUB_PREFIX + name, stub);
 		}
@@ -107,6 +109,8 @@ public final class GlobalServerImpl implements GlobalServer, Observer
 			serverMap.remove(name);
 			throw e;
 		}
+		
+		System.out.println("Created game " + name);
 		
 	}
 	
@@ -122,7 +126,7 @@ public final class GlobalServerImpl implements GlobalServer, Observer
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	public synchronized void update(final Observable o, final Object arg)
-	{
+	{		
 		if (o != null && arg != null && o instanceof GameServer && arg instanceof String)
 		{
 			if (serverMap.containsKey(arg))
@@ -137,6 +141,8 @@ public final class GlobalServerImpl implements GlobalServer, Observer
 				{
 					t.printStackTrace();
 				}
+				
+				System.out.println("Deleted game " + arg);
 			}
 		}
 	}
