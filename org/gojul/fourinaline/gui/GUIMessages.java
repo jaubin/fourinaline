@@ -406,4 +406,46 @@ public final class GUIMessages implements Serializable
 	 * Value : &quot;Strong (Slow)&quot;
 	 */
 	public final static GUIMessages STRONG_AI_LEVEL_MESSAGE = new GUIMessages("Strong (Slow)");
+	
+	/**
+	 * The game message.<br/>
+	 * Value : &quot;Game&quot;
+	 */
+	public final static GUIMessages GAME_MESSAGE = new GUIMessages("Game");
+	
+	/**
+	 * The create game message.<br/>
+	 * Value : &quot;Create a new game&quot;
+	 */
+	public final static GUIMessages CREATE_GAME_MESSAGE = new GUIMessages("Create a new game");
+	
+	/**
+	 * The join game message.<br/>
+	 * Value : &quot;Join an existing game&quot;
+	 */
+	public final static GUIMessages JOIN_GAME_MESSAGE = new GUIMessages("Join an existing game");
+	
+	/**
+	 * The you must specify a game name message.<br/>
+	 * Value : &quot;You must specify a game name&quot;
+	 */
+	public final static GUIMessages YOU_MUST_SPECIFY_A_GAME_NAME_MESSAGE = new GUIMessages("You must specify a game name.");
+	
+	/**
+	 * The there's already a game with name message.<br/>
+	 * Value : &quot;There's already a game with name &quot;
+	 */
+	public final static GUIMessages THERE_IS_ALREADY_A_GAME_WITH_NAME = new GUIMessages("There's already a game with name ");
+	
+	/**
+	 * The there's no game with name message.<br/>
+	 * Value : &quot;There's no game with name &quot;
+	 */
+	public final static GUIMessages THERE_IS_NO_GAME_WITH_NAME = new GUIMessages("There's no game with name ");
+	
+	/**
+	 * The the selected game is full message.<br/>
+	 * Value : &quot;Impossible to register a player to the selected game since it is already full.&quot;
+	 */
+	public final static GUIMessages THE_SELECTED_GAME_IS_FULL = new GUIMessages("Impossible to register a player to the selected game since it is already full.");
 }

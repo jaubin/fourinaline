@@ -408,9 +408,6 @@ final class PlayerSelectionFrame extends JDialog implements Runnable, WindowList
 				if (computerPlayerIndex != 0)
 					playerName += " " + computerPlayerIndex;
 				
-				// The "4" number is a magic number that defines the game difficulty.
-				// TODO : make it possible for the user to define a custom difficulty level.
-				
 				GameClient AIclient = new AIGameClient(gameServer, GUIMessages.COMPUTER_ADVERSORY_TEXT.toString(), new DefaultEvalScore(), aiPlayerGameLevel.getLevel());
 				new Thread(AIclient).start();
 				continueTryingCreateAIGameClient = false;

@@ -94,7 +94,7 @@ public final class GlobalServerImpl implements GlobalServer
 			gameServer.addObserver(this);	
 			
 			GameServer stub = (GameServer) UnicastRemoteObject.exportObject(gameServer, 0);
-			registry.bind(name, stub);
+			registry.bind(SINGLE_GAME_SERVER_STUB_PREFIX + name, stub);
 		}
 		catch (RemoteException e)
 		{
@@ -108,7 +108,6 @@ public final class GlobalServerImpl implements GlobalServer
 		}
 		
 	}
-
 	
 	/**
 	 * @see org.gojul.fourinaline.model.GlobalServer#getGames()
@@ -121,7 +120,7 @@ public final class GlobalServerImpl implements GlobalServer
 	/**
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
-	public synchronized void update(final Observable o, final Object arg)
+	public synchronized void update(final Observable o, final Object arg) throws RemoteException
 	{
 		if (o != null && arg != null && o instanceof GameServer && arg instanceof String)
 		{

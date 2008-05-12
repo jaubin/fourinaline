@@ -31,7 +31,9 @@ import java.util.Set;
 /**
  * The <code>GlobalServer</code> interface is the interface
  * for all the global servers, i.e. the servers that are designed
- * to run on a webserver in order to handle several games.
+ * to run on a webserver in order to handle several games.<br/>
+ * Note that all the single game servers stored on this registry
+ * have a name prefixed with the constant <code>SINGLE_GAME_SERVER_STUB_PREFIX</code>.
  *
  * @author Julien Aubin
  */
@@ -43,7 +45,9 @@ public interface GlobalServer extends Remote, Observer, Serializable
 	public final static String STUB_NAME = "FourInALineGlobalServer";
 	
 	/**
-	 * The prefix of a single game server.
+	 * The prefix of a single game server.<br/>
+	 * When looking up a game server on the rmi registry, a client must
+	 * know that the server name is prefixed with this prefix.
 	 */
 	public final static String SINGLE_GAME_SERVER_STUB_PREFIX = "FourInALine_Server_";
 

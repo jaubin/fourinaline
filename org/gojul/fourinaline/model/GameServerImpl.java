@@ -614,8 +614,6 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 			gameServer.newGame(firstClient.getTicket());
 			
 			while (gameServer.isGameRunning());
-		}
-		
-		
+		}		
 	}
 }

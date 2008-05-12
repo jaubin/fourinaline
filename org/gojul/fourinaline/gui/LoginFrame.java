@@ -106,7 +106,8 @@ public final class LoginFrame extends JDialog implements ChangeListener, ActionL
 	private JButton cancelButton;
 	
 	/**
-	 * Constructor.
+	 * Constructor.<br/>
+	 * Does not make the frame visible.
 	 */
 	public LoginFrame()
 	{
@@ -134,6 +135,7 @@ public final class LoginFrame extends JDialog implements ChangeListener, ActionL
 		// Inits the change listeners after initializing the panels in order
 		// to avoid NPE.
 		localHostRadioButton.addChangeListener(this);
+		computerAdversoryRadioButton.addChangeListener(this);
 		okButton.addActionListener(this);
 		cancelButton.addActionListener(this);
 	}
@@ -213,7 +215,6 @@ public final class LoginFrame extends JDialog implements ChangeListener, ActionL
 		computerAdversoryPanel.setLayout(new FlowLayout());
 		
 		computerAdversoryRadioButton = new JRadioButton(GUIMessages.COMPUTER_ADVERSORY_TEXT.toString());
-		computerAdversoryRadioButton.addChangeListener(this);
 		computerAdversoryPanel.add(computerAdversoryRadioButton);	
 		adversoryButtonGroup.add(computerAdversoryRadioButton);
 		
@@ -326,6 +327,9 @@ public final class LoginFrame extends JDialog implements ChangeListener, ActionL
 			
 			PlayerSelectionFrame psFrame = null;
 			
+			// If the user decided to join an existing game, it is harmless
+			// here to indicate that we want to create an AI player. This will
+			// do nothing.
 			if (computerAdversoryRadioButton.isSelected())
 			{
 				AIGameLevel aiLevel = (AIGameLevel) aiLevelComboBox.getSelectedItem();
