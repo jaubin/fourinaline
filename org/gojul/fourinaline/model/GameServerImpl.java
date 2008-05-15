@@ -613,7 +613,7 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 			t.printStackTrace();
         	
 			return false;
-        }
+		}
 	}
 
 	/**
