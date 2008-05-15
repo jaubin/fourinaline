@@ -589,28 +589,30 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 	 */
 	public final static boolean startDaemon(final boolean debugMode)
 	{
-		if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new SecurityManager());
-        }
-        try {
-            serverInstance = new GameServerImpl("local", debugMode);
+		if (System.getSecurityManager() == null) 
+		{
+			System.setSecurityManager(new SecurityManager());
+		}
+		try 
+		{
+			serverInstance = new GameServerImpl("local", debugMode);
             
-            GameServer stub = (GameServer) UnicastRemoteObject.exportObject(serverInstance, 0);
+			GameServer stub = (GameServer) UnicastRemoteObject.exportObject(serverInstance, 0);
             
-            Registry registry = LocateRegistry.createRegistry(1099);
-            registry.rebind(STUB_NAME, stub);
+			Registry registry = LocateRegistry.createRegistry(1099);
+			registry.rebind(STUB_NAME, stub);
             
-            System.out.println("Game daemon started !");
+			System.out.println("Game daemon started !");
             
-            return true;
-        }
-        catch (Throwable t)
-        {
-        	System.err.println("Error while starting daemon : ");
+			return true;
+		}
+		catch (Throwable t)
+		{
+			System.err.println("Error while starting daemon : ");
         	
-        	t.printStackTrace();
+			t.printStackTrace();
         	
-        	return false;
+			return false;
         }
 	}
 

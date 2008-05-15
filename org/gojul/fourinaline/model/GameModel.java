@@ -608,7 +608,7 @@ public final class GameModel implements Serializable
 	public PlayerMark getCell(final CellCoord cellCoord) throws NullPointerException, ArrayIndexOutOfBoundsException
 	{
 		if (cellCoord == null)
-			throw new IllegalArgumentException();
+			throw new NullPointerException();
 		
 		return getCell(cellCoord.getRowIndex(), cellCoord.getColIndex());
 	}
@@ -927,117 +927,117 @@ public final class GameModel implements Serializable
 	 * smaller than 0 or greater or equal to the number of rows, or if <code>col</code>
 	 * is strictly smaller than 0 or greater or equal to the number of columns.
 	 */
-    public Collection<List<CellCoord>> getAllLines(final int row, final int col)
-       throws ArrayIndexOutOfBoundsException
-    {
-    	if (isOutOfBounds(row, col))
-    		throw new ArrayIndexOutOfBoundsException(new CellCoord(row, col).toString());
-    	
-    	return getAllLines(new CellCoord(row, col));
-    }
-    
-    /**
-     * Returns the list of all the possible lines for coordinates <code>row, col</code>.
-     * @param cellCoord the coordinates to consider.
-     * @return the list of all the possible lines for coordinates <code>row, col</code>.
-     * @throws NullPointerException if <code>cellCoord</code> is null.
-     * @throws ArrayIndexOutOfBoundsException if <code>cellCoord</code> is out of bounds.
-     */
-    public Collection<List<CellCoord>> getAllLines(final CellCoord cellCoord)
-       throws NullPointerException, ArrayIndexOutOfBoundsException
-    {
-    	if (cellCoord == null)
-    		throw new NullPointerException();
-    	
-    	Set<List<CellCoord>> result = winLinesMap.get(cellCoord);
-    	
-    	if (result == null)
-    	{
-    		int row = cellCoord.rowIndex;
-    		int col = cellCoord.colIndex;
-    	
-    		result = getHorizontalLines(row, col);
-    		result.addAll(getVerticalLines(row, col));
-    		result.addAll(getDownDiagonals(row, col));
-    		result.addAll(getUpDiagonals(row, col));
-    		
-    		winLinesMap.put(cellCoord, Collections.unmodifiableSet(result));
-    	}
-    	
-    	return result;
-    }
-    
-    /**
-     * Returns the winning line, sorted so that the cell
-     * which has for index <code>i</code> in the line is contiguous
-     * to the cell which has for index <code>i + 1</code>.
-     * @return the winning line, or null if the game is not won.
-     */
-    public List<CellCoord> getWinLine()
-    {
-    	return winLine;
-    }
+	public Collection<List<CellCoord>> getAllLines(final int row, final int col)
+	   throws ArrayIndexOutOfBoundsException
+	{
+		if (isOutOfBounds(row, col))
+			throw new ArrayIndexOutOfBoundsException(new CellCoord(row, col).toString());
+		
+		return getAllLines(new CellCoord(row, col));
+	}
 	
-    /**
-     * Returns true if the game is won, false elsewhere.
-     * @return true if the game is won, false elsewhere.
-     */
-    private boolean isGameWon()
-    {
-    	boolean isWon = false;
-    	
-    	Set<List<CellCoord>> encounteredLines = new HashSet<List<CellCoord>>();
-    	
-    	for (int i = 0; i < gameTab.length && !isWon; i++)
-    	{
-    		for (int j = 0; j < gameTab[i].length && !isWon; j++)
-    		{
-    			PlayerMark markTest = gameTab[i][j]; 
-    			
-    			// We only consider occupied cells here.
-    			if (markTest != null)
-    			{
-    				Collection<List<CellCoord>> lines = getAllLines(i, j);
-    				
-    				Iterator<List<CellCoord>> it = lines.iterator();
-    				
-    				while (it.hasNext() && !isWon)
-    				{
-    					List<CellCoord> line = it.next();
-    					
-    					if (!encounteredLines.contains(line))
-    					{
-    						encounteredLines.add(line);
-    					    					
-	    					boolean isAllEqual = true;
-	    					
-	    					Iterator<CellCoord> itCoord = line.iterator();
-	    					
-	    					// A line is considered as correct if all its
-	    					// marks are not null and equal to each other.
-	    					while (itCoord.hasNext() && isAllEqual)
-	    					{
-	    						PlayerMark mark = getCell(itCoord.next());
-	    						
-	    						if (mark != null)
-	    							isAllEqual = mark.equals(markTest);
-	    						else
-	    							isAllEqual = false;
-	    					}
-	    					
-	    					isWon = isAllEqual;
-	    					
-	    					if (isWon)
-	    						winLine = Collections.unmodifiableList(line);
-    					}
-    				}
-    			}
-    		}
-    	}
-    	
-    	return isWon;
-    }
-    
+	/**
+	 * Returns the list of all the possible lines for coordinates <code>row, col</code>.
+	 * @param cellCoord the coordinates to consider.
+	 * @return the list of all the possible lines for coordinates <code>row, col</code>.
+	 * @throws NullPointerException if <code>cellCoord</code> is null.
+	 * @throws ArrayIndexOutOfBoundsException if <code>cellCoord</code> is out of bounds.
+	 */
+	public Collection<List<CellCoord>> getAllLines(final CellCoord cellCoord)
+	   throws NullPointerException, ArrayIndexOutOfBoundsException
+	{
+		if (cellCoord == null)
+			throw new NullPointerException();
+		
+		Set<List<CellCoord>> result = winLinesMap.get(cellCoord);
+		
+		if (result == null)
+		{
+			int row = cellCoord.rowIndex;
+			int col = cellCoord.colIndex;
+		
+			result = getHorizontalLines(row, col);
+			result.addAll(getVerticalLines(row, col));
+			result.addAll(getDownDiagonals(row, col));
+			result.addAll(getUpDiagonals(row, col));
+			
+			winLinesMap.put(cellCoord, Collections.unmodifiableSet(result));
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Returns the winning line, sorted so that the cell
+	 * which has for index <code>i</code> in the line is contiguous
+	 * to the cell which has for index <code>i + 1</code>.
+	 * @return the winning line, or null if the game is not won.
+	 */
+	public List<CellCoord> getWinLine()
+	{
+		return winLine;
+	}
+	
+	/**
+	 * Returns true if the game is won, false elsewhere.
+	 * @return true if the game is won, false elsewhere.
+	 */
+	private boolean isGameWon()
+	{
+		boolean isWon = false;
+		
+		Set<List<CellCoord>> encounteredLines = new HashSet<List<CellCoord>>();
+		
+		for (int i = 0; i < gameTab.length && !isWon; i++)
+		{
+			for (int j = 0; j < gameTab[i].length && !isWon; j++)
+			{
+				PlayerMark markTest = gameTab[i][j]; 
+				
+				// We only consider occupied cells here.
+				if (markTest != null)
+				{
+					Collection<List<CellCoord>> lines = getAllLines(i, j);
+					
+					Iterator<List<CellCoord>> it = lines.iterator();
+					
+					while (it.hasNext() && !isWon)
+					{
+						List<CellCoord> line = it.next();
+						
+						if (!encounteredLines.contains(line))
+						{
+							encounteredLines.add(line);
+												
+							boolean isAllEqual = true;
+							
+							Iterator<CellCoord> itCoord = line.iterator();
+							
+							// A line is considered as correct if all its
+							// marks are not null and equal to each other.
+							while (itCoord.hasNext() && isAllEqual)
+							{
+								PlayerMark mark = getCell(itCoord.next());
+								
+								if (mark != null)
+									isAllEqual = mark.equals(markTest);
+								else
+									isAllEqual = false;
+							}
+							
+							isWon = isAllEqual;
+							
+							if (isWon)
+								winLine = Collections.unmodifiableList(line);
+						}
+					}
+				}
+			}
+		}
+		
+		return isWon;
+	}
+	
 	/**
 	 * Updates the game status.
 	 */
