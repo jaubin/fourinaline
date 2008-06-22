@@ -53,7 +53,7 @@
       <zip basedir="." destfile="fourinaline-src.zip" includes="rmipolicy.policy readme.txt license.txt ${srcPath}/**/*.java ${srcPath}/**/*.properties ${srcPath}/**/*.xml ${srcPath}/**/package.html"/>
    </target>
 
-   <target name="build-package-and-clean" depends="build-package">
+   <target name="build-package-and-clean" depends="build-package" description="Compiles the project, builds a deployable package and and the corresponding source package.">
       <delete dir="${buildPath}"/>
       <delete dir="${srcPath}"/>
       <delete file="${jarName}"/>
@@ -62,7 +62,7 @@
 
    <property name="javadocDir" value="javadoc"/>
 
-   <target name="javadoc">
+   <target name="javadoc" description="Builds the project javadoc">
       <mkdir dir="javadoc"/>
       <javadoc destdir="${javadocDir}">
          <fileset dir=".">
