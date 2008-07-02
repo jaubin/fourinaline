@@ -290,17 +290,18 @@
     <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="213" end="213" startBytecode="121" endBytecode="121" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
   </BugInstance>
   <Errors></Errors>
-  <FindBugsSummary timestamp="Thu, 6 Mar 2008 22:44:52 +0100" total_classes="23" total_bugs="12" total_size="880" num_packages="2" cpu_seconds="91.83" clock_seconds="1925.14" peak_mbytes="216.51" gc_seconds="4.87" priority_2="11" priority_1="1">
-    <PackageStats package="org.gojul.fourinaline.gui" total_bugs="7" total_types="2" total_size="0" priority_2="6" priority_1="1">
-      <ClassStats class="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourceFile="LoginFrame.java" interface="false" size="0" bugs="5" priority_2="4" priority_1="1"/>
-      <ClassStats class="org.gojul.fourinaline.gui.MainFrame" sourceFile="MainFrame.java" interface="false" size="0" bugs="2" priority_2="2"/>
+  <FindBugsSummary timestamp="Thu, 6 Mar 2008 22:44:52 +0100" total_classes="23" total_bugs="18" total_size="880" num_packages="2" cpu_seconds="67.41" clock_seconds="53.73" peak_mbytes="172.23" gc_seconds="3.01" priority_2="17" priority_1="1">
+    <PackageStats package="org.gojul.fourinaline.gui" total_bugs="12" total_types="3" total_size="0" priority_2="11" priority_1="1">
+      <ClassStats class="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourceFile="LoginFrame.java" interface="false" size="0" bugs="6" priority_2="5" priority_1="1"/>
+      <ClassStats class="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread" sourceFile="LoginFrame.java" interface="false" size="0" bugs="2" priority_2="2"/>
+      <ClassStats class="org.gojul.fourinaline.gui.MainFrame" sourceFile="MainFrame.java" interface="false" size="0" bugs="4" priority_2="4"/>
     </PackageStats>
-    <PackageStats package="org.gojul.fourinaline.model" total_bugs="5" total_types="21" total_size="880" priority_2="5">
+    <PackageStats package="org.gojul.fourinaline.model" total_bugs="6" total_types="21" total_size="880" priority_2="6">
       <ClassStats class="org.gojul.fourinaline.model.AIGameClient" sourceFile="AIGameClient.java" interface="false" size="22" bugs="0"/>
       <ClassStats class="org.gojul.fourinaline.model.AIGameClient$AlphaBeta" sourceFile="AIGameClient.java" interface="false" size="52" bugs="0"/>
       <ClassStats class="org.gojul.fourinaline.model.AIGameClient$EvalScore" sourceFile="AIGameClient.java" interface="true" size="2" bugs="0"/>
       <ClassStats class="org.gojul.fourinaline.model.DefaultEvalScore" sourceFile="DefaultEvalScore.java" interface="false" size="43" bugs="0"/>
-      <ClassStats class="org.gojul.fourinaline.model.GameClient" sourceFile="GameClient.java" interface="false" size="54" bugs="5" priority_2="5"/>
+      <ClassStats class="org.gojul.fourinaline.model.GameClient" sourceFile="GameClient.java" interface="false" size="54" bugs="6" priority_2="6"/>
       <ClassStats class="org.gojul.fourinaline.model.GameClient$GameServerCaller" sourceFile="GameClient.java" interface="false" size="19" bugs="0"/>
       <ClassStats class="org.gojul.fourinaline.model.GameModel" sourceFile="GameModel.java" interface="false" size="245" bugs="0"/>
       <ClassStats class="org.gojul.fourinaline.model.GameModel$CellCoord" sourceFile="GameModel.java" interface="false" size="30" bugs="0"/>

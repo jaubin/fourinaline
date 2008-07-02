@@ -44,6 +44,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
 
 import org.gojul.fourinaline.model.GameModel;
@@ -814,8 +815,18 @@ public final class GameModelPanel extends JPanel implements Observer
 			// The panel is shared among the client thread and the current swing thread.
 			synchronized(this)
 			{
-				updatePlayerPanel();				
-				updateMainPanel(false);
+				SwingUtilities.invokeLater(new Runnable()
+				{
+					/**
+					 * @see java.lang.Runnable#run()
+					 */
+					public void run()
+					{
+						updatePlayerPanel();				
+						updateMainPanel(false);
+					}
+				});
+
 			}
 		}
 		

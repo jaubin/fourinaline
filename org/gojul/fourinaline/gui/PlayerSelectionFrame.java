@@ -46,6 +46,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 import org.gojul.fourinaline.model.AIGameClient;
@@ -348,7 +349,7 @@ final class PlayerSelectionFrame extends JDialog implements Runnable, WindowList
 			{
 				currentPlayersLocal = currentPlayersServer;
 				
-				String[] playerNames = new String[currentPlayersLocal.size()];
+				final String[] playerNames = new String[currentPlayersLocal.size()];
 				int i = 0;
 				          						
 				for (GamePlayer player: currentPlayersLocal)
@@ -357,12 +358,18 @@ final class PlayerSelectionFrame extends JDialog implements Runnable, WindowList
 					i++;
 				}
 				
-				// Avoids unnecessary synchronizations and update in order to lower the
-				// CPU consumption.
-				synchronized(this)
+				// Thread safety with Swing
+				SwingUtilities.invokeLater(new Runnable()
 				{
-					playerList.setListData(playerNames);						
-				}
+					/**
+					 * @see java.lang.Runnable#run()
+					 */
+					public void run()
+					{
+						playerList.setListData(playerNames);
+					}
+				});						
+
 			}
 			
 			try
@@ -657,9 +664,17 @@ final class PlayerSelectionFrame extends JDialog implements Runnable, WindowList
 			// Avoids the program exiting surprisingly.
 			timer.stop();
 			
-			playerSelectionFrame.dispose();
-			
-			new MainFrame(gameClient).setVisible(true);
+			SwingUtilities.invokeLater(new Runnable()
+			{
+				/**
+				 * @see java.lang.Runnable#run()
+				 */
+				public void run()
+				{
+					playerSelectionFrame.dispose();
+					new MainFrame(gameClient).setVisible(true);
+				}
+			});
 		
 			// Starts the client thread AFTER the main frame in order to ensure
 			// to capture all the update events.

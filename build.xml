@@ -29,7 +29,7 @@
             <attribute name="Built-By" value="Julien Aubin"/>
             <attribute name="Sealed" value="true"/>
             <attribute name="Main-Class" value="org.gojul.fourinaline.main.FourInALine"/>
-            <attribute name="Class-Path" value="./ ./fourinaline.jar"/>
+            <attribute name="Class-Path" value="./"/>
          </manifest>
       </jar>
    </target>
