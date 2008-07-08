@@ -134,7 +134,7 @@ public final class GlobalLoginFrame extends JDialog implements ActionListener, C
 	
 	/**
 	 * Constructor.<br/>
-	 * Does not make the fame visible.
+	 * Does not make the frame visible.
 	 * @param serverAddress the name of the global server address.
 	 * @throws NullPointerException if <code>serverAddress</code> is null.
 	 * @throws RemoteException if a remote error occurs while trying to connect the
