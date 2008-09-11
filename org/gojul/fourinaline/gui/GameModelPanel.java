@@ -732,24 +732,33 @@ public final class GameModelPanel extends JPanel implements Observer
 				initFulfilledMainPanel(gameModel);
 			}
 			
+			boolean bUpdatedGame = !gameModel.equals(localGameModel);
+			
 			localGameModel = new GameModel(gameModel);
 			
 			gameModelDrawPanel.updateModel(localGameModel);
 			
 			PlayerMark mark = localGameModel.getCurrentPlayer();
 			
-			// Updates the panel according to the game state.
-			if (localGameModel.getGameStatus().equals(GameStatus.TIE_STATUS))
+			// This double-check of the game model update ensures that a
+			// has-won message is not sent twice...
+			// This may occur in case the update is forced and then a "normal"
+			// update occurs...
+			if (bUpdatedGame)
 			{
-				JOptionPane.showMessageDialog(this, GUIMessages.TIE_GAME_MESSAGE);
-			}
-			else if (localGameModel.getGameStatus().equals(GameStatus.WON_STATUS))
-			{			
-				JOptionPane.showMessageDialog(this, getPlayerName(mark) + GUIMessages.HAS_WON_MESSAGE);
-			}
-			else if (localGameModel.getGameStatus().equals(GameStatus.CONTINUE_STATUS))
-			{
-				statusLabel.setText(GUIMessages.CURRENT_TURN_MESSAGE + getPlayerName(mark));
+				// Updates the panel according to the game state.
+				if (localGameModel.getGameStatus().equals(GameStatus.TIE_STATUS))
+				{
+					JOptionPane.showMessageDialog(this, GUIMessages.TIE_GAME_MESSAGE);
+				}
+				else if (localGameModel.getGameStatus().equals(GameStatus.WON_STATUS))
+				{			
+					JOptionPane.showMessageDialog(this, getPlayerName(mark) + GUIMessages.HAS_WON_MESSAGE);
+				}
+				else if (localGameModel.getGameStatus().equals(GameStatus.CONTINUE_STATUS))
+				{
+					statusLabel.setText(GUIMessages.CURRENT_TURN_MESSAGE + getPlayerName(mark));
+				}
 			}
 		}
 		

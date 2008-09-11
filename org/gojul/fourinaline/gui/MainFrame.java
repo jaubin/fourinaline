@@ -36,6 +36,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 
 import org.gojul.fourinaline.model.GameModel;
 import org.gojul.fourinaline.model.HumanGameClient;
@@ -426,28 +427,37 @@ public final class MainFrame extends JFrame implements Observer, WindowListener
 	{
 		if (o == gameClient)
 		{
-			if (!gameClient.isConnectedToServer())
+			SwingUtilities.invokeLater(new Runnable()
 			{
-				disconnectionFromServer();
-				return;
-			}
-			
-			GameModel model = gameClient.getGameModel();
-			
-			// Updates the actions if necessary.
-			if (model == null || !model.getGameStatus().equals(GameStatus.CONTINUE_STATUS))
-			{
-				newGameAction.setEnabled(isGameOwner);
-				endGameAction.setEnabled(false);
-			}
-			// Prevents the user from ending a game when it is not up to it to play.
-			// Avoids some very tricky unsolvable multithread conflicts, without being
-			// surprising for the users.
-			else if (model != null && model.getGameStatus().equals(GameStatus.CONTINUE_STATUS))
-			{
-				newGameAction.setEnabled(false);				
-				endGameAction.setEnabled(isGameOwner && model.getCurrentPlayer().equals(gameClient.getPlayer().getPlayerMark()));
-			}
+				/**
+				 * @see java.lang.Runnable#run()
+				 */
+				public void run()
+				{
+					if (!gameClient.isConnectedToServer())
+					{
+						disconnectionFromServer();
+						return;
+					}
+					
+					GameModel model = gameClient.getGameModel();
+					
+					// Updates the actions if necessary.
+					if (model == null || !model.getGameStatus().equals(GameStatus.CONTINUE_STATUS))
+					{
+						newGameAction.setEnabled(isGameOwner);
+						endGameAction.setEnabled(false);
+					}
+					// Prevents the user from ending a game when it is not up to it to play.
+					// Avoids some very tricky unsolvable multithread conflicts, without being
+					// surprising for the users.
+					else if (model != null && model.getGameStatus().equals(GameStatus.CONTINUE_STATUS))
+					{
+						newGameAction.setEnabled(false);				
+						endGameAction.setEnabled(isGameOwner && model.getCurrentPlayer().equals(gameClient.getPlayer().getPlayerMark()));
+					}
+				}
+			});
 		}
 		
 	}
