@@ -22,6 +22,9 @@
 package org.gojul.fourinaline.main;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -87,6 +90,65 @@ public class FourInALine
 			}
 		}
 	}
+	
+	/**
+	 * Copies the RMI policy resource file to the temp directory and returns it
+	 * as the RMI policy file to use by the command to launch.
+	 * @return the RMI policy file to use by the command to launch.
+	 * @throws IOException if an I/O error occurs while copying the RMI policy file.
+	 */
+	private static String initRMIPolicy() throws IOException
+	{
+		final String RMI_POLICY_FILE_NAME = "/rmipolicy.policy";
+		
+		BufferedReader br = null;
+		BufferedWriter bw = null;
+		
+		String outputFile = System.getProperty("java.io.tmpdir") + File.separator + "fourinaline.rmi.policy";
+		
+		try
+		{
+			br = new BufferedReader(new InputStreamReader(FourInALine.class.getResourceAsStream(RMI_POLICY_FILE_NAME)));
+			bw = new BufferedWriter(new FileWriter(outputFile));
+			
+			String line = br.readLine();
+			
+			while (line != null)
+			{
+				bw.write(line);
+				
+				line = br.readLine();
+				
+				if (line != null)
+					bw.newLine();
+			}
+		}
+		catch (IOException e)
+		{
+			throw e;
+		}
+		finally
+		{
+			try
+			{
+				if (br != null)
+					br.close();
+			}
+			catch (IOException e)
+			{
+				throw e;
+			}
+			finally
+			{
+				if (bw != null)
+					bw.close();
+			}
+		}
+		
+		new File(outputFile).deleteOnExit();
+		
+		return outputFile;
+	}
     
 	/**
 	 * Runs the command <code>command</code>.
@@ -118,19 +180,18 @@ public class FourInALine
 	 */
 	public static void main(String[] args) throws Throwable
 	{
-		final String RMI_POLICY_FILE_NAME = "rmipolicy.policy";
 		final String JAR_FILE_NAME = "fourinaline.jar";
 		
 		// See http://forum.java.sun.com/thread.jspa?threadID=5153353&messageID=9577541
-		URL securityURL = FourInALine.class.getResource("/" + RMI_POLICY_FILE_NAME);
+		String rmiPolicyFileName = initRMIPolicy();
 		URL jarURL = FourInALine.class.getResource("/" + JAR_FILE_NAME);
 		
-		String command = "java -cp " + jarURL.getFile() + " -Djava.security.policy=" + securityURL.getFile() + " -Djava.rmi.server.codebase=file:" + jarURL.getFile() + " org.gojul.fourinaline.main.Main";
+		String command = "java -cp " + jarURL.getFile() + " -Djava.security.policy=" + rmiPolicyFileName + " -Djava.rmi.server.codebase=file:" + jarURL.getFile() + " org.gojul.fourinaline.main.Main";
 		
 		if (args.length > 0)
 		{
 			if (args[0].equalsIgnoreCase("-server"))
-				command = "java -cp " + jarURL.getFile() + " -Djava.security.policy=" + securityURL.getFile() + " -Djava.rmi.server.codebase=file:" + jarURL.getFile() + " org.gojul.fourinaline.main.MainServer";
+				command = "java -cp " + jarURL.getFile() + " -Djava.security.policy=" + rmiPolicyFileName + " -Djava.rmi.server.codebase=file:" + jarURL.getFile() + " org.gojul.fourinaline.main.MainServer";
 			else
 			{
 				System.out.println("USAGE : java -jar " + JAR_FILE_NAME + " [-server]");
@@ -138,7 +199,7 @@ public class FourInALine
 			}
 		}	
 		
-		execCommand(command);     
+		execCommand(command); 
 	}
 
 }

@@ -392,7 +392,7 @@ public final class MainFrame extends JFrame implements Observer, WindowListener
 	 */
 	private void quit()
 	{
-		int answerResult = JOptionPane.showConfirmDialog(this, GUIMessages.QUIT_MESSAGE, "", JOptionPane.YES_NO_OPTION);
+		int answerResult = JOptionPane.showConfirmDialog(this, GUIMessages.QUIT_MESSAGE, GUIMessages.MAIN_FRAME_TITLE.toString(), JOptionPane.YES_NO_OPTION);
 		
 		if (answerResult == JOptionPane.YES_OPTION)
 		{

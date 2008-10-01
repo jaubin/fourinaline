@@ -19,6 +19,7 @@
       <copy todir="${buildPath}">
          <fileset dir=".">
             <include name="**/*.properties"/>
+            <include name="rmipolicy.policy"/>
          </fileset>
       </copy>
    </target>
@@ -49,7 +50,7 @@
    </target>
 
    <target name="build-package" depends="jar, copy-src">
-      <zip basedir="." destfile="fourinaline.zip" includes="fourinaline.jar rmipolicy.policy readme.txt license.txt"/>
+      <zip basedir="." destfile="fourinaline.zip" includes="fourinaline.jar readme.txt license.txt"/>
       <zip basedir="." destfile="fourinaline-src.zip" includes="rmipolicy.policy readme.txt license.txt ${srcPath}/**/*.java ${srcPath}/**/*.properties ${srcPath}/**/*.xml ${srcPath}/**/package.html"/>
    </target>
 
