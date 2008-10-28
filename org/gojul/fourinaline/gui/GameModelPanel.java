@@ -61,13 +61,9 @@ import org.gojul.fourinaline.model.GameModel.PlayerMark;
  * 
  * @author Julien Aubin
  */
+@SuppressWarnings("serial")
 public final class GameModelPanel extends JPanel implements Observer
 {
-	
-	/**
-	 * The application serial version UID.
-	 */
-	final static long serialVersionUID = 1;
 	
 	/**
 	 * The player color representation for a given player mark.
@@ -166,13 +162,9 @@ public final class GameModelPanel extends JPanel implements Observer
 	 * 
 	 * @author Julien Aubin
 	 */
+	@SuppressWarnings("serial")
 	private final static class GamePlayerPanel extends JPanel
-	{		
-		/**
-		 * The serial version UID.
-		 */
-		final static long serialVersionUID = 1;
-		
+	{				
 		/**
 		 * The panel size.
 		 */
@@ -267,13 +259,9 @@ public final class GameModelPanel extends JPanel implements Observer
 	 * 
 	 * @author Julien Aubin
 	 */
+	@SuppressWarnings("serial")
 	private final static class GameModelDrawPanel extends JPanel implements MouseListener
-	{
-		/**
-		 * The serial version UID.
-		 */
-		final static long serialVersionUID = 1;
-		
+	{		
 		/**
 		 * The game model to consider.
 		 */

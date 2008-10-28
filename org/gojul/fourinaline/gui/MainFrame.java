@@ -51,6 +51,7 @@ import org.gojul.fourinaline.model.GameModel.PlayerMark;
  * 
  * @author Julien Aubin
  */
+@SuppressWarnings("serial")
 public final class MainFrame extends JFrame implements Observer, WindowListener
 {	
 	
@@ -59,13 +60,9 @@ public final class MainFrame extends JFrame implements Observer, WindowListener
 	 * 
 	 * @author Julien Aubin
 	 */
+	@SuppressWarnings("serial")
 	private final static class NewGameAction extends AbstractAction
-	{
-		
-		/**
-		 * The serial version UID used.
-		 */
-		final static long serialVersionUID = 1;		 
+	{ 
 		
 		/**
 		 * The game client used.
@@ -137,13 +134,9 @@ public final class MainFrame extends JFrame implements Observer, WindowListener
 	 * 
 	 * @author Julien Aubin
 	 */
+	@SuppressWarnings("serial")
 	private final static class EndGameAction extends AbstractAction
-	{
-		
-		/**
-		 * The serial version UID used.
-		 */
-		final static long serialVersionUID = 1;		 
+	{ 
 		
 		/**
 		 * The game client used.
@@ -203,12 +196,9 @@ public final class MainFrame extends JFrame implements Observer, WindowListener
 	 * 
 	 * @author Julien Aubin
 	 */
+	@SuppressWarnings("serial")
 	private final static class QuitAction extends AbstractAction
-	{
-		/**
-		 * The serial version UID used.
-		 */
-		final static long serialVersionUID = 1;		 
+	{	 
 		
 		/**
 		 * The game client used.
@@ -242,12 +232,9 @@ public final class MainFrame extends JFrame implements Observer, WindowListener
 	 * 
 	 * @author Julien Aubin
 	 */
+	@SuppressWarnings("serial")
 	private final static class AboutAction extends AbstractAction
-	{
-		/**
-		 * The serial version UID used.
-		 */
-		final static long serialVersionUID = 1;		 
+	{ 
 		
 		/**
 		 * The game client used.
@@ -283,11 +270,6 @@ public final class MainFrame extends JFrame implements Observer, WindowListener
 			
 		}
 	}
-	
-	/**
-	 * The serial version UID used.
-	 */
-	final static long serialVersionUID = 1;
 
 	/**
 	 * The game client this frame uses.

@@ -45,10 +45,6 @@ import java.util.TreeSet;
  */
 public final class GlobalServerImpl implements GlobalServer, Observer
 {
-	/**
-	 * The serial version UID of this game.
-	 */
-	final static long serialVersionUID = 1L;
 	
 	/**
 	 * The RMI registry instance.
@@ -64,6 +60,12 @@ public final class GlobalServerImpl implements GlobalServer, Observer
 	private Map<String, GameServer> serverMap;
 	
 	/**
+	 * The game server provider used in order to provide players
+	 * to game servers. 
+	 */
+	private GamePlayerProvider gamePlayerProvider;
+	
+	/**
 	 * Constructor.
 	 * @param reg the RMI registry the server takes into account.
 	 * @throws NullPointerException if <code>reg</code> is null.
@@ -75,6 +77,7 @@ public final class GlobalServerImpl implements GlobalServer, Observer
 		
 		serverMap = new HashMap<String, GameServer>();		
 		registry = reg;
+		gamePlayerProvider = new DefaultGamePlayerProvider();
 	}
 
 	/**
@@ -91,7 +94,7 @@ public final class GlobalServerImpl implements GlobalServer, Observer
 		
 		try
 		{
-			GameServerImpl gameServer = new GameServerImpl(name);
+			GameServerImpl gameServer = new GameServerImpl(name, gamePlayerProvider);
 			gameServer.addObserver(this);	
 			
 			serverMap.put(name, gameServer);

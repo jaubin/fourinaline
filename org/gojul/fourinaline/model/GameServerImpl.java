@@ -59,11 +59,6 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 {
 	
 	/**
-	 * The serial version UID.
-	 */
-	final static long serialVersionUID = 1;
-	
-	/**
 	 * The game model used.
 	 */
 	private GameModel gameModel;
@@ -116,6 +111,11 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 	private String serverName;
 	
 	/**
+	 * The game player provider used to provide game players from the server.
+	 */
+	private GamePlayerProvider gamePlayerProvider;
+	
+	/**
 	 * The timer that notifies the global server repository that the game
 	 * must be ended. It is reset every time a player plays.<br/>
 	 * It has a 30 minute delay.
@@ -127,7 +127,7 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 	 */
 	public GameServerImpl()
 	{
-		this(null, false);
+		this(null, false, new DefaultGamePlayerProvider());
 	}
 	
 	/**
@@ -135,10 +135,14 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 	 * @param name the server name. This parameter may be null if the server
 	 * is running as a single game server, i.e. belonging to a global game
 	 * server.
+	 * @param playerProvider the game player provider used to deliver players to the
+	 * server.
+	 * @throws NullPointerException if <code>playerProvider</code> is null.
 	 */
-	public GameServerImpl(final String name)
+	public GameServerImpl(final String name, final GamePlayerProvider playerProvider)
+		throws NullPointerException
 	{
-		this(name, false);
+		this(name, false, playerProvider);
 	}
 	
 	/**
@@ -148,11 +152,17 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 	 * server.
 	 * @param debug true if the server must be started in debug mode,
 	 * false elsewhere.
+	 * @param playerProvider the game player provider used to store the game.
+	 * @throws NullPointerException if <code>playerProvider</code> is null.
 	 */
-	private GameServerImpl(final String name, final boolean debug)
+	private GameServerImpl(final String name, final boolean debug, final GamePlayerProvider playerProvider)
+		throws NullPointerException
 	{
-		debugMode = debug;
+		if (playerProvider == null)
+			throw new NullPointerException();
 		
+		debugMode = debug;
+		gamePlayerProvider = playerProvider;
 		serverName = name;
 		
 		// The timer has a 30 minute delay.
@@ -183,7 +193,13 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 	 * as it is no longer used.
 	 */
 	private void releaseServer()
-	{		
+	{
+		// Here only the player who are not disconnected
+		// are released from the game player provider.
+		// The other ones have already been released...
+		for (String playerName: players.keySet())
+			gamePlayerProvider.releasePlayer(playerName);
+		
 		setChanged();
 		notifyObservers(serverName);
 	}
@@ -393,12 +409,14 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 			if (!isScoreUpdated)
 			{
 				isScoreUpdated = true;
+				Set<GamePlayer> gamePlayers = new HashSet<GamePlayer>(players.values());
+				GamePlayer winner = null;
 				
 				// Increments by one the score of the latest player if
 				// he's won.
 				if (gameModel != null && gameModel.getGameStatus() == GameStatus.WON_STATUS)
 				{
-					Iterator<GamePlayer> it = players.values().iterator();
+					Iterator<GamePlayer> it = gamePlayers.iterator();
 						
 					boolean winnerFound = false;
 					
@@ -410,9 +428,12 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 						{
 							player.incrementScore();
 							winnerFound = true;
+							winner = player;
 						}
 					}
 				}
+				
+				gamePlayerProvider.storeGame(winner, gamePlayers);
 			}
 			
 			releaseSemaphores();
@@ -463,7 +484,7 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 			if (mark == null)
 				throw new RuntimeException("Unable to add another player.");
 			
-			result = new GamePlayerImpl(playerName, mark);
+			result = gamePlayerProvider.getGamePlayer(playerName, mark);
 			
 			players.put(playerName, result);
 		}
@@ -493,6 +514,7 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 		
 		GamePlayer p = players.remove(playerName);
 		usedPlayerMarks.remove(p.getPlayerMark());
+		gamePlayerProvider.releasePlayer(playerName);
 	}
 
 	/**
@@ -595,7 +617,7 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 		}
 		try 
 		{
-			serverInstance = new GameServerImpl("local", debugMode);
+			serverInstance = new GameServerImpl("local", debugMode, new DefaultGamePlayerProvider());
             
 			GameServer stub = (GameServer) UnicastRemoteObject.exportObject(serverInstance, 0);
             

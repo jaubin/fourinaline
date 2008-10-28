@@ -38,14 +38,10 @@ import javax.swing.JPanel;
  * 
  * @author Julien Aubin
  */
+@SuppressWarnings("serial")
 public final class AboutDialog extends JDialog implements ActionListener
 {
 
-	/**
-	 * The serial version UID.
-	 */
-	final static long serialVersionUID = 1;
-	
 	/**
 	 * Constructor.
 	 * @param relativeWindow the window to which

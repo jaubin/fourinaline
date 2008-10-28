@@ -21,7 +21,6 @@
  */
 package org.gojul.fourinaline.model;
 
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +45,7 @@ import org.gojul.fourinaline.model.GameServer.ServerTicketException;
  * 
  * @author Julien Aubin
  */
-public abstract class GameClient extends Observable implements Runnable, Serializable
+public abstract class GameClient extends Observable implements Runnable
 {
 	
 	/**
@@ -61,7 +60,7 @@ public abstract class GameClient extends Observable implements Runnable, Seriali
 	 * 
 	 * @author Julien Aubin
 	 */
-	private final static class GameServerCaller implements Runnable, Serializable
+	private final static class GameServerCaller implements Runnable
 	{
 		
 		/**
@@ -400,12 +399,7 @@ public abstract class GameClient extends Observable implements Runnable, Seriali
 	 * @author Julien Aubin
 	 */
 	public static abstract class ComputerGameClient extends GameClient
-	{
-		/**
-		 * The serial version UID.
-		 */
-		final static long serialVersionUID = 1;
-		
+	{		
 		/**
 		 * The list of instances.
 		 */

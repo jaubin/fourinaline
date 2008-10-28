@@ -45,13 +45,7 @@ import org.gojul.fourinaline.model.GameServer.ServerTicketException;
  * @author Julien Aubin
  */
 public final class HumanGameClient extends GameClient
-{
-	
-	/**
-	 * The serial version UID.
-	 */
-	final static long serialVersionUID = 1;
-	
+{	
 	/**
 	 * The game model.
 	 */

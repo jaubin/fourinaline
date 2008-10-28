@@ -41,7 +41,7 @@ import org.gojul.fourinaline.model.GameModel.PlayerMark;
  * 
  * @author Julien Aubin
  */
-public interface GameServer extends Remote, Serializable
+public interface GameServer extends Remote
 {
 	
 	/**

@@ -32,7 +32,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -67,6 +66,7 @@ import org.gojul.fourinaline.model.GameServer.ServerTicketException;
  * 
  * @author Julien Aubin
  */
+@SuppressWarnings("serial")
 final class PlayerSelectionFrame extends JDialog implements Runnable, WindowListener, ActionListener, KeyListener
 {
 	
@@ -76,13 +76,8 @@ final class PlayerSelectionFrame extends JDialog implements Runnable, WindowList
 	 *
 	 * @author Julien Aubin
 	 */
-	final static class AIGameLevel implements Serializable
-	{
-		/**
-		 * The serial version UID.
-		 */
-		final static long serialVersionUID = 1;
-		
+	final static class AIGameLevel
+	{		
 		/**
 		 * The list of game levels.
 		 */
@@ -154,11 +149,6 @@ final class PlayerSelectionFrame extends JDialog implements Runnable, WindowList
 		 */
 		public final static AIGameLevel STRONG_AI_GAME_LEVEL = new AIGameLevel(GUIMessages.STRONG_AI_LEVEL_MESSAGE, 6);
 	}
-
-	/**
-	 * The serial version UID.
-	 */
-	final static long serialVersionUID = 1;
 	
 	/**
 	 * The game server.

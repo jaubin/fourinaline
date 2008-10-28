@@ -45,12 +45,7 @@ import org.gojul.fourinaline.model.GameServer.ServerTicketException;
  * @author Julien Aubin.
  */
 public final class AIGameClient extends ComputerGameClient
-{
-	/**
-	 * The serial version UID.
-	 */
-	final static long serialVersionUID = 1;
-	
+{	
 	/**
 	 * The <code>EvalScore</code> class is the interface for
 	 * all the game evaluation algorithms.

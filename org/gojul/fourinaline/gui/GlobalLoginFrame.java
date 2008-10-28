@@ -59,14 +59,9 @@ import org.gojul.fourinaline.model.GameServer.ServerTicketException;
  *
  * @author Julien Aubin
  */
+@SuppressWarnings("serial")
 public final class GlobalLoginFrame extends JDialog implements ActionListener, ChangeListener
-{
-	
-	/**
-	 * The serial version UID.
-	 */
-	final static long serialVersionUID = 1;
-	
+{	
 	/**
 	 * The button of game creation.
 	 */
