@@ -184,7 +184,8 @@ public class FourInALine
 		
 		// See http://forum.java.sun.com/thread.jspa?threadID=5153353&messageID=9577541
 		String rmiPolicyFileName = initRMIPolicy();
-		URL jarURL = FourInALine.class.getResource("/" + JAR_FILE_NAME);
+		// See http://www.velocityreviews.com/forums/t147526-how-to-get-jar-file-name.html
+		URL jarURL = FourInALine.class.getProtectionDomain().getCodeSource().getLocation();
 		
 		String command = "java -cp " + jarURL.getFile() + " -Djava.security.policy=" + rmiPolicyFileName + " -Djava.rmi.server.codebase=file:" + jarURL.getFile() + " org.gojul.fourinaline.main.Main";
 		
