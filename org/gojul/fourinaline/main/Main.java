@@ -35,7 +35,17 @@ public final class Main
 
 	public static void main(String[] args) throws Throwable
 	{
-		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		try
+		{
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}
+		catch (Throwable t)
+		{
+			t.printStackTrace();
+			// WA for problems that may occur under some badly shaped platforms, as Debian Lenny
+			// which seems to have a problem with the Java desktop integration...
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		}
 		new LoginFrame().setVisible(true);
 	}
 }
