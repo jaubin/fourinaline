@@ -153,11 +153,26 @@ public class FourInALine
 	/**
 	 * Runs the command <code>command</code>.
 	 * @param command the command to run.
+	 * @throws NullPointerException if <code>command</code> is null.
 	 * @throws Throwable if any error occurs while running the command.
 	 */
-	public final static void execCommand(final String command) throws Throwable
+	public final static void execCommand(final String[] command) throws NullPointerException, Throwable
 	{
-		System.out.println("Running command : " + command);
+		if (command == null) {
+			throw new NullPointerException();
+		}
+		
+		StringBuilder commandDisplay = new StringBuilder();
+		
+		for (int i = 0, length = command.length; i < length; i++) {
+			commandDisplay.append(command[i]);
+			
+			if (i < length - 1) {
+				commandDisplay.append(" ");
+			}
+		}
+		
+		System.out.println("Running command : " + commandDisplay);
 		Process proc = Runtime.getRuntime().exec(command);
 		
 		// any error message?
@@ -187,12 +202,12 @@ public class FourInALine
 		// See http://www.velocityreviews.com/forums/t147526-how-to-get-jar-file-name.html
 		URL jarURL = FourInALine.class.getProtectionDomain().getCodeSource().getLocation();
 		
-		String command = "java -cp " + jarURL.getFile() + " -Djava.security.policy=" + rmiPolicyFileName + " -Djava.rmi.server.codebase=file:" + jarURL.getFile() + " org.gojul.fourinaline.main.Main";
+		String[] command = {"java", "-cp", jarURL.getFile(), "-Djava.security.policy=" + rmiPolicyFileName, "-Djava.rmi.server.codebase=file:" + jarURL.getFile(), "org.gojul.fourinaline.main.Main"};
 		
 		if (args.length > 0)
 		{
 			if (args[0].equalsIgnoreCase("-server"))
-				command = "java -cp " + jarURL.getFile() + " -Djava.security.policy=" + rmiPolicyFileName + " -Djava.rmi.server.codebase=file:" + jarURL.getFile() + " org.gojul.fourinaline.main.MainServer";
+				command = new String[]{"java", "-cp", jarURL.getFile(), "-Djava.security.policy=" + rmiPolicyFileName, " -Djava.rmi.server.codebase=file:" + jarURL.getFile(), "org.gojul.fourinaline.main.MainServer"};
 			else
 			{
 				System.out.println("USAGE : java -jar " + JAR_FILE_NAME + " [-server]");
