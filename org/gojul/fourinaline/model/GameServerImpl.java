@@ -373,7 +373,7 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 	 */
 	public synchronized void play(final int colIndex, final PlayerMark playerMark, final GameModel clientGameModel, final ServerTicket serverTicket) throws NullPointerException, RemoteException, ServerTicketException, GameModelException
 	{
-		// Here we must synchronize the play method() because it has no risk
+		// Here we must synchronize the play() method because it has no risk
 		// of interblocking threads but on the contrary it may release too
 		// many semaphore permits.
 		
