@@ -133,7 +133,7 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 	/**
 	 * Constructor.
 	 * @param name the server name. This parameter may be null if the server
-	 * is running as a single game server, i.e. belonging to a global game
+	 * is running as a single game server, i.e. not belonging to a global game
 	 * server.
 	 * @param playerProvider the game player provider used to deliver players to the
 	 * server.
@@ -148,7 +148,7 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 	/**
 	 * Constructor.
 	 * @param name the server name. This parameter may be null if the server
-	 * is running as a single game server, i.e. belonging to a global game
+	 * is running as a single game server, i.e. not belonging to a global game
 	 * server.
 	 * @param debug true if the server must be started in debug mode,
 	 * false elsewhere.
