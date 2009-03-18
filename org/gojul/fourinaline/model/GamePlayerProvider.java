@@ -68,7 +68,8 @@ public interface GamePlayerProvider
 }
 
 /**
- * The <code>DefaultGamePlayerProvider</code> class 
+ * The <code>DefaultGamePlayerProvider</code> class provides a default implementation
+ * of the <code>GamePlayerProvider</code> interface used on a server environment.
  *
  * @author Julien Aubin
  */
