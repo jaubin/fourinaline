@@ -21,13 +21,18 @@
  */
 package org.gojul.fourinaline.main;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.URL;
 
 /**
@@ -92,6 +97,32 @@ public class FourInALine
 	}
 	
 	/**
+	 * Compute the first file name which does not exist from the file
+	 * name <code>fileName</code>. Return <code>fileName</code> if no
+	 * file with name <code>fileName</code> exists.
+	 * @param fileName the input absolute file name.
+	 * @return the first file name which does not exist from the file
+	 * name <code>fileName</code>.
+	 */
+	private static String computeAvailableFileName(final String fileName) 
+	{
+		String result = fileName;
+		
+		if (new File(result).exists())
+		{
+			int i = 1;
+			String prefix = result;
+			while (new File(prefix + i).exists()) 
+			{
+				i++;
+			}
+			result = prefix + i;
+		}
+		
+		return result;
+	}
+	
+	/**
 	 * Copies the RMI policy resource file to the temp directory and returns it
 	 * as the RMI policy file to use by the command to launch.
 	 * @return the RMI policy file to use by the command to launch.
@@ -105,6 +136,8 @@ public class FourInALine
 		BufferedWriter bw = null;
 		
 		String outputFile = System.getProperty("java.io.tmpdir") + File.separator + "fourinaline.rmi.policy";
+		
+		outputFile = computeAvailableFileName(outputFile);
 		
 		try
 		{
@@ -123,20 +156,12 @@ public class FourInALine
 					bw.newLine();
 			}
 		}
-		catch (IOException e)
-		{
-			throw e;
-		}
 		finally
 		{
 			try
 			{
 				if (br != null)
 					br.close();
-			}
-			catch (IOException e)
-			{
-				throw e;
 			}
 			finally
 			{
@@ -149,6 +174,93 @@ public class FourInALine
 		
 		return outputFile;
 	}
+	
+	/**
+	 * Copy the file <code>fSource</code> to the file <code>fDest</code>. Note that this
+	 * method will fail in case the directory to which <code>fDest</code> belongs does not
+	 * exist.
+	 * @param fSource the source file.
+	 * @param fDest the destination file.
+	 * @throws IOException if an I/O error occurs while performing the copy.
+	 */
+	private static void copyFile(final File fSource, final File fDest) throws IOException 
+	{
+		// We perform the copy by blocks of 32 MBs
+		final int BLOCK_SIZE = 32 * 1024 * 1024;
+		InputStream is = null;
+		OutputStream os = null;
+		
+		try 
+		{
+			long length = fSource.length();			
+			
+			is = new BufferedInputStream(new FileInputStream(fSource));
+			os = new BufferedOutputStream(new FileOutputStream(fDest));
+			
+			long nbIter = length / BLOCK_SIZE;
+			byte[] data = new byte[BLOCK_SIZE];
+			
+			// In case the file is bigger than 32 MB...
+			for (long i = 0; i < nbIter; i++) 
+			{
+				is.read(data);
+				os.write(data);
+			}
+			
+			int remainingData = (int) (length % BLOCK_SIZE);
+			is.read(data, 0, remainingData);
+			os.write(data, 0, remainingData);
+		}
+		finally
+		{
+			try 
+			{
+				if (is != null)
+				{
+					is.close();
+				}
+			}
+			finally
+			{
+				if (os != null)
+				{
+					os.close();
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Copy the file <code>f</code> which is the JAR file of the Four in a line
+	 * game to a location which does not contain spaces.
+	 * @param f the file which represents the application JAR file.
+	 * @return the destination file.
+	 * @throws IOException if an I/O error occurs while copying the file.
+	 */
+	private final static File copyJarFileToSafeLocation(final File f) throws IOException 
+	{
+		
+		String outputFile = System.getProperty("java.io.tmpdir") + File.separator + "fourinaline.jar";
+		if (new File(outputFile).exists()) 
+		{
+			int i = 1;
+			String outputFilePrefix = outputFile;
+			while (new File(outputFilePrefix + i).exists()) 
+			{
+				i++;
+			}
+			outputFile = outputFilePrefix + i;
+		}
+		
+		outputFile = computeAvailableFileName(outputFile);
+		
+		File fResult = new File(outputFile);
+		fResult.deleteOnExit();
+		
+		copyFile(f, fResult);
+		
+		return fResult;
+	}
     
 	/**
 	 * Runs the command <code>command</code>.
@@ -158,16 +270,19 @@ public class FourInALine
 	 */
 	public final static void execCommand(final String[] command) throws NullPointerException, Throwable
 	{
-		if (command == null) {
+		if (command == null) 
+		{
 			throw new NullPointerException();
 		}
 		
 		StringBuilder commandDisplay = new StringBuilder();
 		
-		for (int i = 0, length = command.length; i < length; i++) {
+		for (int i = 0, length = command.length; i < length; i++) 
+		{
 			commandDisplay.append(command[i]);
 			
-			if (i < length - 1) {
+			if (i < length - 1) 
+			{
 				commandDisplay.append(" ");
 			}
 		}
@@ -201,6 +316,14 @@ public class FourInALine
 		String rmiPolicyFileName = initRMIPolicy();
 		// See http://www.velocityreviews.com/forums/t147526-how-to-get-jar-file-name.html
 		URL jarURL = FourInALine.class.getProtectionDomain().getCodeSource().getLocation();
+		
+		// Since RMI does not like spaces in path names, we copy the JAR file to a path
+		// which does not contain spaces, i.e. the temp dir which seems to be safe both
+		// on Linux and Windows in term of spaces...
+		File fTest = new File(jarURL.toURI());
+		if (fTest.getAbsolutePath().indexOf(" ") != -1) {
+			jarURL = copyJarFileToSafeLocation(fTest).toURI().toURL();
+		}
 		
 		String[] command = {"java", "-cp", jarURL.getFile(), "-Djava.security.policy=" + rmiPolicyFileName, "-Djava.rmi.server.codebase=file:" + jarURL.getFile(), "org.gojul.fourinaline.main.Main"};
 		
