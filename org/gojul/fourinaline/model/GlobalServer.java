@@ -21,6 +21,7 @@
  */
 package org.gojul.fourinaline.model;
 
+import java.io.Serializable;
 import java.rmi.AlreadyBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -35,7 +36,7 @@ import java.util.Set;
  *
  * @author Julien Aubin
  */
-public interface GlobalServer extends Remote
+public interface GlobalServer extends Remote, Serializable
 {
 	/**
 	 * The global server stub name.

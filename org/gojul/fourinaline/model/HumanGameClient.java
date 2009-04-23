@@ -193,6 +193,10 @@ public final class HumanGameClient extends GameClient
 		 */
 		public void update(final Observable o, final Object arg)
 		{
+			if (inputReader == null) {
+				throw new RuntimeException("FATAL : input reader not initialized. Aborting...");
+			}
+			
 			if (o != null && o instanceof HumanGameClient)
 			{				
 				HumanGameClient client = (HumanGameClient) o;
@@ -213,10 +217,13 @@ public final class HumanGameClient extends GameClient
 						{
 							try
 							{
-								int colIndex = Integer.parseInt(inputReader.readLine());					
-								client.play(colIndex);
+								String line = inputReader.readLine();
 								
-								isPlaySuccessful = true;
+								if (line != null) {
+									int colIndex = Integer.parseInt(line);					
+									client.play(colIndex);								
+									isPlaySuccessful = true;
+								}
 							}
 							catch (Throwable t)
 							{

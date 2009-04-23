@@ -21,6 +21,7 @@
  */
 package org.gojul.fourinaline.model;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import org.gojul.fourinaline.model.GameModel.PlayerMark;
@@ -31,7 +32,7 @@ import org.gojul.fourinaline.model.GameModel.PlayerMark;
  *
  * @author Julien Aubin
  */
-public interface GamePlayerProvider
+public interface GamePlayerProvider extends Serializable
 {
 	/**
 	 * Returns the game player which has for name <code>name</code>.
@@ -75,6 +76,11 @@ public interface GamePlayerProvider
  */
 final class DefaultGamePlayerProvider implements GamePlayerProvider
 {
+	
+	/**
+	 * The class serial version UID.
+	 */
+	final static long serialVersionUID = 1L;
 
 	/**
 	 * @see org.gojul.fourinaline.model.GamePlayerProvider#getGamePlayer(java.lang.String, org.gojul.fourinaline.model.GameModel.PlayerMark)

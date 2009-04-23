@@ -12,7 +12,10 @@ Any operating system with a JVM 1.5 or later available at http://java.sun.com or
 Game startup
 ============
 Setup your environment so that it contains the java command is in your PATH.
-Launch the game with the following command :
+
+In case you have the right file association done on your system for JAR files, you just have to double click the fourinaline.jar file.
+
+Otherwise, launch the game with the following command using the command line :
 java -jar fourinaline.jar
 
 License

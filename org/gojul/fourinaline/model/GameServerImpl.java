@@ -59,6 +59,11 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 {
 	
 	/**
+	 * The class serial version UID.
+	 */
+	final static long serialVersionUID = 1L;
+	
+	/**
 	 * The game model used.
 	 */
 	private GameModel gameModel;
@@ -611,17 +616,14 @@ public final class GameServerImpl extends Observable implements GameServer, Acti
 	 */
 	public final static boolean startDaemon(final boolean debugMode)
 	{
-		if (System.getSecurityManager() == null) 
-		{
-			System.setSecurityManager(new SecurityManager());
-		}
 		try 
 		{
 			serverInstance = new GameServerImpl("local", debugMode, new DefaultGamePlayerProvider());
             
-			GameServer stub = (GameServer) UnicastRemoteObject.exportObject(serverInstance, 0);
-            
-			Registry registry = LocateRegistry.createRegistry(1099);
+			Registry registry = MiscUtils.initRMIServer(1099);
+			
+			// Ensure compliancy with previous JVM versions.
+			GameServer stub = (GameServer) UnicastRemoteObject.exportObject(serverInstance);
 			registry.rebind(STUB_NAME, stub);
             
 			System.out.println("Game daemon started !");

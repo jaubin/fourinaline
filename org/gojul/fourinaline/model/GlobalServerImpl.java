@@ -23,7 +23,6 @@ package org.gojul.fourinaline.model;
 
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
@@ -45,6 +44,11 @@ import java.util.TreeSet;
  */
 public final class GlobalServerImpl implements GlobalServer, Observer
 {
+	
+	/**
+	 * The class serial version UID.
+	 */
+	final static long serialVersionUID = 1L;
 	
 	/**
 	 * The RMI registry instance.
@@ -159,18 +163,20 @@ public final class GlobalServerImpl implements GlobalServer, Observer
 	private static GlobalServer serverInstance = null;
 	
 	public static void main(String[] args) throws Throwable
-	{
-		if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new SecurityManager());
-        }
-        
-		Registry registry = LocateRegistry.createRegistry(1099);
+	{		
+		Registry registry = MiscUtils.initRMIServer(1099);
 		
 		serverInstance = new GlobalServerImpl(registry);
 		
-		GlobalServer stub = (GlobalServer) UnicastRemoteObject.exportObject(serverInstance, 0);
+		// Ensure compliancy with previous JVM versions.
+		GlobalServer stub = (GlobalServer) UnicastRemoteObject.exportObject(serverInstance);		
 		registry.rebind(STUB_NAME, stub);
 		
 		System.out.println("Game daemon started");
+		
+		// Server is now waiting...
+		while (true) {
+			Thread.sleep(5000);
+		}
 	}
 }

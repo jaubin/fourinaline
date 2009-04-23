@@ -10,7 +10,17 @@
     </SuppressionFilter>
   </Project>
   <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE">
-    <UserAnnotation designation="NOT_A_BUG"/>
+    <UserAnnotation designation="NOT_A_BUG" timestamp="1240514795747"/>
+    <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame">
+      <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" name="quit" signature="()V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" start="172" end="177" startBytecode="0" endBytecode="95" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" start="176" end="176" startBytecode="18" endBytecode="18" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+  </BugInstance>
+  <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE" last="0" removedByChange="true">
+    <UserAnnotation designation="NOT_A_BUG" timestamp="1240514795747"/>
     <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame">
       <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
     </Class>
@@ -20,7 +30,17 @@
     <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" start="176" end="176" startBytecode="18" endBytecode="18" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
   </BugInstance>
   <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE">
-    <UserAnnotation designation="NOT_A_BUG"/>
+    <UserAnnotation designation="NOT_A_BUG" timestamp="1240514795763"/>
+    <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame">
+      <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" name="quit" signature="()V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" start="400" end="406" startBytecode="0" endBytecode="102" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" start="405" end="405" startBytecode="21" endBytecode="21" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+  </BugInstance>
+  <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE" last="0" removedByChange="true">
+    <UserAnnotation designation="NOT_A_BUG" timestamp="1240514795763"/>
     <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame">
       <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
     </Class>
@@ -48,7 +68,7 @@
     <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" start="141" end="141" startBytecode="91" endBytecode="91" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
   </BugInstance>
   <BugInstance type="NP_ALWAYS_NULL" priority="1" abbrev="NP" category="CORRECTNESS">
-    <UserAnnotation/>
+    <UserAnnotation timestamp="1240514795773"/>
     <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame">
       <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
     </Class>
@@ -59,7 +79,7 @@
     <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" start="135" end="135" startBytecode="78" endBytecode="78" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java" role="SOURCE_LINE_DEREF"/>
   </BugInstance>
   <BugInstance type="NP_ALWAYS_NULL" priority="1" abbrev="NP" category="CORRECTNESS" last="0" removedByChange="true">
-    <UserAnnotation/>
+    <UserAnnotation timestamp="1240514795776"/>
     <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame">
       <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
     </Class>
@@ -70,7 +90,7 @@
     <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" start="135" end="135" startBytecode="78" endBytecode="78" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java" role="SOURCE_LINE_DEREF"/>
   </BugInstance>
   <BugInstance type="NP_LOAD_OF_KNOWN_NULL_VALUE" priority="2" abbrev="NP" category="STYLE">
-    <UserAnnotation/>
+    <UserAnnotation timestamp="1240514795777"/>
     <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame">
       <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
     </Class>
@@ -80,7 +100,7 @@
     <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" start="135" end="135" startBytecode="76" endBytecode="76" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
   </BugInstance>
   <BugInstance type="NP_LOAD_OF_KNOWN_NULL_VALUE" priority="2" abbrev="NP" category="STYLE" last="0" removedByChange="true">
-    <UserAnnotation/>
+    <UserAnnotation timestamp="1240514795777"/>
     <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame">
       <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
     </Class>
@@ -90,18 +110,27 @@
     <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" start="135" end="135" startBytecode="76" endBytecode="76" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
   </BugInstance>
   <BugInstance type="SIC_INNER_SHOULD_BE_STATIC" priority="2" abbrev="SIC" category="PERFORMANCE">
-    <UserAnnotation/>
+    <UserAnnotation timestamp="1240514795778"/>
     <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame">
       <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
     </Class>
   </BugInstance>
   <BugInstance type="SIC_INNER_SHOULD_BE_STATIC" priority="2" abbrev="SIC" category="PERFORMANCE" last="0" removedByChange="true">
-    <UserAnnotation/>
+    <UserAnnotation timestamp="1240514795778"/>
     <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame">
       <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
     </Class>
   </BugInstance>
   <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE">
+    <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread">
+      <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread" name="actionPerformed" signature="(Ljava/awt/event/ActionEvent;)V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread" start="672" end="689" startBytecode="0" endBytecode="176" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread" start="688" end="688" startBytecode="51" endBytecode="51" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+  </BugInstance>
+  <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE" last="0" removedByChange="true">
     <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread">
       <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
     </Class>
@@ -119,8 +148,17 @@
     </Method>
     <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread" start="651" end="651" startBytecode="99" endBytecode="99" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
   </BugInstance>
+  <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE" last="0" removedByChange="true">
+    <Class classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread">
+      <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread" name="run" signature="()V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread" start="614" end="665" startBytecode="0" endBytecode="337" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread" start="651" end="651" startBytecode="99" endBytecode="99" sourcefile="LoginFrame.java" sourcepath="org/gojul/fourinaline/gui/LoginFrame.java"/>
+  </BugInstance>
   <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE">
-    <UserAnnotation designation="NOT_A_BUG"/>
+    <UserAnnotation designation="NOT_A_BUG" timestamp="1240514795780"/>
     <Class classname="org.gojul.fourinaline.gui.MainFrame">
       <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
     </Class>
@@ -130,7 +168,37 @@
     <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" start="379" end="379" startBytecode="20" endBytecode="20" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
   </BugInstance>
   <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE">
-    <UserAnnotation designation="NOT_A_BUG"/>
+    <UserAnnotation designation="NOT_A_BUG" timestamp="1240514795780"/>
+    <Class classname="org.gojul.fourinaline.gui.MainFrame">
+      <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.gui.MainFrame" name="disconnectionFromServer" signature="()V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" start="397" end="401" startBytecode="0" endBytecode="85" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" start="400" end="400" startBytecode="20" endBytecode="20" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+  </BugInstance>
+  <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE" last="0" removedByChange="true">
+    <UserAnnotation designation="NOT_A_BUG" timestamp="1240514795780"/>
+    <Class classname="org.gojul.fourinaline.gui.MainFrame">
+      <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.gui.MainFrame" name="disconnectionFromServer" signature="()V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" start="397" end="401" startBytecode="0" endBytecode="85" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" start="400" end="400" startBytecode="20" endBytecode="20" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+  </BugInstance>
+  <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE">
+    <UserAnnotation designation="NOT_A_BUG" timestamp="1240514795780"/>
+    <Class classname="org.gojul.fourinaline.gui.MainFrame">
+      <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.gui.MainFrame" name="disconnectionFromServer" signature="()V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" start="414" end="418" startBytecode="0" endBytecode="85" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" start="417" end="417" startBytecode="20" endBytecode="20" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+  </BugInstance>
+  <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE" last="0" removedByChange="true">
+    <UserAnnotation designation="NOT_A_BUG" timestamp="1240514795780"/>
     <Class classname="org.gojul.fourinaline.gui.MainFrame">
       <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
     </Class>
@@ -140,7 +208,7 @@
     <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" start="417" end="417" startBytecode="20" endBytecode="20" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
   </BugInstance>
   <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE">
-    <UserAnnotation designation="NOT_A_BUG"/>
+    <UserAnnotation designation="NOT_A_BUG" timestamp="1240514795782"/>
     <Class classname="org.gojul.fourinaline.gui.MainFrame">
       <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
     </Class>
@@ -150,7 +218,27 @@
     <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" start="363" end="363" startBytecode="28" endBytecode="28" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
   </BugInstance>
   <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE">
-    <UserAnnotation designation="NOT_A_BUG"/>
+    <UserAnnotation designation="NOT_A_BUG" timestamp="1240514795782"/>
+    <Class classname="org.gojul.fourinaline.gui.MainFrame">
+      <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.gui.MainFrame" name="quit" signature="()V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" start="377" end="386" startBytecode="0" endBytecode="113" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" start="384" end="384" startBytecode="34" endBytecode="34" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+  </BugInstance>
+  <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE" last="0" removedByChange="true">
+    <UserAnnotation designation="NOT_A_BUG" timestamp="1240514795782"/>
+    <Class classname="org.gojul.fourinaline.gui.MainFrame">
+      <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.gui.MainFrame" name="quit" signature="()V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" start="377" end="386" startBytecode="0" endBytecode="113" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" start="384" end="384" startBytecode="34" endBytecode="34" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+  </BugInstance>
+  <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE">
+    <UserAnnotation designation="NOT_A_BUG" timestamp="1240514795783"/>
     <Class classname="org.gojul.fourinaline.gui.MainFrame">
       <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
     </Class>
@@ -159,8 +247,45 @@
     </Method>
     <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" start="401" end="401" startBytecode="30" endBytecode="30" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
   </BugInstance>
+  <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE" last="0" removedByChange="true">
+    <UserAnnotation designation="NOT_A_BUG" timestamp="1240514795783"/>
+    <Class classname="org.gojul.fourinaline.gui.MainFrame">
+      <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.gui.MainFrame" name="quit" signature="()V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" start="394" end="403" startBytecode="0" endBytecode="109" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.gui.MainFrame" start="401" end="401" startBytecode="30" endBytecode="30" sourcefile="MainFrame.java" sourcepath="org/gojul/fourinaline/gui/MainFrame.java"/>
+  </BugInstance>
+  <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE">
+    <Class classname="org.gojul.fourinaline.gui.PlayerSelectionFrame">
+      <SourceLine classname="org.gojul.fourinaline.gui.PlayerSelectionFrame" sourcefile="PlayerSelectionFrame.java" sourcepath="org/gojul/fourinaline/gui/PlayerSelectionFrame.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.gui.PlayerSelectionFrame" name="quit" signature="()V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.gui.PlayerSelectionFrame" start="388" end="404" startBytecode="0" endBytecode="153" sourcefile="PlayerSelectionFrame.java" sourcepath="org/gojul/fourinaline/gui/PlayerSelectionFrame.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.gui.PlayerSelectionFrame" start="403" end="403" startBytecode="42" endBytecode="42" sourcefile="PlayerSelectionFrame.java" sourcepath="org/gojul/fourinaline/gui/PlayerSelectionFrame.java"/>
+  </BugInstance>
+  <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE">
+    <Class classname="org.gojul.fourinaline.gui.PlayerSelectionFrame$WaitThread">
+      <SourceLine classname="org.gojul.fourinaline.gui.PlayerSelectionFrame$WaitThread" sourcefile="PlayerSelectionFrame.java" sourcepath="org/gojul/fourinaline/gui/PlayerSelectionFrame.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.gui.PlayerSelectionFrame$WaitThread" name="actionPerformed" signature="(Ljava/awt/event/ActionEvent;)V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.gui.PlayerSelectionFrame$WaitThread" start="680" end="697" startBytecode="0" endBytecode="176" sourcefile="PlayerSelectionFrame.java" sourcepath="org/gojul/fourinaline/gui/PlayerSelectionFrame.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.gui.PlayerSelectionFrame$WaitThread" start="696" end="696" startBytecode="51" endBytecode="51" sourcefile="PlayerSelectionFrame.java" sourcepath="org/gojul/fourinaline/gui/PlayerSelectionFrame.java"/>
+  </BugInstance>
+  <BugInstance type="DM_EXIT" priority="2" abbrev="Dm" category="BAD_PRACTICE">
+    <Class classname="org.gojul.fourinaline.gui.PlayerSelectionFrame$WaitThread">
+      <SourceLine classname="org.gojul.fourinaline.gui.PlayerSelectionFrame$WaitThread" sourcefile="PlayerSelectionFrame.java" sourcepath="org/gojul/fourinaline/gui/PlayerSelectionFrame.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.gui.PlayerSelectionFrame$WaitThread" name="run" signature="()V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.gui.PlayerSelectionFrame$WaitThread" start="614" end="673" startBytecode="0" endBytecode="322" sourcefile="PlayerSelectionFrame.java" sourcepath="org/gojul/fourinaline/gui/PlayerSelectionFrame.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.gui.PlayerSelectionFrame$WaitThread" start="651" end="651" startBytecode="99" endBytecode="99" sourcefile="PlayerSelectionFrame.java" sourcepath="org/gojul/fourinaline/gui/PlayerSelectionFrame.java"/>
+  </BugInstance>
   <BugInstance type="IS2_INCONSISTENT_SYNC" priority="2" abbrev="IS" category="MT_CORRECTNESS">
-    <UserAnnotation/>
+    <UserAnnotation timestamp="1240514795783"/>
     <Class classname="org.gojul.fourinaline.model.GameClient">
       <SourceLine classname="org.gojul.fourinaline.model.GameClient" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
     </Class>
@@ -173,7 +298,7 @@
     <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="215" end="215" startBytecode="1" endBytecode="1" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java" role="SOURCE_LINE_SYNC_ACCESS"/>
   </BugInstance>
   <BugInstance type="IS2_INCONSISTENT_SYNC" priority="2" abbrev="IS" category="MT_CORRECTNESS" last="0" removedByChange="true">
-    <UserAnnotation/>
+    <UserAnnotation timestamp="1240514795787"/>
     <Class classname="org.gojul.fourinaline.model.GameClient">
       <SourceLine classname="org.gojul.fourinaline.model.GameClient" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
     </Class>
@@ -186,7 +311,7 @@
     <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="215" end="215" startBytecode="1" endBytecode="1" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java" role="SOURCE_LINE_SYNC_ACCESS"/>
   </BugInstance>
   <BugInstance type="IS2_INCONSISTENT_SYNC" priority="2" abbrev="IS" category="MT_CORRECTNESS">
-    <UserAnnotation/>
+    <UserAnnotation timestamp="1240514795788"/>
     <Class classname="org.gojul.fourinaline.model.GameClient">
       <SourceLine classname="org.gojul.fourinaline.model.GameClient" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
     </Class>
@@ -199,7 +324,7 @@
     <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="219" end="219" startBytecode="1" endBytecode="1" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java" role="SOURCE_LINE_SYNC_ACCESS"/>
   </BugInstance>
   <BugInstance type="IS2_INCONSISTENT_SYNC" priority="2" abbrev="IS" category="MT_CORRECTNESS" last="0" removedByChange="true">
-    <UserAnnotation/>
+    <UserAnnotation timestamp="1240514795789"/>
     <Class classname="org.gojul.fourinaline.model.GameClient">
       <SourceLine classname="org.gojul.fourinaline.model.GameClient" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
     </Class>
@@ -210,9 +335,40 @@
     <SourceLine classname="org.gojul.fourinaline.model.GameClient$GameServerCaller" start="89" end="89" startBytecode="40" endBytecode="40" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java" role="SOURCE_LINE_UNSYNC_ACCESS"/>
     <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="145" end="145" startBytecode="31" endBytecode="31" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java" role="SOURCE_LINE_SYNC_ACCESS"/>
     <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="219" end="219" startBytecode="1" endBytecode="1" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java" role="SOURCE_LINE_SYNC_ACCESS"/>
+  </BugInstance>
+  <BugInstance type="SC_START_IN_CTOR" priority="1" abbrev="SC" category="MT_CORRECTNESS" introducedByChange="true">
+    <Class classname="org.gojul.fourinaline.model.GameClient">
+      <SourceLine classname="org.gojul.fourinaline.model.GameClient" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.model.GameClient" name="&lt;init&gt;" signature="(Lorg/gojul/fourinaline/model/GameServer;Lorg/gojul/fourinaline/model/GameServer$ServerTicket;Ljava/lang/String;)V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="171" end="193" startBytecode="0" endBytecode="217" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
+    </Method>
+    <Method classname="java.lang.Thread" name="start" signature="()V" isStatic="false" role="METHOD_CALLED">
+      <SourceLine classname="java.lang.Thread" start="594" end="601" startBytecode="0" endBytecode="90" sourcefile="Thread.java" sourcepath="java/lang/Thread.java"/>
+    </Method>
+    <Class classname="org.gojul.fourinaline.model.GameClient$ComputerGameClient" role="CLASS_SUBCLASS">
+      <SourceLine classname="org.gojul.fourinaline.model.GameClient$ComputerGameClient" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
+    </Class>
+    <Class classname="org.gojul.fourinaline.model.HumanGameClient" role="CLASS_SUBCLASS">
+      <SourceLine classname="org.gojul.fourinaline.model.HumanGameClient" sourcefile="HumanGameClient.java" sourcepath="org/gojul/fourinaline/model/HumanGameClient.java"/>
+    </Class>
+    <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="192" end="192" startBytecode="92" endBytecode="92" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
   </BugInstance>
   <BugInstance type="SC_START_IN_CTOR" priority="2" abbrev="SC" category="MT_CORRECTNESS">
-    <UserAnnotation designation="NOT_A_BUG"/>
+    <UserAnnotation designation="NOT_A_BUG" timestamp="1240514795790"/>
+    <Class classname="org.gojul.fourinaline.model.GameClient">
+      <SourceLine classname="org.gojul.fourinaline.model.GameClient" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.model.GameClient" name="&lt;init&gt;" signature="(Lorg/gojul/fourinaline/model/GameServer;Ljava/lang/String;)V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="135" end="156" startBytecode="0" endBytecode="219" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
+    </Method>
+    <Method classname="java.lang.Thread" name="start" signature="()V" isStatic="false" role="METHOD_CALLED">
+      <SourceLine classname="java.lang.Thread" start="570" end="575" startBytecode="0" endBytecode="76" sourcefile="Thread.java" sourcepath="java/lang/Thread.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="155" end="155" startBytecode="96" endBytecode="96" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
+  </BugInstance>
+  <BugInstance type="SC_START_IN_CTOR" priority="2" abbrev="SC" category="MT_CORRECTNESS" last="0" removedByChange="true">
+    <UserAnnotation designation="NOT_A_BUG" timestamp="1240514795790"/>
     <Class classname="org.gojul.fourinaline.model.GameClient">
       <SourceLine classname="org.gojul.fourinaline.model.GameClient" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
     </Class>
@@ -225,7 +381,7 @@
     <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="155" end="155" startBytecode="96" endBytecode="96" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
   </BugInstance>
   <BugInstance type="SC_START_IN_CTOR" priority="2" abbrev="SC" category="MT_CORRECTNESS">
-    <UserAnnotation designation="NOT_A_BUG"/>
+    <UserAnnotation designation="NOT_A_BUG" timestamp="1240514795792"/>
     <Class classname="org.gojul.fourinaline.model.GameClient">
       <SourceLine classname="org.gojul.fourinaline.model.GameClient" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
     </Class>
@@ -238,7 +394,7 @@
     <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="159" end="159" startBytecode="108" endBytecode="108" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
   </BugInstance>
   <BugInstance type="SC_START_IN_CTOR" priority="2" abbrev="SC" category="MT_CORRECTNESS" last="0" removedByChange="true">
-    <UserAnnotation designation="NOT_A_BUG"/>
+    <UserAnnotation designation="NOT_A_BUG" timestamp="1240514795798"/>
     <Class classname="org.gojul.fourinaline.model.GameClient">
       <SourceLine classname="org.gojul.fourinaline.model.GameClient" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
     </Class>
@@ -251,7 +407,7 @@
     <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="159" end="159" startBytecode="108" endBytecode="108" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
   </BugInstance>
   <BugInstance type="SC_START_IN_CTOR" priority="2" abbrev="SC" category="MT_CORRECTNESS">
-    <UserAnnotation designation="NOT_A_BUG"/>
+    <UserAnnotation designation="NOT_A_BUG" timestamp="1240514795799"/>
     <Class classname="org.gojul.fourinaline.model.GameClient">
       <SourceLine classname="org.gojul.fourinaline.model.GameClient" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
     </Class>
@@ -264,7 +420,7 @@
     <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="168" end="168" startBytecode="115" endBytecode="115" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
   </BugInstance>
   <BugInstance type="SC_START_IN_CTOR" priority="2" abbrev="SC" category="MT_CORRECTNESS" last="0" removedByChange="true">
-    <UserAnnotation designation="NOT_A_BUG"/>
+    <UserAnnotation designation="NOT_A_BUG" timestamp="1240514795803"/>
     <Class classname="org.gojul.fourinaline.model.GameClient">
       <SourceLine classname="org.gojul.fourinaline.model.GameClient" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
     </Class>
@@ -277,7 +433,7 @@
     <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="168" end="168" startBytecode="115" endBytecode="115" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
   </BugInstance>
   <BugInstance type="SC_START_IN_CTOR" priority="2" abbrev="SC" category="MT_CORRECTNESS">
-    <UserAnnotation designation="NOT_A_BUG"/>
+    <UserAnnotation designation="NOT_A_BUG" timestamp="1240514795803"/>
     <Class classname="org.gojul.fourinaline.model.GameClient">
       <SourceLine classname="org.gojul.fourinaline.model.GameClient" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
     </Class>
@@ -289,8 +445,69 @@
     </Method>
     <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="213" end="213" startBytecode="121" endBytecode="121" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
   </BugInstance>
-  <Errors></Errors>
-  <FindBugsSummary timestamp="Thu, 6 Mar 2008 22:44:52 +0100" total_classes="23" total_bugs="18" total_size="880" num_packages="2" cpu_seconds="67.41" clock_seconds="53.73" peak_mbytes="172.23" gc_seconds="3.01" priority_2="17" priority_1="1">
+  <BugInstance type="SC_START_IN_CTOR" priority="2" abbrev="SC" category="MT_CORRECTNESS" last="0" removedByChange="true">
+    <UserAnnotation designation="NOT_A_BUG" timestamp="1240514795803"/>
+    <Class classname="org.gojul.fourinaline.model.GameClient">
+      <SourceLine classname="org.gojul.fourinaline.model.GameClient" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.model.GameClient" name="&lt;init&gt;" signature="(Lorg/gojul/fourinaline/model/GameServer;Ljava/lang/String;)V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="171" end="214" startBytecode="0" endBytecode="318" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
+    </Method>
+    <Method classname="java.lang.Thread" name="start" signature="()V" isStatic="false" role="METHOD_CALLED">
+      <SourceLine classname="java.lang.Thread" start="570" end="575" startBytecode="0" endBytecode="76" sourcefile="Thread.java" sourcepath="java/lang/Thread.java"/>
+    </Method>
+    <SourceLine classname="org.gojul.fourinaline.model.GameClient" start="213" end="213" startBytecode="121" endBytecode="121" sourcefile="GameClient.java" sourcepath="org/gojul/fourinaline/model/GameClient.java"/>
+  </BugInstance>
+  <BugInstance type="NP_DEREFERENCE_OF_READLINE_VALUE" priority="1" abbrev="NP" category="STYLE" introducedByChange="true">
+    <UserAnnotation timestamp="1240514839294"/>
+    <Class classname="org.gojul.fourinaline.model.HumanGameClient$SimpleObserver">
+      <SourceLine classname="org.gojul.fourinaline.model.HumanGameClient$SimpleObserver" sourcefile="HumanGameClient.java" sourcepath="org/gojul/fourinaline/model/HumanGameClient.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.model.HumanGameClient$SimpleObserver" name="update" signature="(Ljava/util/Observable;Ljava/lang/Object;)V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.model.HumanGameClient$SimpleObserver" start="196" end="235" startBytecode="0" endBytecode="326" sourcefile="HumanGameClient.java" sourcepath="org/gojul/fourinaline/model/HumanGameClient.java"/>
+    </Method>
+    <Method classname="java.lang.Integer" name="parseInt" signature="(Ljava/lang/String;)I" isStatic="true" role="METHOD_CALLED">
+      <SourceLine classname="java.lang.Integer" start="497" end="497" startBytecode="0" endBytecode="30" sourcefile="Integer.java" sourcepath="java/lang/Integer.java"/>
+    </Method>
+    <Int value="1" role="INT_MAYBE_NULL_ARG"/>
+    <LocalVariable name="?" register="-1" pc="74" role="LOCAL_VARIABLE_UNKNOWN"/>
+    <SourceLine classname="org.gojul.fourinaline.model.HumanGameClient$SimpleObserver" start="216" end="216" startBytecode="74" endBytecode="74" sourcefile="HumanGameClient.java" sourcepath="org/gojul/fourinaline/model/HumanGameClient.java"/>
+    <Property name="edu.umd.cs.findbugs.detect.NullDerefProperty.DEREFS_IN_CATCH_BLOCKS" value="true"/>
+  </BugInstance>
+  <BugInstance type="NP_DEREFERENCE_OF_READLINE_VALUE" priority="1" abbrev="NP" category="STYLE" last="0" introducedByChange="true" removedByChange="true">
+    <UserAnnotation timestamp="1240514839294"/>
+    <Class classname="org.gojul.fourinaline.model.HumanGameClient$SimpleObserver">
+      <SourceLine classname="org.gojul.fourinaline.model.HumanGameClient$SimpleObserver" sourcefile="HumanGameClient.java" sourcepath="org/gojul/fourinaline/model/HumanGameClient.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.model.HumanGameClient$SimpleObserver" name="update" signature="(Ljava/util/Observable;Ljava/lang/Object;)V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.model.HumanGameClient$SimpleObserver" start="196" end="235" startBytecode="0" endBytecode="326" sourcefile="HumanGameClient.java" sourcepath="org/gojul/fourinaline/model/HumanGameClient.java"/>
+    </Method>
+    <Method classname="java.lang.Integer" name="parseInt" signature="(Ljava/lang/String;)I" isStatic="true" role="METHOD_CALLED">
+      <SourceLine classname="java.lang.Integer" start="497" end="497" startBytecode="0" endBytecode="30" sourcefile="Integer.java" sourcepath="java/lang/Integer.java"/>
+    </Method>
+    <Int value="1" role="INT_MAYBE_NULL_ARG"/>
+    <LocalVariable name="?" register="-1" pc="74" role="LOCAL_VARIABLE_UNKNOWN"/>
+    <SourceLine classname="org.gojul.fourinaline.model.HumanGameClient$SimpleObserver" start="216" end="216" startBytecode="74" endBytecode="74" sourcefile="HumanGameClient.java" sourcepath="org/gojul/fourinaline/model/HumanGameClient.java"/>
+    <Property name="edu.umd.cs.findbugs.detect.NullDerefProperty.DEREFS_IN_CATCH_BLOCKS" value="true"/>
+  </BugInstance>
+  <BugInstance type="NP_DEREFERENCE_OF_READLINE_VALUE" priority="1" abbrev="NP" category="STYLE" introducedByChange="true">
+    <UserAnnotation timestamp="1240515429278"/>
+    <Class classname="org.gojul.fourinaline.model.HumanGameClient$SimpleObserver">
+      <SourceLine classname="org.gojul.fourinaline.model.HumanGameClient$SimpleObserver" sourcefile="HumanGameClient.java" sourcepath="org/gojul/fourinaline/model/HumanGameClient.java"/>
+    </Class>
+    <Method classname="org.gojul.fourinaline.model.HumanGameClient$SimpleObserver" name="update" signature="(Ljava/util/Observable;Ljava/lang/Object;)V" isStatic="false">
+      <SourceLine classname="org.gojul.fourinaline.model.HumanGameClient$SimpleObserver" start="196" end="240" startBytecode="0" endBytecode="369" sourcefile="HumanGameClient.java" sourcepath="org/gojul/fourinaline/model/HumanGameClient.java"/>
+    </Method>
+    <Method classname="java.lang.Integer" name="parseInt" signature="(Ljava/lang/String;)I" isStatic="true" role="METHOD_CALLED">
+      <SourceLine classname="java.lang.Integer" start="497" end="497" startBytecode="0" endBytecode="30" sourcefile="Integer.java" sourcepath="java/lang/Integer.java"/>
+    </Method>
+    <Int value="1" role="INT_MAYBE_NULL_ARG"/>
+    <LocalVariable name="line" register="5" pc="93" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="org.gojul.fourinaline.model.HumanGameClient$SimpleObserver" start="221" end="221" startBytecode="95" endBytecode="95" sourcefile="HumanGameClient.java" sourcepath="org/gojul/fourinaline/model/HumanGameClient.java"/>
+    <Property name="edu.umd.cs.findbugs.detect.NullDerefProperty.DEREFS_IN_CATCH_BLOCKS" value="true"/>
+  </BugInstance>
+  <Errors errors="0" missingClasses="0"></Errors>
+  <FindBugsSummary timestamp="Thu, 6 Mar 2008 21:44:52 +0000" total_classes="24" referenced_classes="0" total_bugs="18" total_size="880" num_packages="2" cpu_seconds="124.96" clock_seconds="912.27" peak_mbytes="200.39" alloc_mbytes="739.56" gc_seconds="8.14" priority_2="17" priority_1="1">
     <PackageStats package="org.gojul.fourinaline.gui" total_bugs="12" total_types="3" total_size="0" priority_2="11" priority_1="1">
       <ClassStats class="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame" sourceFile="LoginFrame.java" interface="false" size="0" bugs="6" priority_2="5" priority_1="1"/>
       <ClassStats class="org.gojul.fourinaline.gui.LoginFrame$PlayerSelectionFrame$WaitThread" sourceFile="LoginFrame.java" interface="false" size="0" bugs="2" priority_2="2"/>
@@ -319,6 +536,157 @@
       <ClassStats class="org.gojul.fourinaline.model.HumanGameClient$SimpleObserver" sourceFile="HumanGameClient.java" interface="false" size="24" bugs="0"/>
       <ClassStats class="org.gojul.fourinaline.model.UnmodifiableGamePlayer" sourceFile="GamePlayer.java" interface="false" size="21" bugs="0"/>
     </PackageStats>
+    <FindBugsProfile>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindSleepWithLockHeld" totalMilliseconds="11" invocations="275" avgMicrosecondsPerInvocation="40" maxMicrosecondsPerInvocation="777" standardDeviationMircosecondsPerInvocation="81"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UsagesRequiringNonNullValuesFactory" totalMilliseconds="13" invocations="4" avgMicrosecondsPerInvocation="3301" maxMicrosecondsPerInvocation="9388" standardDeviationMircosecondsPerInvocation="3515"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.LockCheckerFactory" totalMilliseconds="13" invocations="1419" avgMicrosecondsPerInvocation="9" maxMicrosecondsPerInvocation="593" standardDeviationMircosecondsPerInvocation="21"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DroppedException" totalMilliseconds="13" invocations="275" avgMicrosecondsPerInvocation="50" maxMicrosecondsPerInvocation="1664" standardDeviationMircosecondsPerInvocation="119"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.StartInConstructor" totalMilliseconds="14" invocations="275" avgMicrosecondsPerInvocation="51" maxMicrosecondsPerInvocation="2288" standardDeviationMircosecondsPerInvocation="154"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindTwoLockWait" totalMilliseconds="14" invocations="275" avgMicrosecondsPerInvocation="51" maxMicrosecondsPerInvocation="620" standardDeviationMircosecondsPerInvocation="74"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindMismatchedWaitOrNotify" totalMilliseconds="15" invocations="275" avgMicrosecondsPerInvocation="57" maxMicrosecondsPerInvocation="3795" standardDeviationMircosecondsPerInvocation="232"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.InconsistentAnnotations" totalMilliseconds="16" invocations="275" avgMicrosecondsPerInvocation="58" maxMicrosecondsPerInvocation="3324" standardDeviationMircosecondsPerInvocation="217"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.InitializationChain" totalMilliseconds="17" invocations="275" avgMicrosecondsPerInvocation="64" maxMicrosecondsPerInvocation="4249" standardDeviationMircosecondsPerInvocation="262"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.AssertionMethodsFactory" totalMilliseconds="20" invocations="250" avgMicrosecondsPerInvocation="80" maxMicrosecondsPerInvocation="2373" standardDeviationMircosecondsPerInvocation="171"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.StaticCalendarDetector" totalMilliseconds="21" invocations="275" avgMicrosecondsPerInvocation="78" maxMicrosecondsPerInvocation="1112" standardDeviationMircosecondsPerInvocation="99"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ObligationDataflowFactory" totalMilliseconds="24" invocations="56" avgMicrosecondsPerInvocation="430" maxMicrosecondsPerInvocation="15449" standardDeviationMircosecondsPerInvocation="2030"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SynchronizeOnClassLiteralNotGetClass" totalMilliseconds="24" invocations="275" avgMicrosecondsPerInvocation="88" maxMicrosecondsPerInvocation="7796" standardDeviationMircosecondsPerInvocation="474"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BadlyOverriddenAdapter" totalMilliseconds="25" invocations="275" avgMicrosecondsPerInvocation="91" maxMicrosecondsPerInvocation="2058" standardDeviationMircosecondsPerInvocation="157"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNakedNotify" totalMilliseconds="25" invocations="275" avgMicrosecondsPerInvocation="92" maxMicrosecondsPerInvocation="717" standardDeviationMircosecondsPerInvocation="118"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.UncallableMethodOfAnonymousClass" totalMilliseconds="26" invocations="275" avgMicrosecondsPerInvocation="96" maxMicrosecondsPerInvocation="3202" standardDeviationMircosecondsPerInvocation="210"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.LazyInit" totalMilliseconds="26" invocations="275" avgMicrosecondsPerInvocation="98" maxMicrosecondsPerInvocation="10293" standardDeviationMircosecondsPerInvocation="644"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.InheritanceUnsafeGetResource" totalMilliseconds="27" invocations="275" avgMicrosecondsPerInvocation="99" maxMicrosecondsPerInvocation="740" standardDeviationMircosecondsPerInvocation="135"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindUnsatisfiedObligation" totalMilliseconds="28" invocations="275" avgMicrosecondsPerInvocation="102" maxMicrosecondsPerInvocation="4240" standardDeviationMircosecondsPerInvocation="280"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.MutableLock" totalMilliseconds="28" invocations="275" avgMicrosecondsPerInvocation="103" maxMicrosecondsPerInvocation="1511" standardDeviationMircosecondsPerInvocation="169"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindRunInvocations" totalMilliseconds="28" invocations="275" avgMicrosecondsPerInvocation="105" maxMicrosecondsPerInvocation="1382" standardDeviationMircosecondsPerInvocation="157"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CloneIdiom" totalMilliseconds="29" invocations="275" avgMicrosecondsPerInvocation="105" maxMicrosecondsPerInvocation="8086" standardDeviationMircosecondsPerInvocation="515"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindFinalizeInvocations" totalMilliseconds="29" invocations="275" avgMicrosecondsPerInvocation="108" maxMicrosecondsPerInvocation="5492" standardDeviationMircosecondsPerInvocation="344"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NumberConstructor" totalMilliseconds="30" invocations="275" avgMicrosecondsPerInvocation="109" maxMicrosecondsPerInvocation="1640" standardDeviationMircosecondsPerInvocation="188"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.WaitInLoop" totalMilliseconds="30" invocations="275" avgMicrosecondsPerInvocation="112" maxMicrosecondsPerInvocation="1183" standardDeviationMircosecondsPerInvocation="170"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BooleanReturnNull" totalMilliseconds="31" invocations="275" avgMicrosecondsPerInvocation="113" maxMicrosecondsPerInvocation="6650" standardDeviationMircosecondsPerInvocation="437"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.IDivResultCastToDouble" totalMilliseconds="31" invocations="275" avgMicrosecondsPerInvocation="115" maxMicrosecondsPerInvocation="3064" standardDeviationMircosecondsPerInvocation="238"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindLocalSelfAssignment2" totalMilliseconds="33" invocations="275" avgMicrosecondsPerInvocation="120" maxMicrosecondsPerInvocation="795" standardDeviationMircosecondsPerInvocation="151"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.HugeSharedStringConstants" totalMilliseconds="34" invocations="275" avgMicrosecondsPerInvocation="126" maxMicrosecondsPerInvocation="7985" standardDeviationMircosecondsPerInvocation="575"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.InstantiateStaticClass" totalMilliseconds="35" invocations="275" avgMicrosecondsPerInvocation="128" maxMicrosecondsPerInvocation="10294" standardDeviationMircosecondsPerInvocation="630"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SuspiciousThreadInterrupted" totalMilliseconds="35" invocations="275" avgMicrosecondsPerInvocation="128" maxMicrosecondsPerInvocation="5143" standardDeviationMircosecondsPerInvocation="347"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindUselessControlFlow" totalMilliseconds="36" invocations="275" avgMicrosecondsPerInvocation="131" maxMicrosecondsPerInvocation="9822" standardDeviationMircosecondsPerInvocation="598"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.WrongMapIterator" totalMilliseconds="36" invocations="275" avgMicrosecondsPerInvocation="132" maxMicrosecondsPerInvocation="1266" standardDeviationMircosecondsPerInvocation="182"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.MutableStaticFields" totalMilliseconds="38" invocations="275" avgMicrosecondsPerInvocation="141" maxMicrosecondsPerInvocation="8858" standardDeviationMircosecondsPerInvocation="555"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.VolatileUsage" totalMilliseconds="39" invocations="275" avgMicrosecondsPerInvocation="145" maxMicrosecondsPerInvocation="6961" standardDeviationMircosecondsPerInvocation="531"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SuperfluousInstanceOf" totalMilliseconds="40" invocations="275" avgMicrosecondsPerInvocation="148" maxMicrosecondsPerInvocation="10946" standardDeviationMircosecondsPerInvocation="671"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.EmptyZipFileEntry" totalMilliseconds="41" invocations="275" avgMicrosecondsPerInvocation="151" maxMicrosecondsPerInvocation="17221" standardDeviationMircosecondsPerInvocation="1043"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindDoubleCheck" totalMilliseconds="42" invocations="275" avgMicrosecondsPerInvocation="155" maxMicrosecondsPerInvocation="3489" standardDeviationMircosecondsPerInvocation="304"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.IncompatMask" totalMilliseconds="44" invocations="275" avgMicrosecondsPerInvocation="160" maxMicrosecondsPerInvocation="16573" standardDeviationMircosecondsPerInvocation="1001"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindUncalledPrivateMethods" totalMilliseconds="44" invocations="275" avgMicrosecondsPerInvocation="162" maxMicrosecondsPerInvocation="4350" standardDeviationMircosecondsPerInvocation="354"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindMaskedFields" totalMilliseconds="45" invocations="275" avgMicrosecondsPerInvocation="165" maxMicrosecondsPerInvocation="4828" standardDeviationMircosecondsPerInvocation="395"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.StringConcatenation" totalMilliseconds="45" invocations="275" avgMicrosecondsPerInvocation="165" maxMicrosecondsPerInvocation="8148" standardDeviationMircosecondsPerInvocation="685"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BadUseOfReturnValue" totalMilliseconds="45" invocations="275" avgMicrosecondsPerInvocation="166" maxMicrosecondsPerInvocation="19121" standardDeviationMircosecondsPerInvocation="1156"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNonSerializableValuePassedToWriteObject" totalMilliseconds="47" invocations="275" avgMicrosecondsPerInvocation="171" maxMicrosecondsPerInvocation="11515" standardDeviationMircosecondsPerInvocation="763"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindUninitializedGet" totalMilliseconds="47" invocations="275" avgMicrosecondsPerInvocation="174" maxMicrosecondsPerInvocation="6716" standardDeviationMircosecondsPerInvocation="602"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DoInsideDoPrivileged" totalMilliseconds="48" invocations="275" avgMicrosecondsPerInvocation="176" maxMicrosecondsPerInvocation="19954" standardDeviationMircosecondsPerInvocation="1207"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindSpinLoop" totalMilliseconds="49" invocations="275" avgMicrosecondsPerInvocation="179" maxMicrosecondsPerInvocation="18683" standardDeviationMircosecondsPerInvocation="1130"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DontUseEnum" totalMilliseconds="50" invocations="275" avgMicrosecondsPerInvocation="181" maxMicrosecondsPerInvocation="40176" standardDeviationMircosecondsPerInvocation="2417"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindSelfComparison2" totalMilliseconds="50" invocations="275" avgMicrosecondsPerInvocation="182" maxMicrosecondsPerInvocation="8992" standardDeviationMircosecondsPerInvocation="604"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindUnconditionalWait" totalMilliseconds="52" invocations="275" avgMicrosecondsPerInvocation="190" maxMicrosecondsPerInvocation="26645" standardDeviationMircosecondsPerInvocation="1603"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.VarArgsProblems" totalMilliseconds="56" invocations="275" avgMicrosecondsPerInvocation="204" maxMicrosecondsPerInvocation="30438" standardDeviationMircosecondsPerInvocation="1831"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindFieldSelfAssignment" totalMilliseconds="57" invocations="275" avgMicrosecondsPerInvocation="210" maxMicrosecondsPerInvocation="30408" standardDeviationMircosecondsPerInvocation="1830"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.ReadReturnShouldBeChecked" totalMilliseconds="58" invocations="275" avgMicrosecondsPerInvocation="213" maxMicrosecondsPerInvocation="12160" standardDeviationMircosecondsPerInvocation="873"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethodInvocations" totalMilliseconds="61" invocations="275" avgMicrosecondsPerInvocation="222" maxMicrosecondsPerInvocation="2773" standardDeviationMircosecondsPerInvocation="367"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.LoadedFieldSetFactory" totalMilliseconds="61" invocations="1484" avgMicrosecondsPerInvocation="41" maxMicrosecondsPerInvocation="5703" standardDeviationMircosecondsPerInvocation="230"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.InefficientToArray" totalMilliseconds="62" invocations="275" avgMicrosecondsPerInvocation="225" maxMicrosecondsPerInvocation="30586" standardDeviationMircosecondsPerInvocation="1863"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.XMLFactoryBypass" totalMilliseconds="62" invocations="275" avgMicrosecondsPerInvocation="228" maxMicrosecondsPerInvocation="21081" standardDeviationMircosecondsPerInvocation="1425"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNonSerializableStoreIntoSession" totalMilliseconds="64" invocations="275" avgMicrosecondsPerInvocation="233" maxMicrosecondsPerInvocation="30358" standardDeviationMircosecondsPerInvocation="1830"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindEmptySynchronizedBlock" totalMilliseconds="67" invocations="275" avgMicrosecondsPerInvocation="246" maxMicrosecondsPerInvocation="22307" standardDeviationMircosecondsPerInvocation="1578"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SynchronizeAndNullCheckField" totalMilliseconds="72" invocations="275" avgMicrosecondsPerInvocation="263" maxMicrosecondsPerInvocation="30421" standardDeviationMircosecondsPerInvocation="1843"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteUnconditionalParamDerefs" totalMilliseconds="72" invocations="275" avgMicrosecondsPerInvocation="265" maxMicrosecondsPerInvocation="7334" standardDeviationMircosecondsPerInvocation="556"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindReturnRef" totalMilliseconds="75" invocations="275" avgMicrosecondsPerInvocation="275" maxMicrosecondsPerInvocation="22037" standardDeviationMircosecondsPerInvocation="1440"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.UnnecessaryMath" totalMilliseconds="77" invocations="275" avgMicrosecondsPerInvocation="282" maxMicrosecondsPerInvocation="24036" standardDeviationMircosecondsPerInvocation="2007"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantPoolGenFactory" totalMilliseconds="79" invocations="275" avgMicrosecondsPerInvocation="287" maxMicrosecondsPerInvocation="23837" standardDeviationMircosecondsPerInvocation="1524"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.QuestionableBooleanAssignment" totalMilliseconds="79" invocations="275" avgMicrosecondsPerInvocation="290" maxMicrosecondsPerInvocation="54400" standardDeviationMircosecondsPerInvocation="3271"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindBugsSummaryStats" totalMilliseconds="83" invocations="2209" avgMicrosecondsPerInvocation="37" maxMicrosecondsPerInvocation="46376" standardDeviationMircosecondsPerInvocation="987"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindFloatEquality" totalMilliseconds="84" invocations="275" avgMicrosecondsPerInvocation="306" maxMicrosecondsPerInvocation="2915" standardDeviationMircosecondsPerInvocation="473"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodFactory" totalMilliseconds="88" invocations="2146" avgMicrosecondsPerInvocation="41" maxMicrosecondsPerInvocation="1916" standardDeviationMircosecondsPerInvocation="104"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindUnsyncGet" totalMilliseconds="99" invocations="275" avgMicrosecondsPerInvocation="362" maxMicrosecondsPerInvocation="57087" standardDeviationMircosecondsPerInvocation="3484"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ReverseDepthFirstSearchFactory" totalMilliseconds="99" invocations="1484" avgMicrosecondsPerInvocation="67" maxMicrosecondsPerInvocation="21813" standardDeviationMircosecondsPerInvocation="727"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindSelfComparison" totalMilliseconds="99" invocations="275" avgMicrosecondsPerInvocation="363" maxMicrosecondsPerInvocation="3640" standardDeviationMircosecondsPerInvocation="540"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindBadCast2" totalMilliseconds="103" invocations="275" avgMicrosecondsPerInvocation="375" maxMicrosecondsPerInvocation="34816" standardDeviationMircosecondsPerInvocation="2271"/>
+      <ClassProfile name="edu.umd.cs.findbugs.util.TopologicalSort" totalMilliseconds="104" invocations="280" avgMicrosecondsPerInvocation="374" maxMicrosecondsPerInvocation="31965" standardDeviationMircosecondsPerInvocation="2469"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CrossSiteScripting" totalMilliseconds="106" invocations="275" avgMicrosecondsPerInvocation="387" maxMicrosecondsPerInvocation="9052" standardDeviationMircosecondsPerInvocation="839"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FormatStringChecker" totalMilliseconds="108" invocations="275" avgMicrosecondsPerInvocation="393" maxMicrosecondsPerInvocation="6960" standardDeviationMircosecondsPerInvocation="723"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.AppendingToAnObjectOutputStream" totalMilliseconds="109" invocations="275" avgMicrosecondsPerInvocation="396" maxMicrosecondsPerInvocation="13367" standardDeviationMircosecondsPerInvocation="1026"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.InfiniteRecursiveLoop" totalMilliseconds="110" invocations="275" avgMicrosecondsPerInvocation="403" maxMicrosecondsPerInvocation="27635" standardDeviationMircosecondsPerInvocation="1713"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SynchronizingOnContentsOfFieldToProtectField" totalMilliseconds="111" invocations="275" avgMicrosecondsPerInvocation="404" maxMicrosecondsPerInvocation="10983" standardDeviationMircosecondsPerInvocation="1001"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SynchronizationOnSharedBuiltinConstant" totalMilliseconds="113" invocations="275" avgMicrosecondsPerInvocation="412" maxMicrosecondsPerInvocation="24451" standardDeviationMircosecondsPerInvocation="1529"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BadSyntaxForRegularExpression" totalMilliseconds="114" invocations="275" avgMicrosecondsPerInvocation="415" maxMicrosecondsPerInvocation="30574" standardDeviationMircosecondsPerInvocation="1880"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindUnrelatedTypesInGenericContainer" totalMilliseconds="116" invocations="275" avgMicrosecondsPerInvocation="422" maxMicrosecondsPerInvocation="10908" standardDeviationMircosecondsPerInvocation="1121"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteCheckReturnValue" totalMilliseconds="118" invocations="2209" avgMicrosecondsPerInvocation="53" maxMicrosecondsPerInvocation="4124" standardDeviationMircosecondsPerInvocation="161"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindPuzzlers" totalMilliseconds="118" invocations="275" avgMicrosecondsPerInvocation="430" maxMicrosecondsPerInvocation="5633" standardDeviationMircosecondsPerInvocation="742"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.Naming" totalMilliseconds="119" invocations="275" avgMicrosecondsPerInvocation="434" maxMicrosecondsPerInvocation="48920" standardDeviationMircosecondsPerInvocation="3114"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.asm.ClassReaderAnalysisEngine" totalMilliseconds="129" invocations="7352" avgMicrosecondsPerInvocation="17" maxMicrosecondsPerInvocation="44969" standardDeviationMircosecondsPerInvocation="539"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.LockDataflowFactory" totalMilliseconds="139" invocations="70" avgMicrosecondsPerInvocation="1987" maxMicrosecondsPerInvocation="28356" standardDeviationMircosecondsPerInvocation="3723"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteNonnullReturnValues" totalMilliseconds="140" invocations="275" avgMicrosecondsPerInvocation="510" maxMicrosecondsPerInvocation="28203" standardDeviationMircosecondsPerInvocation="1947"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BadResultSetAccess" totalMilliseconds="141" invocations="275" avgMicrosecondsPerInvocation="515" maxMicrosecondsPerInvocation="44728" standardDeviationMircosecondsPerInvocation="2717"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ClassContextClassAnalysisEngine" totalMilliseconds="142" invocations="3088" avgMicrosecondsPerInvocation="45" maxMicrosecondsPerInvocation="51209" standardDeviationMircosecondsPerInvocation="1011"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindHEmismatch" totalMilliseconds="148" invocations="275" avgMicrosecondsPerInvocation="539" maxMicrosecondsPerInvocation="30394" standardDeviationMircosecondsPerInvocation="2074"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.InfiniteLoop" totalMilliseconds="151" invocations="275" avgMicrosecondsPerInvocation="552" maxMicrosecondsPerInvocation="26089" standardDeviationMircosecondsPerInvocation="2194"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteAnnotationRetention" totalMilliseconds="153" invocations="2209" avgMicrosecondsPerInvocation="69" maxMicrosecondsPerInvocation="20278" standardDeviationMircosecondsPerInvocation="509"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNonShortCircuit" totalMilliseconds="154" invocations="275" avgMicrosecondsPerInvocation="561" maxMicrosecondsPerInvocation="28485" standardDeviationMircosecondsPerInvocation="2311"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DuplicateBranches" totalMilliseconds="176" invocations="275" avgMicrosecondsPerInvocation="643" maxMicrosecondsPerInvocation="32260" standardDeviationMircosecondsPerInvocation="2788"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.RuntimeExceptionCapture" totalMilliseconds="177" invocations="275" avgMicrosecondsPerInvocation="645" maxMicrosecondsPerInvocation="32807" standardDeviationMircosecondsPerInvocation="2093"/>
+      <ClassProfile name="edu.umd.cs.findbugs.SAXBugCollectionHandler" totalMilliseconds="180" invocations="1" avgMicrosecondsPerInvocation="180462" maxMicrosecondsPerInvocation="180462" standardDeviationMircosecondsPerInvocation="0"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.Methods" totalMilliseconds="188" invocations="2209" avgMicrosecondsPerInvocation="85" maxMicrosecondsPerInvocation="32299" standardDeviationMircosecondsPerInvocation="949"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindBadForLoop" totalMilliseconds="189" invocations="275" avgMicrosecondsPerInvocation="688" maxMicrosecondsPerInvocation="47253" standardDeviationMircosecondsPerInvocation="3930"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.DepthFirstSearchFactory" totalMilliseconds="191" invocations="2014" avgMicrosecondsPerInvocation="95" maxMicrosecondsPerInvocation="48122" standardDeviationMircosecondsPerInvocation="1300"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.MethodReturnCheck" totalMilliseconds="194" invocations="275" avgMicrosecondsPerInvocation="707" maxMicrosecondsPerInvocation="41366" standardDeviationMircosecondsPerInvocation="2968"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteSuppressedWarnings" totalMilliseconds="196" invocations="2209" avgMicrosecondsPerInvocation="89" maxMicrosecondsPerInvocation="22991" standardDeviationMircosecondsPerInvocation="535"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteJCIPAnnotation" totalMilliseconds="197" invocations="2209" avgMicrosecondsPerInvocation="89" maxMicrosecondsPerInvocation="33356" standardDeviationMircosecondsPerInvocation="875"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindSqlInjection" totalMilliseconds="201" invocations="275" avgMicrosecondsPerInvocation="733" maxMicrosecondsPerInvocation="47528" standardDeviationMircosecondsPerInvocation="3681"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethods" totalMilliseconds="206" invocations="275" avgMicrosecondsPerInvocation="752" maxMicrosecondsPerInvocation="20663" standardDeviationMircosecondsPerInvocation="1715"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteNonNullAnnotations" totalMilliseconds="207" invocations="2209" avgMicrosecondsPerInvocation="93" maxMicrosecondsPerInvocation="30334" standardDeviationMircosecondsPerInvocation="920"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDerefsInvolvingNonShortCircuitEvaluation" totalMilliseconds="212" invocations="275" avgMicrosecondsPerInvocation="771" maxMicrosecondsPerInvocation="40584" standardDeviationMircosecondsPerInvocation="3844"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindDeadLocalStores" totalMilliseconds="214" invocations="275" avgMicrosecondsPerInvocation="778" maxMicrosecondsPerInvocation="31671" standardDeviationMircosecondsPerInvocation="2731"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDeref" totalMilliseconds="214" invocations="275" avgMicrosecondsPerInvocation="780" maxMicrosecondsPerInvocation="40213" standardDeviationMircosecondsPerInvocation="3411"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.RepeatedConditionals" totalMilliseconds="217" invocations="275" avgMicrosecondsPerInvocation="790" maxMicrosecondsPerInvocation="93919" standardDeviationMircosecondsPerInvocation="5709"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteCheckReturnValueAnnotations" totalMilliseconds="226" invocations="2209" avgMicrosecondsPerInvocation="102" maxMicrosecondsPerInvocation="57530" standardDeviationMircosecondsPerInvocation="1444"/>
+      <ClassProfile name="edu.umd.cs.findbugs.DetectorToDetector2Adapter" totalMilliseconds="231" invocations="31634" avgMicrosecondsPerInvocation="7" maxMicrosecondsPerInvocation="30307" standardDeviationMircosecondsPerInvocation="192"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.obl.ObligationAnalysis" totalMilliseconds="235" invocations="56" avgMicrosecondsPerInvocation="4206" maxMicrosecondsPerInvocation="37511" standardDeviationMircosecondsPerInvocation="6792"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SwitchFallthrough" totalMilliseconds="241" invocations="275" avgMicrosecondsPerInvocation="879" maxMicrosecondsPerInvocation="55526" standardDeviationMircosecondsPerInvocation="4098"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindRefComparison" totalMilliseconds="248" invocations="275" avgMicrosecondsPerInvocation="904" maxMicrosecondsPerInvocation="25325" standardDeviationMircosecondsPerInvocation="2288"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CallToUnsupportedMethod" totalMilliseconds="279" invocations="275" avgMicrosecondsPerInvocation="1015" maxMicrosecondsPerInvocation="29641" standardDeviationMircosecondsPerInvocation="3346"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ReturnPathTypeDataflowFactory" totalMilliseconds="287" invocations="757" avgMicrosecondsPerInvocation="380" maxMicrosecondsPerInvocation="27770" standardDeviationMircosecondsPerInvocation="1513"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindOpenStream" totalMilliseconds="293" invocations="275" avgMicrosecondsPerInvocation="1066" maxMicrosecondsPerInvocation="70593" standardDeviationMircosecondsPerInvocation="5453"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.UnreadFields" totalMilliseconds="314" invocations="275" avgMicrosecondsPerInvocation="1144" maxMicrosecondsPerInvocation="28244" standardDeviationMircosecondsPerInvocation="2826"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDeref$CheckCallSitesAndReturnInstructions" totalMilliseconds="315" invocations="1484" avgMicrosecondsPerInvocation="212" maxMicrosecondsPerInvocation="39151" standardDeviationMircosecondsPerInvocation="1088"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.URLProblems" totalMilliseconds="322" invocations="275" avgMicrosecondsPerInvocation="1174" maxMicrosecondsPerInvocation="32784" standardDeviationMircosecondsPerInvocation="3443"/>
+      <ClassProfile name="edu.umd.cs.findbugs.NonReportingDetectorToDetector2Adapter" totalMilliseconds="323" invocations="29267" avgMicrosecondsPerInvocation="11" maxMicrosecondsPerInvocation="68986" standardDeviationMircosecondsPerInvocation="450"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.LoadOfKnownNullValue" totalMilliseconds="345" invocations="275" avgMicrosecondsPerInvocation="1255" maxMicrosecondsPerInvocation="32327" standardDeviationMircosecondsPerInvocation="4181"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.StreamResourceTracker" totalMilliseconds="346" invocations="172" avgMicrosecondsPerInvocation="2015" maxMicrosecondsPerInvocation="51202" standardDeviationMircosecondsPerInvocation="5521"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindInconsistentSync2" totalMilliseconds="350" invocations="275" avgMicrosecondsPerInvocation="1273" maxMicrosecondsPerInvocation="33954" standardDeviationMircosecondsPerInvocation="3778"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SerializableIdiom" totalMilliseconds="428" invocations="275" avgMicrosecondsPerInvocation="1559" maxMicrosecondsPerInvocation="68633" standardDeviationMircosecondsPerInvocation="6664"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.TypeQualifierNullnessAnnotationDatabase" totalMilliseconds="452" invocations="23651" avgMicrosecondsPerInvocation="19" maxMicrosecondsPerInvocation="57339" standardDeviationMircosecondsPerInvocation="512"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.LiveLocalStoreDataflowFactory" totalMilliseconds="475" invocations="1389" avgMicrosecondsPerInvocation="342" maxMicrosecondsPerInvocation="48193" standardDeviationMircosecondsPerInvocation="1947"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.ReflectiveClasses" totalMilliseconds="670" invocations="2209" avgMicrosecondsPerInvocation="303" maxMicrosecondsPerInvocation="51017" standardDeviationMircosecondsPerInvocation="1757"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.EqualsOperandShouldHaveClassCompatibleWithThis" totalMilliseconds="711" invocations="2209" avgMicrosecondsPerInvocation="321" maxMicrosecondsPerInvocation="38650" standardDeviationMircosecondsPerInvocation="1660"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CalledMethods" totalMilliseconds="873" invocations="2209" avgMicrosecondsPerInvocation="395" maxMicrosecondsPerInvocation="62529" standardDeviationMircosecondsPerInvocation="2218"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="920" invocations="2209" avgMicrosecondsPerInvocation="416" maxMicrosecondsPerInvocation="52754" standardDeviationMircosecondsPerInvocation="2188"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.impl.ZipCodeBaseFactory" totalMilliseconds="1047" invocations="45" avgMicrosecondsPerInvocation="23286" maxMicrosecondsPerInvocation="500569" standardDeviationMircosecondsPerInvocation="84641"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.JavaClassAnalysisEngine" totalMilliseconds="1124" invocations="2743" avgMicrosecondsPerInvocation="409" maxMicrosecondsPerInvocation="48167" standardDeviationMircosecondsPerInvocation="1880"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodGenFactory" totalMilliseconds="1414" invocations="1584" avgMicrosecondsPerInvocation="892" maxMicrosecondsPerInvocation="511572" standardDeviationMircosecondsPerInvocation="13422"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="1497" invocations="1484" avgMicrosecondsPerInvocation="1009" maxMicrosecondsPerInvocation="66734" standardDeviationMircosecondsPerInvocation="3303"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantDataflowFactory" totalMilliseconds="1575" invocations="1484" avgMicrosecondsPerInvocation="1061" maxMicrosecondsPerInvocation="582059" standardDeviationMircosecondsPerInvocation="15551"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.OverridingEqualsNotSymmetrical" totalMilliseconds="1819" invocations="2209" avgMicrosecondsPerInvocation="823" maxMicrosecondsPerInvocation="436431" standardDeviationMircosecondsPerInvocation="9641"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="2482" invocations="7842" avgMicrosecondsPerInvocation="316" maxMicrosecondsPerInvocation="60826" standardDeviationMircosecondsPerInvocation="1770"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="3014" invocations="1588" avgMicrosecondsPerInvocation="1898" maxMicrosecondsPerInvocation="148481" standardDeviationMircosecondsPerInvocation="6253"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="3033" invocations="1484" avgMicrosecondsPerInvocation="2044" maxMicrosecondsPerInvocation="88938" standardDeviationMircosecondsPerInvocation="6552"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="3052" invocations="1484" avgMicrosecondsPerInvocation="2056" maxMicrosecondsPerInvocation="69614" standardDeviationMircosecondsPerInvocation="5900"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindRefComparison$SpecialTypeAnalysis" totalMilliseconds="3111" invocations="1126" avgMicrosecondsPerInvocation="2763" maxMicrosecondsPerInvocation="526787" standardDeviationMircosecondsPerInvocation="25637"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="3675" invocations="7832" avgMicrosecondsPerInvocation="469" maxMicrosecondsPerInvocation="112619" standardDeviationMircosecondsPerInvocation="2717"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="3936" invocations="38517" avgMicrosecondsPerInvocation="102" maxMicrosecondsPerInvocation="88777" standardDeviationMircosecondsPerInvocation="954"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="4518" invocations="2209" avgMicrosecondsPerInvocation="2045" maxMicrosecondsPerInvocation="414960" standardDeviationMircosecondsPerInvocation="13434"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="4536" invocations="2049" avgMicrosecondsPerInvocation="2214" maxMicrosecondsPerInvocation="148607" standardDeviationMircosecondsPerInvocation="6726"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="4684" invocations="1484" avgMicrosecondsPerInvocation="3156" maxMicrosecondsPerInvocation="578718" standardDeviationMircosecondsPerInvocation="17179"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="4882" invocations="2209" avgMicrosecondsPerInvocation="2210" maxMicrosecondsPerInvocation="415288" standardDeviationMircosecondsPerInvocation="15078"/>
+      <ClassProfile name="edu.umd.cs.findbugs.FindBugs2" totalMilliseconds="6517" invocations="10" avgMicrosecondsPerInvocation="651715" maxMicrosecondsPerInvocation="1399712" standardDeviationMircosecondsPerInvocation="337266"/>
+    </FindBugsProfile>
   </FindBugsSummary>
   <ClassFeatures></ClassFeatures>
   <History></History>
