@@ -22,7 +22,10 @@
 package org.gojul.fourinaline.gui;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,23 +53,33 @@ public final class AboutDialog extends JDialog implements ActionListener
 	public AboutDialog(final Window relativeWindow)
 	{
 		super();
-		setSize(700, 200);
+		setSize(700, 180);
 		setLocationRelativeTo(relativeWindow);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setAlwaysOnTop(true);
 		setResizable(false);
 		setTitle(GUIMessages.ABOUT_FRAME_TITLE.toString());
 		
-		getContentPane().setLayout(new BorderLayout());
+		getContentPane().setLayout(new BorderLayout(5, 5));
 		
-		JPanel textPanel = new JPanel();
-		textPanel.setLayout(new GridLayout(4, 1));
-		getContentPane().add(textPanel, BorderLayout.CENTER);
+		JPanel aboutPanel = new JPanel();
+		aboutPanel.setOpaque(true);
+		aboutPanel.setBackground(Color.WHITE);
+		aboutPanel.setLayout(new GridBagLayout());
+		getContentPane().add(aboutPanel, BorderLayout.CENTER);
 		
-		textPanel.add(new JLabel(GUIMessages.MAIN_FRAME_TITLE.toString()));
-		textPanel.add(new JLabel(GUIMessages.COPYRIGHT_INFO.toString()));
-		textPanel.add(new JLabel(GUIMessages.LICENSE_INFO.toString()));
-		textPanel.add(new JLabel(GUIMessages.POMAKIS_ACKNOWLEDGEMENT.toString()));
+		JLabel aboutLabel = new JLabel("<html><h2>" + GUIMessages.MAIN_FRAME_TITLE
+				+ "</h2><br>" + "<font face=\"arial\" size=2>" + GUIMessages.MAIN_FRAME_TITLE.toString()
+				+ "<br>" + GUIMessages.COPYRIGHT_INFO.toString() + "<br>" + GUIMessages.LICENSE_INFO.toString()
+				+ "<br>" + GUIMessages.POMAKIS_ACKNOWLEDGEMENT + "</font></html>");
+		GridBagConstraints labelConstraints = new GridBagConstraints();
+		labelConstraints.fill = GridBagConstraints.BOTH;
+		labelConstraints.weightx = 1.0;
+		labelConstraints.weighty = 1.0;
+		labelConstraints.gridx = 0;
+		labelConstraints.gridy = 0;
+		labelConstraints.insets = new Insets(0, 5, 0, 5);
+		aboutPanel.add(aboutLabel, labelConstraints);
 		
 		JButton okButton = new JButton(GUIMessages.OK_TEXT.toString());
 		okButton.addActionListener(this);
