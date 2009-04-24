@@ -448,4 +448,10 @@ public final class GUIMessages implements Serializable
 	 * Value : &quot;Impossible to register a player to the selected game since it is already full.&quot;
 	 */
 	public final static GUIMessages THE_SELECTED_GAME_IS_FULL = new GUIMessages("Impossible to register a player to the selected game since it is already full.");
+	
+	/**
+	 * The play again message.<br/>
+	 * Value : &quot;Play again ?&quot;
+	 */
+	public final static GUIMessages PLAY_AGAIN = new GUIMessages("Play again ?");
 }

@@ -38,6 +38,8 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
+import org.gojul.fourinaline.gui.GameModelPanel.GameModelPanelEvent;
+import org.gojul.fourinaline.gui.GameModelPanel.GameModelPanelListener;
 import org.gojul.fourinaline.model.GameModel;
 import org.gojul.fourinaline.model.HumanGameClient;
 import org.gojul.fourinaline.model.GameClient.ComputerGameClient;
@@ -52,7 +54,7 @@ import org.gojul.fourinaline.model.GameModel.PlayerMark;
  * @author Julien Aubin
  */
 @SuppressWarnings("serial")
-public final class MainFrame extends JFrame implements Observer, WindowListener
+public final class MainFrame extends JFrame implements Observer, WindowListener, GameModelPanelListener
 {	
 	
 	/**
@@ -339,6 +341,7 @@ public final class MainFrame extends JFrame implements Observer, WindowListener
 		getContentPane().setLayout(new BorderLayout());
 		gameModelPanel = new GameModelPanel(gameClient);
 		getContentPane().add(gameModelPanel, BorderLayout.CENTER);
+		gameModelPanel.addGameModelPanelListener(this);
 	}
 	
 	/**
@@ -424,9 +427,17 @@ public final class MainFrame extends JFrame implements Observer, WindowListener
 					
 					GameModel model = gameClient.getGameModel();
 					
+					
 					// Updates the actions if necessary.
 					if (model == null || !model.getGameStatus().equals(GameStatus.CONTINUE_STATUS))
 					{
+						// Well... no risk of redundant enabling
+						// with the gameFinished() listener since
+						// there's no thread concurrency at this stage.
+						// Thus in some conditions the new game action
+						// must be enabled while no game has been started
+						// nor is running. In these cases the gameFinished()
+						// event will never be thrown.
 						newGameAction.setEnabled(isGameOwner);
 						endGameAction.setEnabled(false);
 					}
@@ -440,6 +451,28 @@ public final class MainFrame extends JFrame implements Observer, WindowListener
 					}
 				}
 			});
+		}
+		
+	}
+
+	/**
+	 * @see org.gojul.fourinaline.gui.GameModelPanel.GameModelPanelListener#gameFinished(org.gojul.fourinaline.gui.GameModelPanel.GameModelPanelEvent)
+	 */
+	public void gameFinished(final GameModelPanelEvent e)
+	{
+		if (e.getSource() == gameModelPanel)
+		{
+			newGameAction.setEnabled(isGameOwner);
+			endGameAction.setEnabled(false);
+			
+			if (isGameOwner)
+			{
+				if (JOptionPane.showConfirmDialog(this, GUIMessages.PLAY_AGAIN, GUIMessages.MAIN_FRAME_TITLE.toString(), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
+						== JOptionPane.YES_OPTION) {
+					// The new game action ignores the action event there...
+					newGameAction.actionPerformed(null);
+				}
+			}
 		}
 		
 	}

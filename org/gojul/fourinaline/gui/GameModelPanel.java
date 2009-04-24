@@ -36,6 +36,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.EventListener;
+import java.util.EventObject;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -49,6 +51,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
+import javax.swing.event.EventListenerList;
 
 import org.gojul.fourinaline.model.GameModel;
 import org.gojul.fourinaline.model.GamePlayer;
@@ -67,6 +70,39 @@ import org.gojul.fourinaline.model.GameModel.PlayerMark;
 @SuppressWarnings("serial")
 public final class GameModelPanel extends JPanel implements Observer
 {
+	
+	/**
+	 * The <code>GameModelPanelEvent</code> class represents the
+	 * events launched by the game model panel.
+	 *
+	 * @author Julien Aubin
+	 */
+	public final static class GameModelPanelEvent extends EventObject
+	{
+		/**
+		 * Constructor.
+		 * @param source the event source.
+		 */
+		public GameModelPanelEvent(final Object source) {
+			super(source);
+		}
+	}
+	
+	/**
+	 * The <code>GameModelPanelListener</code> interface handles
+	 * the events of a game model panel instance.
+	 *
+	 * @author Julien Aubin
+	 */
+	public static interface GameModelPanelListener extends EventListener 
+	{
+		/**
+		 * Notify the listeners of the game model panel that a game
+		 * has just been finished.
+		 * @param e the launched game model panel event.
+		 */
+		public void gameFinished(final GameModelPanelEvent e);
+	}
 	
 	/**
 	 * The player color representation for a given player mark.
@@ -599,6 +635,11 @@ public final class GameModelPanel extends JPanel implements Observer
 	private JLabel statusLabel;
 	
 	/**
+	 * The event listener list.
+	 */
+	private EventListenerList eventListenerList;
+	
+	/**
 	 * Constructor.
 	 * @param client the game client to consider.
 	 * @throws NullPointerException if <code>client</code> is null.
@@ -606,6 +647,8 @@ public final class GameModelPanel extends JPanel implements Observer
 	public GameModelPanel(final HumanGameClient client) throws NullPointerException
 	{
 		super();
+		
+		eventListenerList = new EventListenerList();
 		
 		if (client == null)
 			throw new NullPointerException();
@@ -654,6 +697,49 @@ public final class GameModelPanel extends JPanel implements Observer
 		// Updates the panel after having initialized the interface.
 		updateMainPanel(true);
 		updatePlayerPanel();
+	}
+	
+	/**
+	 * Add <code>l</code> to the list of listeners of this game model
+	 * panel.
+	 * @param l the listener to add.
+	 * @throws NullPointerException if <code>l</code> is null.
+	 */
+	public void addGameModelPanelListener(final GameModelPanelListener l) 
+		throws NullPointerException
+	{
+		if (l == null)
+			throw new NullPointerException();
+		
+		eventListenerList.add(GameModelPanelListener.class, l);
+	}
+	
+	/**
+	 * Remove <code>l</code> from the list of listeners of this game
+	 * model panel.
+	 * @param l the listener to remove.
+	 * @throws NullPointerException if <code>l</code> is null.
+	 */
+	public void removeGameModelPanelListener(final GameModelPanelListener l)
+		throws NullPointerException
+	{
+		if (l == null)
+			throw new NullPointerException();
+		
+		eventListenerList.remove(GameModelPanelListener.class, l);
+	}
+	
+	/**
+	 * Notify the listeners that the
+	 * game has been finished.
+	 */
+	private void fireGameFinished()
+	{
+		GameModelPanelListener[] listeners = eventListenerList.getListeners(GameModelPanelListener.class);
+		GameModelPanelEvent event = new GameModelPanelEvent(this);
+		
+		for (GameModelPanelListener l: listeners)
+			l.gameFinished(event);
 	}
 	
 	/**
@@ -765,10 +851,12 @@ public final class GameModelPanel extends JPanel implements Observer
 				if (localGameModel.getGameStatus().equals(GameStatus.TIE_STATUS))
 				{
 					JOptionPane.showMessageDialog(this, GUIMessages.TIE_GAME_MESSAGE);
+					fireGameFinished();
 				}
 				else if (localGameModel.getGameStatus().equals(GameStatus.WON_STATUS))
 				{			
 					JOptionPane.showMessageDialog(this, getPlayerName(mark) + GUIMessages.HAS_WON_MESSAGE);
+					fireGameFinished();
 				}
 				else if (localGameModel.getGameStatus().equals(GameStatus.CONTINUE_STATUS))
 				{
