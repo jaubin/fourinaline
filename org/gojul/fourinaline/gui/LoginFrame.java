@@ -25,6 +25,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
@@ -180,6 +181,7 @@ public final class LoginFrame extends JDialog implements ChangeListener, ActionL
 		remoteHostTextFieldConstraints.gridy = 0;
 		remoteHostTextFieldConstraints.fill = GridBagConstraints.BOTH;
 		remoteHostTextFieldConstraints.weightx = 1.0;
+		remoteHostTextFieldConstraints.insets = new Insets(0, 5, 0, 5);
 		remoteHostPanel.add(remoteHostTextField, remoteHostTextFieldConstraints);
 		
 		// By default, the localhost radio button is always selected.
