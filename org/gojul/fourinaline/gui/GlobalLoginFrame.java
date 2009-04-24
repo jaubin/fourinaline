@@ -25,6 +25,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.AlreadyBoundException;
@@ -140,7 +141,7 @@ public final class GlobalLoginFrame extends JDialog implements ActionListener, C
 	public GlobalLoginFrame(final String serverAddress) throws NullPointerException, RemoteException, NotBoundException
 	{
 		super();
-		setSize(500, 200);
+		setSize(500, 220);
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setTitle(GUIMessages.MAIN_FRAME_TITLE.toString());
@@ -213,6 +214,7 @@ public final class GlobalLoginFrame extends JDialog implements ActionListener, C
 		gameCreationNameTextFieldConstraints.gridy = 0;
 		gameCreationNameTextFieldConstraints.fill = GridBagConstraints.HORIZONTAL;
 		gameCreationNameTextFieldConstraints.weightx = 1.0;
+		gameCreationNameTextFieldConstraints.insets = new Insets(5, 5, 5, 5);
 		gameCreationPanel.add(gameCreationNameTextField, gameCreationNameTextFieldConstraints);
 		
 		joinGameRadioButton = new JRadioButton(GUIMessages.JOIN_GAME_MESSAGE.toString());
@@ -229,7 +231,8 @@ public final class GlobalLoginFrame extends JDialog implements ActionListener, C
 		gameJoinComboBoxConstraints.gridx = 1;
 		gameJoinComboBoxConstraints.gridy = 1;
 		gameJoinComboBoxConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gameCreationNameTextFieldConstraints.weightx = 1.0;
+		gameJoinComboBoxConstraints.weightx = 1.0;
+		gameJoinComboBoxConstraints.insets = new Insets(5, 5, 5, 5);
 		gameCreationPanel.add(gameJoinComboBox, gameJoinComboBoxConstraints);
 		
 		createGameRadioButton.setSelected(true);
