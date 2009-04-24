@@ -27,7 +27,10 @@ import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.Paint;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -176,6 +179,11 @@ public final class GameModelPanel extends JPanel implements Observer
 		private final static Dimension ICON_PANEL_SIZE = new Dimension(50, 50);
 		
 		/**
+		 * The value of a dark color channel.
+		 */
+		private final static int DARK_COLOR_CHANNEL_VALUE = 100;
+		
+		/**
 		 * The game player to consider.
 		 */
 		private GamePlayer gamePlayer;
@@ -231,9 +239,14 @@ public final class GameModelPanel extends JPanel implements Observer
 				{
 					super.paintComponent(g);
 					
-					g.setColor(color);
+					Graphics2D g2d = (Graphics2D) g;
 					
-					g.fillOval(0, 0, getWidth(), getHeight());
+					g2d.setPaint(new GradientPaint(0, 0, color, getWidth(), getHeight(), 
+							// The color here is a darker version of the player color.
+							new Color(Math.min(color.getRed(), DARK_COLOR_CHANNEL_VALUE), 
+							Math.min(color.getGreen(), DARK_COLOR_CHANNEL_VALUE), 
+							Math.min(color.getBlue(), DARK_COLOR_CHANNEL_VALUE)), false));					
+					g2d.fillOval(0, 0, getWidth(), getHeight());
 				}
 			};
 			
@@ -599,7 +612,18 @@ public final class GameModelPanel extends JPanel implements Observer
 		if (client == null)
 			throw new NullPointerException();
 		
-		setLayout(new BorderLayout());
+		setLayout(new GridBagLayout());
+		
+		JPanel contentPanel = new JPanel();
+		contentPanel.setLayout(new BorderLayout(5, 5));
+		GridBagConstraints contentPanelConstraints = new GridBagConstraints();
+		contentPanelConstraints.gridx = 0;
+		contentPanelConstraints.gridy = 0;
+		contentPanelConstraints.fill = GridBagConstraints.BOTH;
+		contentPanelConstraints.weightx = 1.0;
+		contentPanelConstraints.weighty = 1.0;
+		contentPanelConstraints.insets = new Insets(5, 5, 0, 5);
+		add(contentPanel, contentPanelConstraints);
 		
 		gameClient = client;		
 		gameClient.addObserver(this);
@@ -607,16 +631,16 @@ public final class GameModelPanel extends JPanel implements Observer
 		// Inits the main panel.
 		mainPanel = new JPanel();
 		mainPanel.setLayout(new BorderLayout());
-		add(mainPanel, BorderLayout.CENTER);		
+		contentPanel.add(mainPanel, BorderLayout.CENTER);		
 		
 		JPanel bottomPanel = new JPanel();
-		bottomPanel.setLayout(new BorderLayout());
-		add(bottomPanel, BorderLayout.SOUTH);
+		bottomPanel.setLayout(new BorderLayout(5, 5));
+		contentPanel.add(bottomPanel, BorderLayout.SOUTH);
 		
 		// Inits the player panel.
 		currentPlayers = new LinkedHashSet<GamePlayer>();		
 		playerPanel = new JPanel();		
-		playerPanel.setLayout(new GridLayout(1, PlayerMark.getNumberOfPlayerMarks()));
+		playerPanel.setLayout(new GridLayout(1, PlayerMark.getNumberOfPlayerMarks(), 5, 5));
 		bottomPanel.add(playerPanel, BorderLayout.CENTER);
 		
 		// Inits the status label
