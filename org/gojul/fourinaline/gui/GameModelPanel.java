@@ -219,7 +219,7 @@ public final class GameModelPanel extends JPanel implements Observer
 		 */
 		private void initPanel()
 		{
-			setLayout(new BorderLayout());
+			setLayout(new BorderLayout(5, 5));
 			
 			// Icon
 			final Color color = PlayerColorRepresentation.valueOf(gamePlayer.getPlayerMark())
@@ -257,13 +257,11 @@ public final class GameModelPanel extends JPanel implements Observer
 			add(iconPanel, BorderLayout.WEST);
 			
 			// Text
-			JPanel textPanel = new JPanel();
-			textPanel.setLayout(new GridLayout(2, 1));
-			
-			textPanel.add(new JLabel(gamePlayer.getName()));
-			textPanel.add(new JLabel(GUIMessages.SCORE_MESSAGE.toString() + gamePlayer.getScore()));
-			
-			add(textPanel, BorderLayout.CENTER);
+			JLabel label = new JLabel("<html><font face=\"arial\" size=3><b>" + gamePlayer.getName() + "</b></font><br>"
+					+ "<font face=\"courier\" size=2>" + GUIMessages.SCORE_MESSAGE + gamePlayer.getScore() + "</font></html>");
+						
+			add(label, BorderLayout.CENTER);
+				
 		}
 	}
 	
@@ -622,7 +620,7 @@ public final class GameModelPanel extends JPanel implements Observer
 		contentPanelConstraints.fill = GridBagConstraints.BOTH;
 		contentPanelConstraints.weightx = 1.0;
 		contentPanelConstraints.weighty = 1.0;
-		contentPanelConstraints.insets = new Insets(5, 5, 0, 5);
+		contentPanelConstraints.insets = new Insets(5, 5, 5, 5);
 		add(contentPanel, contentPanelConstraints);
 		
 		gameClient = client;		
@@ -646,7 +644,12 @@ public final class GameModelPanel extends JPanel implements Observer
 		// Inits the status label
 		statusLabel = new JLabel();
 		statusLabel.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-		bottomPanel.add(statusLabel, BorderLayout.SOUTH);
+		GridBagConstraints statusLabelConstraints = new GridBagConstraints();
+		statusLabelConstraints.gridx = 0;
+		statusLabelConstraints.gridy = 1;
+		statusLabelConstraints.fill = GridBagConstraints.HORIZONTAL;
+		statusLabelConstraints.weightx = 1.0;
+		add(statusLabel, statusLabelConstraints);
 		
 		// Updates the panel after having initialized the interface.
 		updateMainPanel(true);
