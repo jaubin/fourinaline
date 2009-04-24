@@ -25,7 +25,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -44,6 +44,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
@@ -204,7 +205,7 @@ final class PlayerSelectionFrame extends JDialog implements Runnable, WindowList
 		throws NullPointerException, ServerTicketException, RemoteException
 	{
 		super();
-		setSize(500, 200);
+		setSize(500, 250);
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setTitle(GUIMessages.MAIN_FRAME_TITLE.toString());
@@ -241,16 +242,17 @@ final class PlayerSelectionFrame extends JDialog implements Runnable, WindowList
 		topPanelConstraints.fill = GridBagConstraints.BOTH;
 		topPanelConstraints.weightx = 1.0;
 		topPanelConstraints.weighty = 1.0;
+		topPanelConstraints.insets = new Insets(5, 5, 5, 5);
 		
 		getContentPane().add(topPanel, topPanelConstraints);
 		
-		topPanel.setLayout(new BorderLayout());
+		topPanel.setLayout(new BorderLayout(5, 5));
 		
 		JLabel registeredLabel = new JLabel(GUIMessages.LIST_OF_PLAYERS_MESSAGE.toString());
 		topPanel.add(registeredLabel, BorderLayout.NORTH);
 		
 		playerList = new JList();
-		topPanel.add(playerList, BorderLayout.CENTER);
+		topPanel.add(new JScrollPane(playerList), BorderLayout.CENTER);
 	}
 	
 	/**
@@ -267,16 +269,26 @@ final class PlayerSelectionFrame extends JDialog implements Runnable, WindowList
 		
 		getContentPane().add(namePanel, namePanelConstraints);
 		
-		namePanel.setLayout(new GridLayout(3, 1));
+		namePanel.setLayout(new GridBagLayout());
 		
-		JLabel nameLabel = new JLabel(GUIMessages.ENTER_THE_NAME_OF_YOUR_PLAYER_MESSAGE.toString());
-		namePanel.add(nameLabel);
-		
-		JLabel nameLabel2 = new JLabel(GUIMessages.PLAYER_NAME_MUST_BE_DIFFERENT_FROM_THE_OTHER_NAMES_MESSAGE.toString());
-		namePanel.add(nameLabel2);
+		JLabel nameLabel = new JLabel("<html>" + GUIMessages.ENTER_THE_NAME_OF_YOUR_PLAYER_MESSAGE.toString() 
+				+ "<br>" + GUIMessages.PLAYER_NAME_MUST_BE_DIFFERENT_FROM_THE_OTHER_NAMES_MESSAGE.toString() + "</html>");
+		GridBagConstraints nameLabelConstraints = new GridBagConstraints();
+		nameLabelConstraints.gridx = 0;
+		nameLabelConstraints.gridy = 0;
+		nameLabelConstraints.fill = GridBagConstraints.BOTH;
+		nameLabelConstraints.weightx = 1.0;
+		nameLabelConstraints.insets = new Insets(5, 5, 5, 5);
+		namePanel.add(nameLabel, nameLabelConstraints);
 		
 		playerNameTextField = new JTextField();
-		namePanel.add(playerNameTextField);
+		GridBagConstraints playerNameTextFieldConstraints = new GridBagConstraints();
+		playerNameTextFieldConstraints.gridx = 0;
+		playerNameTextFieldConstraints.gridy = 1;
+		playerNameTextFieldConstraints.fill = GridBagConstraints.HORIZONTAL;
+		playerNameTextFieldConstraints.insets = new Insets(5, 5, 5, 5);
+		playerNameTextFieldConstraints.weightx = 1.0;
+		namePanel.add(playerNameTextField, playerNameTextFieldConstraints);
 		playerNameTextField.addKeyListener(this);
 	}
 	
