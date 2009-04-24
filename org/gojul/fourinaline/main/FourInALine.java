@@ -24,6 +24,8 @@ package org.gojul.fourinaline.main;
 import java.io.File;
 import java.net.URL;
 
+import javax.swing.UIManager;
+
 import org.gojul.fourinaline.gui.LoginFrame;
 import org.gojul.fourinaline.model.GameServerImpl;
 
@@ -74,6 +76,18 @@ public class FourInALine
 		}	
 		else 
 		{
+			try
+			{
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			}
+			catch (Throwable t)
+			{
+				t.printStackTrace();
+				// WA for problems that may occur under some badly shaped platforms, as Debian Lenny
+				// which seems to have a problem with the Java desktop integration...
+				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+			}
+			
 			new LoginFrame().setVisible(true);
 		}
 	}
