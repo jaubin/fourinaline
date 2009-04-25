@@ -929,6 +929,13 @@ public final class GameModelPanel extends JPanel implements Observer
 			// The panel is shared among the client thread and the current swing thread.
 			synchronized(this)
 			{
+				// We work on a local copy of the game model in order to avoid
+				// some side effects due to the speed of some games.
+				// In some cases the panel would not even notify that something
+				// has happened.
+				GameModel model = gameClient.getGameModel();
+				final GameModel localModel = model != null ? new GameModel(model): null;
+				
 				SwingUtilities.invokeLater(new Runnable()
 				{
 					/**
@@ -937,7 +944,7 @@ public final class GameModelPanel extends JPanel implements Observer
 					public void run()
 					{
 						updatePlayerPanel();				
-						updateMainPanel(gameClient.getGameModel());
+						updateMainPanel(localModel);
 					}
 				});
 
