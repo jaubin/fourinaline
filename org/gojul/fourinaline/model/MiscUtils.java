@@ -42,8 +42,6 @@ import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.Properties;
 
-import org.gojul.fourinaline.main.FourInALine;
-
 /**
  * The <code>MiscUtils</code> class contains various utilities
  * for servers.
@@ -52,6 +50,10 @@ import org.gojul.fourinaline.main.FourInALine;
  */
 public final class MiscUtils
 {
+	/**
+	 * The line separator we use.
+	 */
+	public final static String LINE_SEP = System.getProperty("line.separator");
 	
 	/**
 	 * Private constructor.<br/>
@@ -59,6 +61,48 @@ public final class MiscUtils
 	 */
 	private MiscUtils() {
 		
+	}
+	
+	/**
+	 * Read the text contained in the input stream <code>is</code>
+	 * and return the text it contains.<br/>
+	 * Close <code>is</code> at the end of the read.
+	 * @param is the input stream to read.
+	 * @return the text contained in <code>is</code>.
+	 * @throws NullPointerException if <code>is</code> is null.
+	 * @throws IOException if an I/O error occurs while reading <code>is</code>.
+	 */
+	public static String readTextStream(final InputStream is) throws NullPointerException, IOException
+	{
+		if (is == null)
+			throw new NullPointerException();
+		
+		StringBuilder result = new StringBuilder();
+		
+		BufferedReader br = null;
+		
+		try
+		{
+			br = new BufferedReader(new InputStreamReader(is));
+			
+			String line = br.readLine();
+			
+			while (line != null)
+			{
+				result.append(line);
+				
+				line = br.readLine();
+				if (line != null)
+					result.append(LINE_SEP);
+			}
+		}
+		finally
+		{
+			if (br != null)
+				br.close();
+		}
+		
+		return result.toString();
 	}
 
 	/**
@@ -185,7 +229,7 @@ public final class MiscUtils
 		
 		try
 		{
-			br = new BufferedReader(new InputStreamReader(FourInALine.class.getResourceAsStream(RMI_POLICY_FILE_NAME)));
+			br = new BufferedReader(new InputStreamReader(MiscUtils.class.getResourceAsStream(RMI_POLICY_FILE_NAME)));
 			bw = new BufferedWriter(new FileWriter(outputFile));
 			
 			String line = br.readLine();
