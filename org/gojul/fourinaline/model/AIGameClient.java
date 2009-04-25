@@ -24,6 +24,8 @@ package org.gojul.fourinaline.model;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.Collection;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 import org.gojul.fourinaline.model.GameClient.ComputerGameClient;
 import org.gojul.fourinaline.model.GameModel.GameModelException;
@@ -166,7 +168,9 @@ public final class AIGameClient extends ComputerGameClient
 	/**
 	 * An implementation of the alpha-beta algorithm for our purpose.
 	 * This implementation makes it possible to use any user-developed evaluation
-	 * algorithm that can be better than the one provided.
+	 * algorithm that can be better than the one provided.<br/>
+	 * This algorithm implements a caching mechanism to improve the performance
+	 * of the AI player.
 	 * 
 	 * @author Julien Aubin
 	 */
@@ -188,6 +192,11 @@ public final class AIGameClient extends ComputerGameClient
 		private int deepness;
 		
 		/**
+		 * The score cache.
+		 */
+		private Map<GameModel, Integer> scoreCache;
+		
+		/**
 		 * Constructor.
 		 * @param evalScoreFunction the evaluation function used.
 		 * @param deepnessSearch the search deepness.
@@ -196,6 +205,7 @@ public final class AIGameClient extends ComputerGameClient
 		{
 			evalScore = evalScoreFunction;
 			deepness = deepnessSearch;
+			scoreCache = new WeakHashMap<GameModel, Integer>();
 		}
 		
 		/**
@@ -217,7 +227,15 @@ public final class AIGameClient extends ComputerGameClient
 			{
 				GameModel tempModel = new GameModel(gameModel);
 				tempModel.play(colIndex.intValue(), playerMark);
-				int currentScore = alphaBeta(tempModel, playerMark, Integer.MIN_VALUE, -bestScore, 0);
+				int currentScore = 0;
+				
+				if (scoreCache.containsKey(tempModel))
+					currentScore = scoreCache.get(tempModel).intValue();
+				else
+				{
+					currentScore = alphaBeta(tempModel, playerMark, Integer.MIN_VALUE, -bestScore, 0);
+					scoreCache.put(new GameModel(tempModel), Integer.valueOf(currentScore));
+				}
 				
 				if (currentScore > bestScore)
 				{
