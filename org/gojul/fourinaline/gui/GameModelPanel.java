@@ -855,10 +855,15 @@ public final class GameModelPanel extends JPanel implements Observer
 					JOptionPane.showMessageDialog(this, getPlayerName(mark) + GUIMessages.HAS_WON_MESSAGE);
 					fireGameFinished();
 				}
-				else if (localGameModel.getGameStatus().equals(GameStatus.CONTINUE_STATUS))
-				{
-					statusLabel.setText(GUIMessages.CURRENT_TURN_MESSAGE + getPlayerName(mark));
-				}
+			}
+			
+			// We can display the current turn without any risk
+			// as this has no impact on the user.
+			// Thus it is important to have it up to date
+			// even if the game has been updated immediately.
+			if (localGameModel.getGameStatus().equals(GameStatus.CONTINUE_STATUS))
+			{
+				statusLabel.setText(GUIMessages.CURRENT_TURN_MESSAGE + getPlayerName(mark));
 			}
 		}
 		

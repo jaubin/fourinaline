@@ -21,6 +21,8 @@
  */
 package org.gojul.fourinaline.model;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.Collection;
@@ -194,7 +196,7 @@ public final class AIGameClient extends ComputerGameClient
 		/**
 		 * The score cache.
 		 */
-		private Map<GameModel, Integer> scoreCache;
+		private transient Map<GameModel, Integer> scoreCache;
 		
 		/**
 		 * Constructor.
@@ -217,7 +219,7 @@ public final class AIGameClient extends ComputerGameClient
 		 * more playable column.
 		 */
 		public int getColumnIndex(final GameModel gameModel, final PlayerMark playerMark)
-		{
+		{			
 			Collection<Integer> possibleColumns = gameModel.getListOfPlayableColumns();
 			
 			int bestColumn = -1;
@@ -229,13 +231,20 @@ public final class AIGameClient extends ComputerGameClient
 				tempModel.play(colIndex.intValue(), playerMark);
 				int currentScore = 0;
 				
-				if (scoreCache.containsKey(tempModel))
-					currentScore = scoreCache.get(tempModel).intValue();
+				Integer currentScoreInt = scoreCache.get(tempModel);
+				
+				if (currentScoreInt != null)
+				{
+					currentScore = currentScoreInt.intValue();
+				}
 				else
 				{
+					// We build the key before performing the alpha-beta evaluation
+					// becuase tempModel is mutable.
+					GameModel keyModel = new GameModel(tempModel);
 					currentScore = alphaBeta(tempModel, playerMark, Integer.MIN_VALUE, -bestScore, 0);
-					scoreCache.put(new GameModel(tempModel), Integer.valueOf(currentScore));
-				}
+					scoreCache.put(keyModel, Integer.valueOf(currentScore));
+				}				
 				
 				if (currentScore > bestScore)
 				{
@@ -246,6 +255,20 @@ public final class AIGameClient extends ComputerGameClient
 			
 			return bestColumn;
 		}
+		
+		/**
+		 * Deserializes the AI game client in case of serialization.
+		 * @param in the input stream responsible of deserialization.
+		 * @throws IOException if an I/O error occurs while deserializing.
+		 * @throws ClassNotFoundException in case a class to be deserialized
+		 * is not found.
+		 */
+		private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException
+		{
+			in.defaultReadObject();
+			scoreCache = new WeakHashMap<GameModel, Integer>();
+		}
+
 		
 		/**
 		 * Performs an alpha-beta algorithm over the game model <code>gameModel</code>,
@@ -286,7 +309,22 @@ public final class AIGameClient extends ComputerGameClient
 					
 					tempModel.play(colIndex.intValue(), tempMark);
 					
-					int currentScore = alphaBeta(tempModel, tempMark, -beta, -alphaEval, currentDeepness + 1);
+					int currentScore = 0;
+					
+					Integer currentScoreInt = scoreCache.get(tempModel);
+					
+					if (currentScoreInt != null)
+					{
+						currentScore = currentScoreInt.intValue();
+					}
+					else
+					{
+						// We build the key before performing the alpha-beta evaluation
+						// becuase tempModel is mutable.
+						GameModel keyModel = new GameModel(tempModel);
+						currentScore = alphaBeta(tempModel, tempMark, -beta, -alphaEval, currentDeepness + 1);
+						scoreCache.put(keyModel, Integer.valueOf(currentScore));
+					}
 					
 					if (currentScore > bestScore)
 					{
