@@ -377,7 +377,7 @@ public final class MainFrame extends JFrame implements Observer, WindowListener,
 	 */
 	private void quit()
 	{
-		int answerResult = JOptionPane.showConfirmDialog(this, GUIMessages.QUIT_MESSAGE, GUIMessages.MAIN_FRAME_TITLE.toString(), JOptionPane.YES_NO_OPTION);
+		int answerResult = JOptionPane.showConfirmDialog(gameModelPanel, GUIMessages.QUIT_MESSAGE, GUIMessages.MAIN_FRAME_TITLE.toString(), JOptionPane.YES_NO_OPTION);
 		
 		if (answerResult == JOptionPane.YES_OPTION)
 		{
@@ -467,7 +467,7 @@ public final class MainFrame extends JFrame implements Observer, WindowListener,
 			
 			if (isGameOwner)
 			{
-				if (JOptionPane.showConfirmDialog(this, GUIMessages.PLAY_AGAIN, GUIMessages.MAIN_FRAME_TITLE.toString(), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
+				if (JOptionPane.showConfirmDialog(gameModelPanel, GUIMessages.PLAY_AGAIN, GUIMessages.MAIN_FRAME_TITLE.toString(), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
 						== JOptionPane.YES_OPTION) {
 					// The new game action ignores the action event there...
 					newGameAction.actionPerformed(null);
