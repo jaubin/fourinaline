@@ -27,6 +27,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -61,15 +62,33 @@ public final class MiscUtils
 	}
 
 	/**
-	 * Copy the file <code>fSource</code> to the file <code>fDest</code>. Note that this
-	 * method will fail in case the directory to which <code>fDest</code> belongs does not
-	 * exist.
+	 * Copy the file <code>fSource</code> to the file <code>fDest</code>. Note that
+	 * if the directory which contains <code>fDest</code> does not exist this method
+	 * will attempt to create it.
 	 * @param fSource the source file.
 	 * @param fDest the destination file.
+	 * @throws NullPointerException if any of the method parameter is null.
 	 * @throws IOException if an I/O error occurs while performing the copy.
 	 */
-	public static void copyFile(final File fSource, final File fDest) throws IOException 
+	public static void copyFile(final File fSource, final File fDest) throws NullPointerException, IOException 
 	{
+		if (fSource == null || fDest == null)
+			throw new NullPointerException();
+		
+		File fDestDir = fDest.getParentFile();
+		if (fDestDir != null)
+		{
+			if (fDestDir.exists())
+			{
+				if (fDestDir.isFile())
+					throw new FileNotFoundException("The destination directory " + fDestDir + " is not a directory !");
+			}
+			else if (!fDestDir.mkdirs())
+			{
+				throw new FileNotFoundException("Unable to create the destination directory " + fDestDir);
+			}
+		}
+		
 		// We perform the copy by blocks of 32 MBs
 		final int BLOCK_SIZE = 32 * 1024 * 1024;
 		InputStream is = null;
@@ -245,7 +264,7 @@ public final class MiscUtils
 			
 			URL jarURL = MiscUtils.class.getProtectionDomain().getCodeSource().getLocation();
 			File locationFile = new File(jarURL.toURI());
-			if (locationFile.isFile()) {
+			if (locationFile.isFile() && locationFile.getAbsolutePath().indexOf(' ') != -1) {
 				jarURL = copyJarFileToSafeLocation(locationFile).toURI().toURL();
 			}
 			final String rmiFileName = jarURL.getFile();
