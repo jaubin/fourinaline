@@ -297,6 +297,7 @@ public final class MiscUtils
 					}
 					finally 
 					{
+						// Finally restores everything as it was before...
 						System.setProperties(currentProperties);
 						System.setSecurityManager(manager);
 					}
