@@ -837,6 +837,19 @@ public final class GameModelPanel extends JPanel implements Observer
 			
 			PlayerMark mark = localGameModel.getCurrentPlayer();
 			
+			// We can display the current turn without any risk
+			// as this has no impact on the user.
+			// Thus it is important to have it up to date
+			// even if the game has been updated immediately.
+			// Thus we must do it before launching the game status
+			// events to avoid some bad interaction due to the fact
+			// that the clients may force the panel update, which
+			// is the source of most of the UI problems of the game.
+			if (localGameModel.getGameStatus().equals(GameStatus.CONTINUE_STATUS))
+			{
+				statusLabel.setText(GUIMessages.CURRENT_TURN_MESSAGE + getPlayerName(mark));
+			}
+			
 			// This double-check of the game model update ensures that a
 			// has-won message is not sent twice... 
 			// This can occur sometimes in some race conditions.
@@ -855,15 +868,6 @@ public final class GameModelPanel extends JPanel implements Observer
 					JOptionPane.showMessageDialog(this, getPlayerName(mark) + GUIMessages.HAS_WON_MESSAGE);
 					fireGameFinished();
 				}
-			}
-			
-			// We can display the current turn without any risk
-			// as this has no impact on the user.
-			// Thus it is important to have it up to date
-			// even if the game has been updated immediately.
-			if (localGameModel.getGameStatus().equals(GameStatus.CONTINUE_STATUS))
-			{
-				statusLabel.setText(GUIMessages.CURRENT_TURN_MESSAGE + getPlayerName(mark));
 			}
 		}
 		
