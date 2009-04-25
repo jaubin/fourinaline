@@ -77,7 +77,8 @@ public final class AboutDialog extends JDialog implements ActionListener
 		tabbedPane.addTab(GUIMessages.ABOUT_FRAME_TITLE.toString(), aboutPanel);
 		
 		JLabel aboutLabel = new JLabel("<html><h2>" + GUIMessages.MAIN_FRAME_TITLE
-				+ "</h2><br>" + "<font face=\"arial\" size=2>" + GUIMessages.COPYRIGHT_INFO.toString() 
+				+ "</h2><br>" + "<font face=\"arial\" size=2>" + GUIMessages.VERSION.toString() + " " + MiscUtils.getVersion()
+				+ "<br>" + GUIMessages.COPYRIGHT_INFO.toString() 
 				+ "<br>" + GUIMessages.LICENSE_INFO.toString()
 				+ "<br>" + GUIMessages.POMAKIS_ACKNOWLEDGEMENT + "</font></html>");
 		GridBagConstraints labelConstraints = new GridBagConstraints();

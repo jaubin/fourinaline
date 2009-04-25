@@ -24,6 +24,7 @@ package org.gojul.fourinaline.main;
 import javax.swing.UIManager;
 
 import org.gojul.fourinaline.gui.GlobalLoginFrame;
+import org.gojul.fourinaline.model.MiscUtils;
 
 /**
  * The global client main frame.
@@ -34,6 +35,8 @@ public final class FourInALineGlobalClient
 {
 	public static void main(String[] args) throws Throwable
 	{
+		System.out.println("Four in a line version " + MiscUtils.getVersion());		
+		
 		if (args.length != 1)
 		{
 			System.err.println("USAGE: java FourInALineGlobalClient <server IP or name>");

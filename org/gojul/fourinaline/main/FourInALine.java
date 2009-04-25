@@ -28,6 +28,7 @@ import javax.swing.UIManager;
 
 import org.gojul.fourinaline.gui.LoginFrame;
 import org.gojul.fourinaline.model.GameServerImpl;
+import org.gojul.fourinaline.model.MiscUtils;
 
 /**
  * The program launcher, from the user point of view.
@@ -52,7 +53,7 @@ public class FourInALine
 	 */
 	public static void main(String[] args) throws Throwable
 	{
-		
+		System.out.println("Four in a line version " + MiscUtils.getVersion());		
 		
 		if (args.length > 0)
 		{

@@ -460,4 +460,10 @@ public final class GUIMessages implements Serializable
 	 * Value : &quot;License&quot;
 	 */
 	public final static GUIMessages LICENSE = new GUIMessages("License");
+	
+	/**
+	 * The version message.<br/>
+	 * Value : &quot;Version&quot;
+	 */
+	public final static GUIMessages VERSION = new GUIMessages("Version");
 }

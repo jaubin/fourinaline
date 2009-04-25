@@ -163,7 +163,9 @@ public final class GlobalServerImpl implements GlobalServer, Observer
 	private static GlobalServer serverInstance = null;
 	
 	public static void main(String[] args) throws Throwable
-	{		
+	{	
+		System.out.println("Four in a line version " + MiscUtils.getVersion());		
+		
 		Registry registry = MiscUtils.initRMIServer(1099);
 		
 		serverInstance = new GlobalServerImpl(registry);

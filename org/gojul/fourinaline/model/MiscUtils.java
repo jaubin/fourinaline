@@ -41,6 +41,8 @@ import java.rmi.registry.Registry;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.Properties;
+import java.util.jar.JarFile;
+import java.util.jar.Manifest;
 
 /**
  * The <code>MiscUtils</code> class contains various utilities
@@ -61,6 +63,38 @@ public final class MiscUtils
 	 */
 	private MiscUtils() {
 		
+	}
+	
+	/**
+	 * Return the version of the software.
+	 * @return the version of the software.
+	 */
+	public static String getVersion() 
+	{
+		final String DEVELOPMENT_VERSION = "Development";
+		final String VERSION_TAG = "Version";
+		
+		try
+		{
+			URL jarURL = MiscUtils.class.getProtectionDomain().getCodeSource().getLocation();
+			File locationFile = new File(jarURL.toURI());
+			
+			if (locationFile.isFile())
+			{
+				JarFile jarFile = new JarFile(locationFile);
+				Manifest manifest = jarFile.getManifest();
+				return manifest.getMainAttributes().getValue(VERSION_TAG);
+			}
+			else
+			{
+				return DEVELOPMENT_VERSION;
+			}
+		}
+		catch (Throwable t)
+		{
+			t.printStackTrace();
+			return DEVELOPMENT_VERSION;
+		}
 	}
 	
 	/**
