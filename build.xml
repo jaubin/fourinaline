@@ -20,6 +20,7 @@
          <fileset dir=".">
             <include name="**/*.properties"/>
             <include name="rmipolicy.policy"/>
+            <include name="license.txt"/>
          </fileset>
       </copy>
    </target>

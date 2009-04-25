@@ -454,4 +454,10 @@ public final class GUIMessages implements Serializable
 	 * Value : &quot;Play again ?&quot;
 	 */
 	public final static GUIMessages PLAY_AGAIN = new GUIMessages("Play again ?");
+	
+	/**
+	 * The license message.<br/>
+	 * Value : &quot;License&quot;
+	 */
+	public final static GUIMessages LICENSE = new GUIMessages("License");
 }

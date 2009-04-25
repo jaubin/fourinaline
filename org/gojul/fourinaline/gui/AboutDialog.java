@@ -34,6 +34,11 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
+
+import org.gojul.fourinaline.model.MiscUtils;
 
 /**
  * The <code>AboutDialog</code> frame displays copyright information about
@@ -53,7 +58,7 @@ public final class AboutDialog extends JDialog implements ActionListener
 	public AboutDialog(final Window relativeWindow)
 	{
 		super();
-		setSize(700, 180);
+		setSize(700, 220);
 		setLocationRelativeTo(relativeWindow);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setAlwaysOnTop(true);
@@ -62,15 +67,18 @@ public final class AboutDialog extends JDialog implements ActionListener
 		
 		getContentPane().setLayout(new BorderLayout(5, 5));
 		
+		JTabbedPane tabbedPane = new JTabbedPane();
+		getContentPane().add(tabbedPane, BorderLayout.CENTER);
+		
 		JPanel aboutPanel = new JPanel();
 		aboutPanel.setOpaque(true);
 		aboutPanel.setBackground(Color.WHITE);
 		aboutPanel.setLayout(new GridBagLayout());
-		getContentPane().add(aboutPanel, BorderLayout.CENTER);
+		tabbedPane.addTab(GUIMessages.ABOUT_FRAME_TITLE.toString(), aboutPanel);
 		
 		JLabel aboutLabel = new JLabel("<html><h2>" + GUIMessages.MAIN_FRAME_TITLE
-				+ "</h2><br>" + "<font face=\"arial\" size=2>" + GUIMessages.MAIN_FRAME_TITLE.toString()
-				+ "<br>" + GUIMessages.COPYRIGHT_INFO.toString() + "<br>" + GUIMessages.LICENSE_INFO.toString()
+				+ "</h2><br>" + "<font face=\"arial\" size=2>" + GUIMessages.COPYRIGHT_INFO.toString() 
+				+ "<br>" + GUIMessages.LICENSE_INFO.toString()
 				+ "<br>" + GUIMessages.POMAKIS_ACKNOWLEDGEMENT + "</font></html>");
 		GridBagConstraints labelConstraints = new GridBagConstraints();
 		labelConstraints.fill = GridBagConstraints.BOTH;
@@ -80,6 +88,34 @@ public final class AboutDialog extends JDialog implements ActionListener
 		labelConstraints.gridy = 0;
 		labelConstraints.insets = new Insets(0, 5, 0, 5);
 		aboutPanel.add(aboutLabel, labelConstraints);
+		
+		try
+		{
+			// No problem here : the stream is properly closed in the readTextStream method.
+			String licenseText = MiscUtils.readTextStream(this.getClass().getResourceAsStream("/license.txt"));
+			
+			JPanel licensePanel = new JPanel();
+			licensePanel.setLayout(new GridBagLayout());
+			tabbedPane.addTab(GUIMessages.LICENSE.toString(), licensePanel);
+			
+			JTextArea licenseTextArea = new JTextArea(licenseText);
+			licenseTextArea.setEditable(false);
+			// No word wrap there : the license is a properly formatted text file.
+			
+			GridBagConstraints licenseTextAreaConstraints = new GridBagConstraints();
+			licenseTextAreaConstraints.fill = GridBagConstraints.BOTH;
+			licenseTextAreaConstraints.weightx = 1.0;
+			licenseTextAreaConstraints.weighty = 1.0;
+			licenseTextAreaConstraints.gridx = 0;
+			licenseTextAreaConstraints.gridy = 0;
+			licenseTextAreaConstraints.insets = new Insets(5, 5, 5, 5);
+			licensePanel.add(new JScrollPane(licenseTextArea), licenseTextAreaConstraints);
+			
+		}
+		catch (Throwable t)
+		{
+			t.printStackTrace();
+		}
 		
 		JButton okButton = new JButton(GUIMessages.OK_TEXT.toString());
 		okButton.addActionListener(this);
