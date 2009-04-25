@@ -184,6 +184,11 @@ public final class AIGameClient extends ComputerGameClient
 		final static long serialVersionUID = 1;
 		
 		/**
+		 * The cache initial capacity.
+		 */
+		private final static int CACHE_INITIAL_CAPACITY = 5000;
+		
+		/**
 		 * The evaluation function.
 		 */
 		private EvalScore evalScore;
@@ -196,7 +201,7 @@ public final class AIGameClient extends ComputerGameClient
 		/**
 		 * The score cache.
 		 */
-		private transient Map<GameModel, Integer> scoreCache;
+		private transient Map<String, Integer> scoreCache;
 		
 		/**
 		 * Constructor.
@@ -207,7 +212,7 @@ public final class AIGameClient extends ComputerGameClient
 		{
 			evalScore = evalScoreFunction;
 			deepness = deepnessSearch;
-			scoreCache = new WeakHashMap<GameModel, Integer>();
+			scoreCache = new WeakHashMap<String, Integer>(CACHE_INITIAL_CAPACITY);
 		}
 		
 		/**
@@ -229,9 +234,10 @@ public final class AIGameClient extends ComputerGameClient
 			{
 				GameModel tempModel = new GameModel(gameModel);
 				tempModel.play(colIndex.intValue(), playerMark);
+				String key = tempModel.toUniqueKey();
 				int currentScore = 0;
 				
-				Integer currentScoreInt = scoreCache.get(tempModel);
+				Integer currentScoreInt = scoreCache.get(key);
 				
 				if (currentScoreInt != null)
 				{
@@ -241,9 +247,8 @@ public final class AIGameClient extends ComputerGameClient
 				{
 					// We build the key before performing the alpha-beta evaluation
 					// becuase tempModel is mutable.
-					GameModel keyModel = new GameModel(tempModel);
 					currentScore = alphaBeta(tempModel, playerMark, Integer.MIN_VALUE, -bestScore, 0);
-					scoreCache.put(keyModel, Integer.valueOf(currentScore));
+					scoreCache.put(key, Integer.valueOf(currentScore));
 				}				
 				
 				if (currentScore > bestScore)
@@ -266,7 +271,7 @@ public final class AIGameClient extends ComputerGameClient
 		private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException
 		{
 			in.defaultReadObject();
-			scoreCache = new WeakHashMap<GameModel, Integer>();
+			scoreCache = new WeakHashMap<String, Integer>(CACHE_INITIAL_CAPACITY);
 		}
 
 		
@@ -305,13 +310,13 @@ public final class AIGameClient extends ComputerGameClient
 				
 				for (Integer colIndex: possiblePlays)
 				{
-					GameModel tempModel = new GameModel(gameModel);
-					
+					GameModel tempModel = new GameModel(gameModel);					
 					tempModel.play(colIndex.intValue(), tempMark);
+					String key = tempModel.toUniqueKey();
 					
 					int currentScore = 0;
 					
-					Integer currentScoreInt = scoreCache.get(tempModel);
+					Integer currentScoreInt = scoreCache.get(key);
 					
 					if (currentScoreInt != null)
 					{
@@ -321,9 +326,8 @@ public final class AIGameClient extends ComputerGameClient
 					{
 						// We build the key before performing the alpha-beta evaluation
 						// becuase tempModel is mutable.
-						GameModel keyModel = new GameModel(tempModel);
 						currentScore = alphaBeta(tempModel, tempMark, -beta, -alphaEval, currentDeepness + 1);
-						scoreCache.put(keyModel, Integer.valueOf(currentScore));
+						scoreCache.put(key, Integer.valueOf(currentScore));
 					}
 					
 					if (currentScore > bestScore)

@@ -201,9 +201,16 @@ public final class GameModel implements Serializable
 		/**
 		 * Constructor.
 		 * @param val the value of the player mark.
+		 * @throws IllegalArgumentException if <code>val</code>
+		 * is smaller or equal to 0 or greater or equal to <code>Character.MAX_VALUE - 'A'</code>.
 		 */
-		private PlayerMark(final int val)
+		private PlayerMark(final int val) throws IllegalArgumentException
 		{
+			if (val <= Character.MIN_VALUE || val >= (Character.MAX_VALUE - 'A'))
+			{
+				throw new IllegalArgumentException();
+			}
+			
 			players.add(this);
 			
 			markValue = val;
@@ -238,6 +245,18 @@ public final class GameModel implements Serializable
 		public String toString() 
 		{			
 			return String.valueOf(markValue);
+		}
+		
+		/**
+		 * Return the unique key representation
+		 * of this mark.
+		 * @return the unique key representation
+		 * of this mark.
+		 */
+		public String toUniqueKey()
+		{
+			char c = (char) ('A' + markValue - 1);
+			return String.valueOf(c);
 		}
 		
 		/**
@@ -622,7 +641,7 @@ public final class GameModel implements Serializable
 		
 		final String LINE_SEP = System.getProperty("line.separator");
 		
-		StringBuffer sbContent = new StringBuffer();
+		StringBuilder sbContent = new StringBuilder();
 		
 		for (int i = 0; i < gameTab.length; i++)
 		{
@@ -646,6 +665,44 @@ public final class GameModel implements Serializable
 		
 		return sbContent.toString();
 		
+	}
+	
+	/**
+	 * Return the unique string representation
+	 * of this game model.<br/>
+	 * The string representation is provided
+	 * under a compressed form.
+	 * @return the unique string representation
+	 * of this game model.
+	 */
+	public String toUniqueKey()
+	{
+		StringBuilder result = new StringBuilder();
+		
+		int nbEmptyCells = 0;
+		
+		for (int i = 0; i < gameTab.length; i++)
+		{
+			for (int j = 0; j < gameTab[i].length; j++)
+			{
+				if (gameTab[i][j] != null)
+				{
+					if (nbEmptyCells > 0)
+						result.append(nbEmptyCells);
+					nbEmptyCells = 0;
+					result.append(gameTab[i][j].toUniqueKey());
+				}
+				else
+				{
+					nbEmptyCells++;
+				}
+			}
+		}
+		
+		if (nbEmptyCells > 0)
+			result.append(nbEmptyCells);
+		
+		return result.toString();
 	}
 	
 	/**
