@@ -695,7 +695,7 @@ public final class GameModelPanel extends JPanel implements Observer
 		add(statusLabel, statusLabelConstraints);
 		
 		// Updates the panel after having initialized the interface.
-		updateMainPanel(true);
+		updateMainPanel(null);
 		updatePlayerPanel();
 	}
 	
@@ -779,17 +779,18 @@ public final class GameModelPanel extends JPanel implements Observer
 	
 	/**
 	 * Updates the main panel.
-	 * @param forceUpdate true if the update must be forced, false
-	 * elsewhere.
+	 * @param newGameModel the game model with which the update
+	 * must be done, or null if the game model must be fetched
+	 * using the <code>getGameModelImmediately</code> method.
 	 */
-	private synchronized void updateMainPanel(final boolean forceUpdate)
+	private synchronized void updateMainPanel(final GameModel newGameModel)
 	{
 		// This method is synchronized since it may be called by the client
 		// thread or by the GUI.
 		
-		GameModel gameModel = null;
+		GameModel gameModel = newGameModel;
 		
-		if (forceUpdate)
+		if (newGameModel == null)
 		{
 			try
 			{
@@ -801,28 +802,23 @@ public final class GameModelPanel extends JPanel implements Observer
 				gameModel = gameClient.getGameModel();
 			}
 		}
-		else
-			gameModel = gameClient.getGameModel();
 		
 		if (gameModel == null)
-		{			
-			if (localGameModel != null || forceUpdate)
-			{
-				mainPanel.removeAll();
+		{	
+			mainPanel.removeAll();
+		
+			JLabel label = new JLabel(GUIMessages.NO_GAME_RUNNING_MESSAGE.toString());
+			label.setHorizontalAlignment(JLabel.CENTER);
+			label.setVerticalAlignment(JLabel.CENTER);
+			label.setOpaque(true);
+			label.setBackground(Color.BLUE);
+			label.setForeground(Color.WHITE);
 			
-				JLabel label = new JLabel(GUIMessages.NO_GAME_RUNNING_MESSAGE.toString());
-				label.setHorizontalAlignment(JLabel.CENTER);
-				label.setVerticalAlignment(JLabel.CENTER);
-				label.setOpaque(true);
-				label.setBackground(Color.BLUE);
-				label.setForeground(Color.WHITE);
-				
-				gameModelDrawPanel = null;
+			gameModelDrawPanel = null;
+		
+			mainPanel.add(label, BorderLayout.CENTER);
 			
-				mainPanel.add(label, BorderLayout.CENTER);
-				
-				statusLabel.setText(GUIMessages.NO_GAME_RUNNING_MESSAGE.toString());
-			}
+			statusLabel.setText(GUIMessages.NO_GAME_RUNNING_MESSAGE.toString());			
 			
 			localGameModel = null;
 		}
@@ -911,7 +907,7 @@ public final class GameModelPanel extends JPanel implements Observer
 	synchronized final void forceUpdate()
 	{
 		updatePlayerPanel();
-		updateMainPanel(true);
+		updateMainPanel(null);
 	}
 
 	/**
@@ -935,7 +931,7 @@ public final class GameModelPanel extends JPanel implements Observer
 					public void run()
 					{
 						updatePlayerPanel();				
-						updateMainPanel(false);
+						updateMainPanel(gameClient.getGameModel());
 					}
 				});
 
