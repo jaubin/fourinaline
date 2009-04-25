@@ -838,10 +838,11 @@ public final class GameModelPanel extends JPanel implements Observer
 			PlayerMark mark = localGameModel.getCurrentPlayer();
 			
 			// This double-check of the game model update ensures that a
-			// has-won message is not sent twice...
-			// This may occur in case the update is forced and then a "normal"
-			// update occurs...
-			if (bUpdatedGame)
+			// has-won message is not sent twice... 
+			// This can occur sometimes in some race conditions.
+			// Thus game status may only be updated by the client thread, not
+			// the forceUpdate() method.
+			if (bUpdatedGame && newGameModel != null)
 			{
 				// Updates the panel according to the game state.
 				if (localGameModel.getGameStatus().equals(GameStatus.TIE_STATUS))
