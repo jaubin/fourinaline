@@ -3,7 +3,12 @@
    <property name="buildPath" value="build"/>
    <property name="srcPath" value="src"/>
    <property name="jarName" value="fourinaline.jar"/>
-   <property name="version" value="1.3.4"/>
+
+   <tstamp>
+      <format property="currentDate" pattern="yyyyMMdd"/>
+   </tstamp>
+
+   <property name="version" value="${currentDate}-svn"/>
 
    <target name="init">
       <mkdir dir="${buildPath}"/>
@@ -58,6 +63,7 @@
    </target>
 
    <target name="build-package-and-clean" depends="build-package" description="Compiles the project, builds a deployable package and and the corresponding source package.">
+      <echo message="To build a version of the FourInALine game that must be published, please specify the version property in the command line, as for example : ant -Dversion=1.3.4"/>
       <delete dir="${buildPath}"/>
       <delete dir="${srcPath}"/>
       <delete file="${jarName}"/>
