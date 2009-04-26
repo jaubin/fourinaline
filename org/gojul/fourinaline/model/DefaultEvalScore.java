@@ -108,7 +108,7 @@ public final class DefaultEvalScore implements EvalScore
 	private int evaluateLine(final GameModel gameModel, final PlayerMark playerMark, final List<CellCoord> line)
 	{	
 		// Formula : score for a cell = 2^(number of cells of this color in the line) if the cell
-		// still contains winning positions 0 elsewhere.		
+		// still contains winning positions 0 otherwise.		
 		int result = 1;
 		
 		for (int i = 0; i < line.size() && result != 0; i++)
