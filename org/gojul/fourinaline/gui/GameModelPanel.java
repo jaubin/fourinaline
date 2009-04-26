@@ -469,6 +469,41 @@ public final class GameModelPanel extends JPanel implements Observer
 		}
 		
 		/**
+		 * In case the game model <code>model</code> contains only one chip, return
+		 * its coordinates. Otherwise return null.
+		 * @param model the model to test.
+		 * @return the coordinate of the cell which contains the chip if applicable,
+		 * null otherwise.
+		 */
+		private synchronized CellCoord getChipIfOnlyOneInserted(final GameModel model)
+		{
+			CellCoord result = null;
+			int nbCellsOccupied = 0;
+			
+			for (int i = 0; i < model.getRowCount() && nbCellsOccupied <= 1; i++)
+			{
+				for (int j = 0; j < model.getColCount() && nbCellsOccupied <= 1; j++)
+				{
+					if (model.getCell(i, j) != null)
+					{
+						if (nbCellsOccupied == 0)
+						{
+							result = new CellCoord(i, j);
+						}
+						else
+						{
+							result = null;
+						}
+						
+						nbCellsOccupied++;
+					}
+				}
+			}
+			
+			return result;
+		}
+		
+		/**
 		 * Returns the coordinates of the last inserted chip, in case <code>model</code>
 		 * is the current game model plus one inserted chip.<br/>
 		 * Otherwise returns null.
@@ -497,12 +532,22 @@ public final class GameModelPanel extends JPanel implements Observer
 						if (result == null)
 							result = new CellCoord(i, j);
 						else
-							// Here the new model is not a successor of the old one, so we do not
-							// return any information.
+						{
+							// Here the new model is not a successor of the old one, so 
+							// we do not return any information.
 							return null;
+						}
 					}
 				}
 			}
+			
+			// In some conditions in a multiplayer environment, one of the client
+			// may only get the model once the other has already played. In that
+			// case we have to check that if there's only one chip inserted,
+			// and if this is the case we return it since no difference between
+			// the two models could be detected.
+			if (result == null)
+				result = getChipIfOnlyOneInserted(model);
 			
 			return result;
 		}
