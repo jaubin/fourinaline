@@ -27,6 +27,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -398,6 +399,76 @@ public final class GameModel implements Serializable
 	}
 	
 	/**
+	 * This class represents a step of the game.
+	 *
+	 * @author Julien Aubin
+	 */
+	private final static class PlayStep implements Serializable {
+		
+		/**
+		 * The class serial version UID.
+		 */
+		final static long serialVersionUID = 1L;
+		
+		/**
+		 * The played column index.
+		 */
+		private int colIndex;
+		
+		/**
+		 * The played status.
+		 */
+		private GameStatus currentStatus;
+		
+		/**
+		 * The current player mark.
+		 */
+		private PlayerMark currentMark;
+		
+		/**
+		 * Constructor.
+		 * @param col the played column index.
+		 * @param status the played status.
+		 * @param mark the played mark.
+		 * @throws NullPointerException if any of the method parameter is null.
+		 */
+		public PlayStep(final int col, final GameStatus status, final PlayerMark mark)
+			throws NullPointerException {
+			
+			if (status == null || mark == null)
+				throw new NullPointerException();
+			
+			colIndex = col;
+			currentStatus = status;
+			currentMark = mark;
+		}
+		
+		/**
+		 * Return played the column index.
+		 * @return the played column index.
+		 */
+		public int getColIndex() {
+			return colIndex;
+		}
+		
+		/**
+		 * Return the game status at the time of the start of the turn.
+		 * @return the game status at the time of the start of the turn.
+		 */
+		public GameStatus getGameStatus() {
+			return currentStatus;
+		}
+		
+		/**
+		 * Return the mark at the start of the turn.
+		 * @return the mark at the start of the turn.
+		 */
+		public PlayerMark getPlayerMark() {
+			return currentMark;
+		}
+	}
+	
+	/**
 	 * The game tab, indexed by rows and then by column index.
 	 * The (0, 0) coordinate represent the (top, left) cell.
 	 */
@@ -422,6 +493,11 @@ public final class GameModel implements Serializable
 	 * The win line.
 	 */
 	private List<CellCoord> winLine;
+	
+	/**
+	 * The play history.
+	 */
+	private List<PlayStep> playHistory;
 	
 	/**
 	 * The map of line positions that are considered as
@@ -469,6 +545,7 @@ public final class GameModel implements Serializable
 		gameStatus = GameStatus.CONTINUE_STATUS;
 		winLinesMap = new ConcurrentHashMap<CellCoord, Set<List<CellCoord>>>();
 		winLine = null;
+		playHistory = new LinkedList<PlayStep>();
 	}
 	
 	/**
@@ -500,6 +577,7 @@ public final class GameModel implements Serializable
 			for (int j = 0; j < gameModel.gameTab[i].length; j++)
 				gameTab[i][j] = gameModel.gameTab[i][j];
 		}
+		playHistory = new LinkedList<PlayStep>(gameModel.playHistory);
 	}
 	
 	/**
@@ -747,12 +825,31 @@ public final class GameModel implements Serializable
 		
 		gameTab[getFreeRowIndexForColumn(colIndex)][colIndex] = playerMark;
 		
+		playHistory.add(new PlayStep(colIndex, gameStatus, currentPlayer));
+		
 		updateGameStatus();
 		
 		if (gameStatus.equals(GameStatus.CONTINUE_STATUS))
 		{
 			currentPlayer = PlayerMark.getNextMark(currentPlayer);
 		}
+	}
+	
+	/**
+	 * Cancel the last play in the play history.
+	 * @throws GameModelException if there's no more more
+	 * play to remove.
+	 */
+	public void cancelLastPlay() throws GameModelException {
+		if (playHistory.isEmpty())
+			throw new GameModelException();
+		
+		PlayStep lastStep = playHistory.remove(playHistory.size() - 1);
+		
+		gameStatus = lastStep.getGameStatus();
+		currentPlayer = lastStep.getPlayerMark();
+		int colIndex = lastStep.getColIndex();
+		gameTab[getFreeRowIndexForColumn(colIndex) + 1][colIndex] = null;
 	}
 	
 	/**

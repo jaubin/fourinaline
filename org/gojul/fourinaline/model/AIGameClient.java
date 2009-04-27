@@ -368,13 +368,16 @@ public final class AIGameClient extends ComputerGameClient
 				iterationOrder.retainAll(possiblePlays);
 				
 				for (Integer colIndex: iterationOrder)
-				{
-					GameModel tempModel = new GameModel(gameModel);					
-					tempModel.play(colIndex.intValue(), tempMark);
+				{		
+					// We avoid there multiple copies of the game model
+					// which are unuseful in our case...
+					gameModel.play(colIndex.intValue(), tempMark);
 					
 					// We cannot use the cache there since it would bring
 					// erroneous results.
-					int	currentScore = alphaBeta(playOrder, tempModel, tempMark, -beta, -alphaEval, currentDeepness + 1);
+					int	currentScore = alphaBeta(playOrder, gameModel, tempMark, -beta, -alphaEval, currentDeepness + 1);
+					
+					gameModel.cancelLastPlay();
 					
 					if (currentScore > bestScore)
 					{
