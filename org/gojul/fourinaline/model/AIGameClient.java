@@ -25,8 +25,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.WeakHashMap;
 
 import org.gojul.fourinaline.model.GameClient.ComputerGameClient;
@@ -189,6 +193,12 @@ public final class AIGameClient extends ComputerGameClient
 		private final static int CACHE_INITIAL_CAPACITY = 5000;
 		
 		/**
+		 * The random which determines which column is to be played
+		 * when two columns have the same score.
+		 */
+		private final static Random random = new SecureRandom();
+		
+		/**
 		 * The evaluation function.
 		 */
 		private EvalScore evalScore;
@@ -199,6 +209,11 @@ public final class AIGameClient extends ComputerGameClient
 		private int deepness;
 		
 		/**
+		 * The random factor.
+		 */
+		private float randFactor;
+		
+		/**
 		 * The score cache.
 		 */
 		private transient Map<String, Integer> scoreCache;
@@ -207,11 +222,34 @@ public final class AIGameClient extends ComputerGameClient
 		 * Constructor.
 		 * @param evalScoreFunction the evaluation function used.
 		 * @param deepnessSearch the search deepness.
+		 * @throws NullPointerException if any of the method parameter
+		 * is null.
+		 * @throws IllegalArgumentException if <code>deepnessSearch</code>
+		 * is inferior or equal to 0.
 		 */
 		public AlphaBeta(final EvalScore evalScoreFunction, final int deepnessSearch)
+			throws NullPointerException, IllegalArgumentException
+		{
+			this(evalScoreFunction, deepnessSearch, 0.5f);
+		}
+		
+		/**
+		 * Constructor.
+		 * @param evalScoreFunction the evaluation function used.
+		 * @param deepnessSearch the search deepness.
+		 * @param randomFactor the random factor used when two possible plays
+		 * have the same score.
+		 * @throws NullPointerException if any of the method parameter is null.
+		 * @throws IllegalArgumentException if <code>deepnessSearch</code> is
+		 * inferior or equal to 0, or if <code>randomFactor</code> is not in the
+		 * [0, 1] range.
+		 */
+		public AlphaBeta(final EvalScore evalScoreFunction, final int deepnessSearch, final float randomFactor)
+			throws NullPointerException, IllegalArgumentException
 		{
 			evalScore = evalScoreFunction;
 			deepness = deepnessSearch;
+			randFactor = randomFactor; 
 			scoreCache = new WeakHashMap<String, Integer>(CACHE_INITIAL_CAPACITY);
 		}
 		
@@ -245,9 +283,22 @@ public final class AIGameClient extends ComputerGameClient
 				}
 				else
 				{
+					// We iterate over the columns from the center
+					// as this is the most interesting order for us.
+					// This quirk improves greatly speed as the best
+					// scores of the alpha beta algorithm are in
+					// the middle columns.
+					List<Integer> playOrder = new ArrayList<Integer>();
+					int column = (tempModel.getColCount() - 1) / 2;
+					for (int i = 1, len = tempModel.getColCount(); i <= len; i++) 
+					{
+						playOrder.add(column);
+						column += (i % 2 == 1) ? i: -i;
+					}
+					
 					// We build the key before performing the alpha-beta evaluation
 					// becuase tempModel is mutable.
-					currentScore = alphaBeta(tempModel, playerMark, Integer.MIN_VALUE, -bestScore, 0);
+					currentScore = alphaBeta(playOrder, tempModel, playerMark, Integer.MIN_VALUE, -bestScore, 0);
 					scoreCache.put(key, Integer.valueOf(currentScore));
 				}				
 				
@@ -255,6 +306,11 @@ public final class AIGameClient extends ComputerGameClient
 				{
 					bestScore = currentScore;
 					bestColumn = colIndex;
+				}
+				else if (currentScore == bestScore) {
+					if (random.nextFloat() >= randFactor) {
+						bestColumn = colIndex;
+					}
 				}
 			}
 			
@@ -278,6 +334,7 @@ public final class AIGameClient extends ComputerGameClient
 		/**
 		 * Performs an alpha-beta algorithm over the game model <code>gameModel</code>,
 		 * with current player <code>playerMark</code>.
+		 * @param playOrder the play order in which we iterate over the board.
 		 * @param gameModel the game model to consider. 
 		 * @param playerMark the player mark to consider.
 		 * @param alpha the alpha value.
@@ -285,7 +342,7 @@ public final class AIGameClient extends ComputerGameClient
 		 * @param currentDeepness the deepness in the alpha-beta tree.
 		 * @return the score of each possibility of the alpha beta model.
 		 */
-		private int alphaBeta(final GameModel gameModel, final PlayerMark playerMark, final int alpha, final int beta, final int currentDeepness)
+		private int alphaBeta(final List<Integer> playOrder, final GameModel gameModel, final PlayerMark playerMark, final int alpha, final int beta, final int currentDeepness)
 		{		
 			// Game won by the player.
 			if (gameModel.getGameStatus() == GameStatus.WON_STATUS)
@@ -307,28 +364,17 @@ public final class AIGameClient extends ComputerGameClient
 				int alphaEval = alpha;
 				
 				Collection<Integer> possiblePlays = gameModel.getListOfPlayableColumns();
+				List<Integer> iterationOrder = new ArrayList<Integer>(playOrder);
+				iterationOrder.retainAll(possiblePlays);
 				
-				for (Integer colIndex: possiblePlays)
+				for (Integer colIndex: iterationOrder)
 				{
 					GameModel tempModel = new GameModel(gameModel);					
 					tempModel.play(colIndex.intValue(), tempMark);
-					String key = tempModel.toUniqueKey();
 					
-					int currentScore = 0;
-					
-					Integer currentScoreInt = scoreCache.get(key);
-					
-					if (currentScoreInt != null)
-					{
-						currentScore = currentScoreInt.intValue();
-					}
-					else
-					{
-						// We build the key before performing the alpha-beta evaluation
-						// becuase tempModel is mutable.
-						currentScore = alphaBeta(tempModel, tempMark, -beta, -alphaEval, currentDeepness + 1);
-						scoreCache.put(key, Integer.valueOf(currentScore));
-					}
+					// We cannot use the cache there since it would bring
+					// erroneous results.
+					int	currentScore = alphaBeta(playOrder, tempModel, tempMark, -beta, -alphaEval, currentDeepness + 1);
 					
 					if (currentScore > bestScore)
 					{
