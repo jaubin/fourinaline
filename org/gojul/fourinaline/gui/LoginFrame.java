@@ -111,7 +111,7 @@ public final class LoginFrame extends JDialog implements ChangeListener, ActionL
 	public LoginFrame()
 	{
 		super();
-		setSize(500, 200);
+		setSize(600, 200);
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setTitle(GUIMessages.MAIN_FRAME_TITLE.toString());
@@ -221,7 +221,7 @@ public final class LoginFrame extends JDialog implements ChangeListener, ActionL
 		aiLevelComboBox = new JComboBox(AIGameLevel.getAvailableLevels());
 		computerAdversoryPanel.add(aiLevelComboBox);
 		aiLevelComboBox.setEditable(false);
-		aiLevelComboBox.setSelectedItem(AIGameLevel.WEAK_AI_GAME_LEVEL);
+		aiLevelComboBox.setSelectedItem(AIGameLevel.VERY_WEAK_AI_GAME_LEVEL);
 		
 		// Human info
 		humanAdversoryRadioButton = new JRadioButton(GUIMessages.HUMAN_ADVERSORY_TEXT.toString());

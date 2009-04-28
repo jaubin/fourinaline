@@ -141,7 +141,7 @@ public final class GlobalLoginFrame extends JDialog implements ActionListener, C
 	public GlobalLoginFrame(final String serverAddress) throws NullPointerException, RemoteException, NotBoundException
 	{
 		super();
-		setSize(500, 220);
+		setSize(600, 220);
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setTitle(GUIMessages.MAIN_FRAME_TITLE.toString());
@@ -272,7 +272,7 @@ public final class GlobalLoginFrame extends JDialog implements ActionListener, C
 		aiLevelComboBox = new JComboBox(AIGameLevel.getAvailableLevels());
 		computerAdversoryPanel.add(aiLevelComboBox);
 		aiLevelComboBox.setEditable(false);
-		aiLevelComboBox.setSelectedItem(AIGameLevel.WEAK_AI_GAME_LEVEL);
+		aiLevelComboBox.setSelectedItem(AIGameLevel.VERY_WEAK_AI_GAME_LEVEL);
 		
 		// Human info
 		humanAdversoryRadioButton = new JRadioButton(GUIMessages.HUMAN_ADVERSORY_TEXT.toString());

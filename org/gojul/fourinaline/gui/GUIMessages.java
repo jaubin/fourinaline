@@ -390,10 +390,17 @@ public final class GUIMessages implements Serializable
 	public final static GUIMessages CURRENT_TURN_MESSAGE = new GUIMessages("Current turn: ");
 	
 	/**
-	 * The week AI level message.<br/>
-	 * Value : &quot;Weak (Fast)&quot;
+	 * The very week AI level message.<br/>
+	 * Value : &quot;Very weak (Fast)&quot;
 	 */
-	public final static GUIMessages WEAK_AI_LEVEL_MESSAGE = new GUIMessages("Weak (Fast)");
+	public final static GUIMessages VERY_WEAK_AI_LEVEL_MESSAGE = new GUIMessages("Very weak (Fast)");
+	
+	
+	/**
+	 * The week AI level message.<br/>
+	 * Value : &quot;Weak&quot;
+	 */
+	public final static GUIMessages WEAK_AI_LEVEL_MESSAGE = new GUIMessages("Weak");
 	
 	/**
 	 * The intermediate AI level message.<br/>
@@ -403,9 +410,16 @@ public final class GUIMessages implements Serializable
 	
 	/**
 	 * The strong AI level message.<br/>
-	 * Value : &quot;Strong (Slow)&quot;
+	 * Value : &quot;Strong&quot;
 	 */
-	public final static GUIMessages STRONG_AI_LEVEL_MESSAGE = new GUIMessages("Strong (Slow)");
+	public final static GUIMessages STRONG_AI_LEVEL_MESSAGE = new GUIMessages("Strong");
+	
+	/**
+	 * The very strong AI level message.<br/>
+	 * Value : &quot;Very strong (Slow)&quot;
+	 */
+	public final static GUIMessages VERY_STRONG_AI_LEVEL_MESSAGE = new GUIMessages("Very strong (Slow)");
+	
 	
 	/**
 	 * The game message.<br/>

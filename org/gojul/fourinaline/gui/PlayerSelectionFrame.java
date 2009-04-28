@@ -136,19 +136,31 @@ final class PlayerSelectionFrame extends JDialog implements Runnable, WindowList
 		}
 		
 		/**
+		 * The very weak AI game level.
+		 */
+		public final static AIGameLevel VERY_WEAK_AI_GAME_LEVEL = new AIGameLevel(GUIMessages.VERY_WEAK_AI_LEVEL_MESSAGE, 4);
+		
+		/**
 		 * The weak AI game level.
 		 */
-		public final static AIGameLevel WEAK_AI_GAME_LEVEL = new AIGameLevel(GUIMessages.WEAK_AI_LEVEL_MESSAGE, 4);
+		public final static AIGameLevel WEAK_AI_GAME_LEVEL = new AIGameLevel(GUIMessages.WEAK_AI_LEVEL_MESSAGE, 5);
+		
 		
 		/**
 		 * The intermediate AI game level.
 		 */
-		public final static AIGameLevel INTERMEDIATE_AI_GAME_LEVEL = new AIGameLevel(GUIMessages.INTERMEDIATE_AI_LEVEL_MESSAGE, 5);
+		public final static AIGameLevel INTERMEDIATE_AI_GAME_LEVEL = new AIGameLevel(GUIMessages.INTERMEDIATE_AI_LEVEL_MESSAGE, 6);
 		
 		/**
 		 * The strong AI game level.
 		 */
-		public final static AIGameLevel STRONG_AI_GAME_LEVEL = new AIGameLevel(GUIMessages.STRONG_AI_LEVEL_MESSAGE, 6);
+		public final static AIGameLevel STRONG_AI_GAME_LEVEL = new AIGameLevel(GUIMessages.STRONG_AI_LEVEL_MESSAGE, 7);
+		
+		/**
+		 * The very strong AI game level.
+		 */
+		public final static AIGameLevel VERY_STRONG_AI_GAME_LEVEL = new AIGameLevel(GUIMessages.VERY_STRONG_AI_LEVEL_MESSAGE, 8);
+		
 	}
 	
 	/**
