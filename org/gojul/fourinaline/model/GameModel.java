@@ -827,7 +827,7 @@ public final class GameModel implements Serializable
 		
 		playHistory.add(new PlayStep(colIndex, gameStatus, currentPlayer));
 		
-		updateGameStatus();
+		updateGameStatus(colIndex);
 		
 		if (gameStatus.equals(GameStatus.CONTINUE_STATUS))
 		{
@@ -1133,58 +1133,58 @@ public final class GameModel implements Serializable
 	}
 	
 	/**
-	 * Returns true if the game is won, false elsewhere.
-	 * @return true if the game is won, false elsewhere.
+	 * Returns true if the game is won, false otherwise.
+	 * @param colIndex the index of the last played column.
+	 * @return true if the game is won, false otherwise.
 	 */
-	private boolean isGameWon()
+	private boolean isGameWon(final int colIndex)
 	{
+		// Here we just have to determine if the game
+		// has been won around the last cell played. The
+		// other ones have not been updated, so they're not
+		// interesting for us.
 		boolean isWon = false;
 		
 		Set<List<CellCoord>> encounteredLines = new HashSet<List<CellCoord>>();
+
+		int rowIndex = getFreeRowIndexForColumn(colIndex) + 1;
+		PlayerMark markTest = gameTab[rowIndex][colIndex]; 
 		
-		for (int i = 0; i < gameTab.length && !isWon; i++)
+		// We only consider occupied cells here.
+		if (markTest != null)
 		{
-			for (int j = 0; j < gameTab[i].length && !isWon; j++)
+			Collection<List<CellCoord>> lines = getAllLines(rowIndex, colIndex);
+			
+			Iterator<List<CellCoord>> it = lines.iterator();
+			
+			while (it.hasNext() && !isWon)
 			{
-				PlayerMark markTest = gameTab[i][j]; 
+				List<CellCoord> line = it.next();
 				
-				// We only consider occupied cells here.
-				if (markTest != null)
+				if (!encounteredLines.contains(line))
 				{
-					Collection<List<CellCoord>> lines = getAllLines(i, j);
+					encounteredLines.add(line);
+										
+					boolean isAllEqual = true;
 					
-					Iterator<List<CellCoord>> it = lines.iterator();
+					Iterator<CellCoord> itCoord = line.iterator();
 					
-					while (it.hasNext() && !isWon)
+					// A line is considered as correct if all its
+					// marks are not null and equal to each other.
+					while (itCoord.hasNext() && isAllEqual)
 					{
-						List<CellCoord> line = it.next();
+						PlayerMark mark = getCell(itCoord.next());
 						
-						if (!encounteredLines.contains(line))
-						{
-							encounteredLines.add(line);
-												
-							boolean isAllEqual = true;
-							
-							Iterator<CellCoord> itCoord = line.iterator();
-							
-							// A line is considered as correct if all its
-							// marks are not null and equal to each other.
-							while (itCoord.hasNext() && isAllEqual)
-							{
-								PlayerMark mark = getCell(itCoord.next());
-								
-								if (mark != null)
-									isAllEqual = mark.equals(markTest);
-								else
-									isAllEqual = false;
-							}
-							
-							isWon = isAllEqual;
-							
-							if (isWon)
-								winLine = Collections.unmodifiableList(line);
-						}
+						if (mark != null)
+							isAllEqual = mark.equals(markTest);
+						else
+							isAllEqual = false;
 					}
+					
+					isWon = isAllEqual;
+					
+					if (isWon)
+						winLine = Collections.unmodifiableList(line);
 				}
 			}
 		}
@@ -1194,10 +1194,11 @@ public final class GameModel implements Serializable
 	
 	/**
 	 * Updates the game status.
+	 * @param colIndex the index of the last played column.
 	 */
-	private void updateGameStatus()
+	private void updateGameStatus(final int colIndex)
 	{
-		if (isGameWon())
+		if (isGameWon(colIndex))
 			gameStatus = GameStatus.WON_STATUS;
 		else
 		{
