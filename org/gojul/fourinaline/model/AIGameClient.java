@@ -272,14 +272,29 @@ public final class AIGameClient extends ComputerGameClient
 		 */
 		public int getColumnIndex(final GameModel gameModel, final PlayerMark playerMark)
 		{			
-			Collection<Integer> possibleColumns = gameModel.getListOfPlayableColumns();
+			Collection<Integer> possiblePlays = gameModel.getListOfPlayableColumns();
 			
 			int bestColumn = -1;
 			int bestScore = -Integer.MAX_VALUE;
 			
-			for (Integer colIndex: possibleColumns)
+			GameModel tempModel = new GameModel(gameModel);
+			// We iterate over the columns from the center
+			// as this is the most interesting order for us.
+			// This quirk improves greatly speed as the best
+			// scores of the alpha beta algorithm are in
+			// the middle columns.
+			List<Integer> playOrder = new ArrayList<Integer>();
+			int column = (tempModel.getColCount() - 1) / 2;
+			for (int i = 1, len = tempModel.getColCount(); i <= len; i++) 
 			{
-				GameModel tempModel = new GameModel(gameModel);
+				playOrder.add(column);
+				column += (i % 2 == 1) ? i: -i;
+			}
+			List<Integer> iterationOrder = new ArrayList<Integer>(playOrder);
+			iterationOrder.retainAll(possiblePlays);
+			
+			for (Integer colIndex: iterationOrder)
+			{
 				tempModel.play(colIndex.intValue(), playerMark);
 				String key = tempModel.toUniqueKey();
 				int currentScore = 0;
@@ -291,25 +306,14 @@ public final class AIGameClient extends ComputerGameClient
 					currentScore = currentScoreInt.intValue();
 				}
 				else
-				{
-					// We iterate over the columns from the center
-					// as this is the most interesting order for us.
-					// This quirk improves greatly speed as the best
-					// scores of the alpha beta algorithm are in
-					// the middle columns.
-					List<Integer> playOrder = new ArrayList<Integer>();
-					int column = (tempModel.getColCount() - 1) / 2;
-					for (int i = 1, len = tempModel.getColCount(); i <= len; i++) 
-					{
-						playOrder.add(column);
-						column += (i % 2 == 1) ? i: -i;
-					}
-					
+				{					
 					// We build the key before performing the alpha-beta evaluation
 					// becuase tempModel is mutable.
 					currentScore = alphaBeta(playOrder, tempModel, playerMark, Integer.MIN_VALUE, -bestScore, 0);
 					scoreCache.put(key, Integer.valueOf(currentScore));
-				}				
+				}	
+				
+				tempModel.cancelLastPlay();
 				
 				if (currentScore > bestScore)
 				{
