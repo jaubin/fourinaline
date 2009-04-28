@@ -247,6 +247,15 @@ public final class AIGameClient extends ComputerGameClient
 		public AlphaBeta(final EvalScore evalScoreFunction, final int deepnessSearch, final float randomFactor)
 			throws NullPointerException, IllegalArgumentException
 		{
+			if (evalScoreFunction == null)
+				throw new NullPointerException();
+			
+			if (deepnessSearch <= 0)
+				throw new IllegalArgumentException("deepnessSearch");
+			
+			if (randomFactor < 0.0f || randomFactor > 1.0f) 
+				throw new IllegalArgumentException("randomFactor");
+			
 			evalScore = evalScoreFunction;
 			deepness = deepnessSearch;
 			randFactor = randomFactor; 
