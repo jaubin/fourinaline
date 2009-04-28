@@ -71,7 +71,7 @@ public abstract class GameClient extends Observable implements Runnable
 		/**
 		 * The call period in milliseconds.
 		 */
-		private final static int CALL_PERIOD = 2000;
+		private final static int CALL_PERIOD = 10000;
 		
 		/**
 		 * The game client to update.
