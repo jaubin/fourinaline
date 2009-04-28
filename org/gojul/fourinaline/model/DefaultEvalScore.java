@@ -22,9 +22,7 @@
 package org.gojul.fourinaline.model;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.gojul.fourinaline.model.AIGameClient.EvalScore;
 import org.gojul.fourinaline.model.GameModel.CellCoord;
@@ -69,28 +67,16 @@ public final class DefaultEvalScore implements EvalScore
 	{
 		int score = 0;
 		
-		Set<List<CellCoord>> encounteredLines = new HashSet<List<CellCoord>>();
+		Collection<List<CellCoord>> lines = gameModel.getAllLines();
 		
-		for (int i = 0; i < gameModel.getRowCount(); i++)
+		for (List<CellCoord> line: lines)
 		{
-			for (int j = 0; j < gameModel.getColCount(); j++)
-			{
-				Collection<List<CellCoord>> lines = gameModel.getAllLines(new CellCoord(i, j));
-				
-				for (List<CellCoord> line: lines)
-				{
-					// We treat only once each line.
-					// Since we treat all the cells, a line might be treated at
-					// a maximum of four times if we do not check if it has already
-					// been treated.
-					if (!encounteredLines.contains(line))
-					{
-						int lineScore = evaluateLine(gameModel, playerMark, line); 
-						score += lineScore;
-						encounteredLines.add(line);
-					}
-				}
-			}
+			// We treat only once each line.
+			// Since we treat all the cells, a line might be treated at
+			// a maximum of four times if we do not check if it has already
+			// been treated.
+			int lineScore = evaluateLine(gameModel, playerMark, line); 
+			score += lineScore;
 		}
 		
 		return score;
@@ -111,11 +97,11 @@ public final class DefaultEvalScore implements EvalScore
 		// still contains winning positions 0 otherwise.		
 		int result = 1;
 		
-		for (int i = 0; i < line.size() && result != 0; i++)
+		List<PlayerMark> lineValues = gameModel.getValuesOfLine(line);
+		
+		for (int i = 0, len = line.size(); i < len && result != 0; i++)
 		{
-			CellCoord coord = line.get(i);
-			
-			PlayerMark markTest = gameModel.getCell(coord);
+			PlayerMark markTest = lineValues.get(i);
 			
 			if (markTest != null)
 			{

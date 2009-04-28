@@ -500,6 +500,11 @@ public final class GameModel implements Serializable
 	private List<PlayStep> playHistory;
 	
 	/**
+	 * The set of all lines of the game model.
+	 */
+	private Set<List<CellCoord>> lines; 
+	
+	/**
 	 * The map of line positions that are considered as
 	 * possible victory lines. This is a cache mechanism in order
 	 * to improve the performance, especially with AI algorithm.<br/>
@@ -546,6 +551,13 @@ public final class GameModel implements Serializable
 		winLinesMap = new ConcurrentHashMap<CellCoord, Set<List<CellCoord>>>();
 		winLine = null;
 		playHistory = new LinkedList<PlayStep>();
+		
+		lines = new HashSet<List<CellCoord>>();
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				lines.addAll(getAllLines(i, j));
+			}
+		}
 	}
 	
 	/**
@@ -564,6 +576,7 @@ public final class GameModel implements Serializable
 		// Here it is safe to copy the win line map - nothing particular
 		// to a given instance of a game model is written here. 
 		winLinesMap = gameModel.winLinesMap;
+		lines = gameModel.lines;
 		
 		// Here it is safe to copy the win line, since it is readonly.
 		winLine = gameModel.winLine;
@@ -1066,6 +1079,43 @@ public final class GameModel implements Serializable
 			
 			if (!outOfBoundsDetected)
 				result.add(Collections.unmodifiableList(line));
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Returns the list of all the lines of this game
+	 * model. Each line appears only once in the returned
+	 * set.
+	 * @return the list of all the lines of this game
+	 * model.
+	 */
+	public Set<List<CellCoord>> getAllLines() {
+		return Collections.unmodifiableSet(lines);
+	}
+	
+	/**
+	 * Returns the list of all the values for the line <code>line</code>.
+	 * @param line the line for which we want to get all the values.
+	 * @return the list of all the values for the line <code>line</code>.
+	 * @throws NullPointerException if <code>line</code> is null.
+	 * @throws ArrayIndexOutOfBoundsException if any of the coordinates
+	 * pointed out by <code>line</code> is null.
+	 */
+	public List<PlayerMark> getValuesOfLine(final List<CellCoord> line) throws NullPointerException, ArrayIndexOutOfBoundsException {
+		if (line == null)
+			throw new NullPointerException();
+		
+		// It's very easy to know if a line is valid, since
+		// we know all the possible lines of the game.
+		if (!lines.contains(line))
+			throw new ArrayIndexOutOfBoundsException();
+		
+		List<PlayerMark> result = new ArrayList<PlayerMark>(line.size());
+		
+		for (CellCoord coord: line) {
+			result.add(gameTab[coord.getRowIndex()][coord.getColIndex()]);
 		}
 		
 		return result;
