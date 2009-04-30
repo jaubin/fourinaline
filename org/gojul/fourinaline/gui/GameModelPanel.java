@@ -325,6 +325,22 @@ public final class GameModelPanel extends JPanel implements Observer
 		private CellCoord lastInsertedCell;
 		
 		/**
+		 * The game player marks.<br>
+		 * We use an array which actually mirrors
+		 * the game model in order to be able to
+		 * play animations easily.
+		 */
+		private PlayerMark[][] playerMarks;
+		
+		/**
+		 * Boolean indicating that the animation
+		 * is running.<br/>
+		 * When the animation is running, the user
+		 * cannot click the panel.
+		 */
+		private boolean animationRunning;
+		
+		/**
 		 * Constructor.
 		 * @param model the game model to draw.
 		 * @throws NullPointerException if any of the method parameter is null.
@@ -339,6 +355,8 @@ public final class GameModelPanel extends JPanel implements Observer
 			gameModel = model;
 			gameClient = client;
 			lastInsertedCell = null;
+			playerMarks = new PlayerMark[gameModel.getRowCount()][gameModel.getColCount()];
+			animationRunning = false;
 			
 			addMouseListener(this);
 		}
@@ -382,9 +400,9 @@ public final class GameModelPanel extends JPanel implements Observer
 			int cellHeight = getCellHeight();
 			int cellWidth = getCellWidth();
 			
-			for (int i = 0; i < gameModel.getRowCount(); i++)
+			for (int i = 0, len = playerMarks.length; i < len; i++)
 			{
-				for (int j = 0; j < gameModel.getColCount(); j++)
+				for (int j = 0, len2 = playerMarks[i].length; j < len2; j++)
 				{
 					int cellOrigX = cellWidth * j;
 					int cellOrigY = cellHeight * i;
@@ -393,7 +411,7 @@ public final class GameModelPanel extends JPanel implements Observer
 					
 					Paint currentGradient = Color.WHITE;
 					
-					PlayerMark mark = gameModel.getCell(i, j);
+					PlayerMark mark = playerMarks[i][j];
 					
 					if (mark != null)
 						currentGradient = PlayerColorRepresentation.valueOf(mark).getPlayerPaint(cellOrigX, cellOrigY, cellDestX, cellDestY);
@@ -418,7 +436,7 @@ public final class GameModelPanel extends JPanel implements Observer
 				
 				g2d.fillOval(cellWidth * j, cellHeight * i, cellWidth, cellHeight);
 				
-				PlayerMark mark = gameModel.getCell(i, j);
+				PlayerMark mark = playerMarks[i][j];
 				g2d.setPaint(PlayerColorRepresentation.valueOf(mark).getPlayerPaint(cellWidth * j, cellHeight * i, cellWidth * (j + 1), cellHeight * (i + 1)));
 				
 				g2d.fillOval(cellWidth * j + CIRCLE_WIDTH, cellHeight * i + CIRCLE_WIDTH, cellWidth - 2 * CIRCLE_WIDTH, cellHeight - 2 * CIRCLE_WIDTH);
@@ -567,10 +585,52 @@ public final class GameModelPanel extends JPanel implements Observer
 			if (model == null)
 				throw new NullPointerException();
 			
-			lastInsertedCell = getLastInsertedChip(model);
+			lastInsertedCell = null;
+			CellCoord last = getLastInsertedChip(model);
+			
+			for (int i = 0, len1 = playerMarks.length; i < len1; i++)
+			{
+				for (int j = 0, len2 = playerMarks[i].length; j < len2; j++)
+				{
+					playerMarks[i][j] = model.getCell(i, j);
+				}
+			}
+			
+			// Play a small animation in order to drop chips.
+			if (last != null) 
+			{
+				animationRunning = true;
+				
+				PlayerMark mark = model.getCell(last);
+				int rowIndex = last.getRowIndex();
+				int colIndex = last.getColIndex();
+				playerMarks[rowIndex][colIndex] = null;
+				
+				for (int i = 0; i <= rowIndex; i++) 
+				{
+					if (i > 0) {
+						playerMarks[i - 1][colIndex] = null;
+					}
+					playerMarks[i][colIndex] = mark;
+					
+					paintImmediately(getVisibleRect());
+					
+					try
+					{
+						wait(30);
+					}
+					catch (Throwable t)
+					{
+						t.printStackTrace();
+					}
+				}
+				
+				animationRunning = false;
+			}
+			
+			lastInsertedCell = last;
 			gameModel = model;
 			
-			validate();
 			repaint();
 		}
 
@@ -583,8 +643,11 @@ public final class GameModelPanel extends JPanel implements Observer
 			// component may be updated while it's being painted,
 			// which would lead to some very bad issues.
 			
+			// Thus we don't want the user to be able to click somewhere
+			// while the animation is running
 			if (gameModel.getCurrentPlayer().equals(gameClient.getPlayer().getPlayerMark())
-					&& gameModel.getGameStatus().equals(GameStatus.CONTINUE_STATUS))
+					&& gameModel.getGameStatus().equals(GameStatus.CONTINUE_STATUS)
+					&& !animationRunning)
 			{
 				int cellWidth = getCellWidth();
 				
