@@ -308,7 +308,12 @@ public final class GameModelPanel extends JPanel implements Observer
 	 */
 	@SuppressWarnings("serial")
 	private final static class GameModelDrawPanel extends JPanel implements MouseListener
-	{		
+	{	
+		/**
+		 * The cell border width.
+		 */
+		private final static int CELL_BORDER_WIDTH = 3;
+		
 		/**
 		 * The game model to consider.
 		 */
@@ -399,15 +404,17 @@ public final class GameModelPanel extends JPanel implements Observer
 			
 			int cellHeight = getCellHeight();
 			int cellWidth = getCellWidth();
+			int cellHeightDraw = cellHeight - CELL_BORDER_WIDTH;
+			int cellWidthDraw = cellWidth - CELL_BORDER_WIDTH;
 			
 			for (int i = 0, len = playerMarks.length; i < len; i++)
 			{
 				for (int j = 0, len2 = playerMarks[i].length; j < len2; j++)
 				{
-					int cellOrigX = cellWidth * j;
-					int cellOrigY = cellHeight * i;
-					int cellDestX = cellOrigX + cellWidth;
-					int cellDestY = cellOrigY + cellHeight;
+					int cellOrigX = cellWidth * j + CELL_BORDER_WIDTH;
+					int cellOrigY = cellHeight * i + CELL_BORDER_WIDTH;
+					int cellDestX = cellOrigX + cellWidthDraw;
+					int cellDestY = cellOrigY + cellHeightDraw;
 					
 					Paint currentGradient = Color.WHITE;
 					
@@ -417,7 +424,7 @@ public final class GameModelPanel extends JPanel implements Observer
 						currentGradient = PlayerColorRepresentation.valueOf(mark).getPlayerPaint(cellOrigX, cellOrigY, cellDestX, cellDestY);
 					
 					g2d.setPaint(currentGradient);
-					g2d.fillOval(cellOrigX, cellOrigY, cellWidth, cellHeight);
+					g2d.fillOval(cellOrigX, cellOrigY, cellWidthDraw, cellHeightDraw);
 				}
 			}
 			
@@ -426,7 +433,7 @@ public final class GameModelPanel extends JPanel implements Observer
 			if (gameModel.getGameStatus().equals(GameStatus.CONTINUE_STATUS) && lastInsertedCell != null)
 			{
 				// The circle mark width.
-				final int CIRCLE_WIDTH = 5;
+				final int CIRCLE_WIDTH = 3;
 				// The circle color : a kind of green.
 				final Color CIRCLE_COLOR = new Color(0, 255, 100);
 				
@@ -434,12 +441,13 @@ public final class GameModelPanel extends JPanel implements Observer
 				int i = lastInsertedCell.getRowIndex();
 				g2d.setColor(CIRCLE_COLOR);
 				
-				g2d.fillOval(cellWidth * j, cellHeight * i, cellWidth, cellHeight);
+				g2d.fillOval(cellWidth * j + CELL_BORDER_WIDTH, cellHeight * i + CELL_BORDER_WIDTH, cellWidthDraw, cellHeightDraw);
 				
 				PlayerMark mark = playerMarks[i][j];
-				g2d.setPaint(PlayerColorRepresentation.valueOf(mark).getPlayerPaint(cellWidth * j, cellHeight * i, cellWidth * (j + 1), cellHeight * (i + 1)));
+				g2d.setPaint(PlayerColorRepresentation.valueOf(mark).getPlayerPaint(cellWidth * j + CELL_BORDER_WIDTH, cellHeight * i + CELL_BORDER_WIDTH, 
+						cellWidth * (j + 1) - CELL_BORDER_WIDTH, cellHeight * (i + 1) - CELL_BORDER_WIDTH));
 				
-				g2d.fillOval(cellWidth * j + CIRCLE_WIDTH, cellHeight * i + CIRCLE_WIDTH, cellWidth - 2 * CIRCLE_WIDTH, cellHeight - 2 * CIRCLE_WIDTH);
+				g2d.fillOval(cellWidth * j + CIRCLE_WIDTH + CELL_BORDER_WIDTH, cellHeight * i + CIRCLE_WIDTH + CELL_BORDER_WIDTH, cellWidthDraw - 2 * CIRCLE_WIDTH, cellHeightDraw - 2 * CIRCLE_WIDTH);
 			}
 			
 			if (gameModel.getGameStatus().equals(GameStatus.WON_STATUS))
