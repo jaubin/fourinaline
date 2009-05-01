@@ -571,6 +571,44 @@ public final class GameModelPanel extends JPanel implements Observer
 		}
 		
 		/**
+		 * Display the animation of the chip dropping in the game.
+		 * @param model the game model for which we want to display the animation.
+		 * @param last the last inserted chip coordinates in the model.
+		 */
+		private synchronized void displayAnimation(final GameModel model, final CellCoord last)
+		{
+			// We synchronize this method in order to prevent the animation of
+			// two cells dropping at the same time...
+			animationRunning = true;
+			
+			PlayerMark mark = model.getCell(last);
+			int rowIndex = last.getRowIndex();
+			int colIndex = last.getColIndex();
+			playerMarks[rowIndex][colIndex] = null;
+			
+			for (int i = 0; i <= rowIndex; i++) 
+			{
+				if (i > 0) {
+					playerMarks[i - 1][colIndex] = null;
+				}
+				playerMarks[i][colIndex] = mark;
+				
+				paintImmediately(getVisibleRect());
+				
+				try
+				{
+					wait(30);
+				}
+				catch (Throwable t)
+				{
+					t.printStackTrace();
+				}
+			}
+			
+			animationRunning = false;
+		}
+		
+		/**
 		 * Updates the model this panel paints.
 		 * @param model the model to update.
 		 * @throws NullPointerException if 
@@ -585,7 +623,11 @@ public final class GameModelPanel extends JPanel implements Observer
 			if (model == null)
 				throw new NullPointerException();
 			
+			// We do not set up the last inserted cell coordinates
+			// now as we do not want to have a circled element before
+			// it is dropped.
 			lastInsertedCell = null;
+			
 			CellCoord last = getLastInsertedChip(model);
 			
 			for (int i = 0, len1 = playerMarks.length; i < len1; i++)
@@ -597,37 +639,15 @@ public final class GameModelPanel extends JPanel implements Observer
 			}
 			
 			// Play a small animation in order to drop chips.
+			// if there's a drop to display.
 			if (last != null) 
 			{
-				animationRunning = true;
-				
-				PlayerMark mark = model.getCell(last);
-				int rowIndex = last.getRowIndex();
-				int colIndex = last.getColIndex();
-				playerMarks[rowIndex][colIndex] = null;
-				
-				for (int i = 0; i <= rowIndex; i++) 
-				{
-					if (i > 0) {
-						playerMarks[i - 1][colIndex] = null;
-					}
-					playerMarks[i][colIndex] = mark;
-					
-					paintImmediately(getVisibleRect());
-					
-					try
-					{
-						wait(30);
-					}
-					catch (Throwable t)
-					{
-						t.printStackTrace();
-					}
-				}
-				
-				animationRunning = false;
+				displayAnimation(model, last);
 			}
 			
+			// Now that the animation is successful, we can copy
+			// the parameters so that it is taken into account by
+			// the paint() method.
 			lastInsertedCell = last;
 			gameModel = model;
 			
