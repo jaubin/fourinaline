@@ -32,6 +32,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Paint;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.rmi.RemoteException;
@@ -589,19 +590,31 @@ public final class GameModelPanel extends JPanel implements Observer
 			// two cells dropping at the same time...
 			animationRunning = true;
 			
+			int cellHeight = getCellHeight();
+			int cellWidth = getCellWidth();
+			
 			PlayerMark mark = model.getCell(last);
 			int rowIndex = last.getRowIndex();
 			int colIndex = last.getColIndex();
 			playerMarks[rowIndex][colIndex] = null;
 			
+			int xLeft = colIndex * cellWidth;
+			
 			for (int i = 0; i <= rowIndex; i++) 
 			{
+				int yTop = 0;
+				int cellToDrawOnYAxis = 1;
+				
 				if (i > 0) {
+					yTop = (i - 1) * cellHeight;
+					cellToDrawOnYAxis = 2;
 					playerMarks[i - 1][colIndex] = null;
 				}
 				playerMarks[i][colIndex] = mark;
 				
-				paintImmediately(getVisibleRect());
+				// Speed optimization : we only paint the updated part of the panel
+				// Works notably better on OpenJDK.
+				paintImmediately(new Rectangle(xLeft, yTop, cellWidth, cellToDrawOnYAxis * cellHeight));
 				
 				try
 				{
