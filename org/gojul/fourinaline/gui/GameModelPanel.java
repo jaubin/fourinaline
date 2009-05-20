@@ -644,6 +644,8 @@ public final class GameModelPanel extends JPanel implements Observer
 			if (model == null)
 				throw new NullPointerException();
 			
+			CellCoord lastBeforeRefresh = lastInsertedCell;
+			
 			// We do not set up the last inserted cell coordinates
 			// now as we do not want to have a circled element before
 			// it is dropped.
@@ -659,12 +661,23 @@ public final class GameModelPanel extends JPanel implements Observer
 				}
 			}
 			
+			int cellWidth = getCellWidth();
+			int cellHeight = getCellHeight();
+			
 			// Play a small animation in order to drop chips.
 			// if there's a drop to display.
 			if (last != null) 
 			{
 				displayAnimation(model, last);
-			}
+				
+				// We delete the circle of the last inserted cell when possible.
+				if (lastBeforeRefresh != null)
+				{
+					paintImmediately(new Rectangle(lastBeforeRefresh.getColIndex() * cellWidth, 
+							lastBeforeRefresh.getRowIndex() * cellHeight,
+							cellWidth, cellHeight));
+				}
+			} 
 			
 			// Now that the animation is successful, we can copy
 			// the parameters so that it is taken into account by
@@ -672,7 +685,17 @@ public final class GameModelPanel extends JPanel implements Observer
 			lastInsertedCell = last;
 			gameModel = model;
 			
-			repaint();
+			// OpenJDK speed improvement : we only paint the last inserted chip when
+			// this is possible... 
+			if (last != null && gameModel != null && gameModel.getGameStatus().equals(GameStatus.CONTINUE_STATUS))
+			{				
+				paintImmediately(new Rectangle(last.getColIndex() * cellWidth, last.getRowIndex() * cellHeight,
+						cellWidth, cellHeight));
+			}
+			else 
+			{
+				repaint();
+			}
 		}
 
 		/**
