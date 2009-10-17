@@ -414,6 +414,7 @@ public final class AIGameClient extends ComputerGameClient
 			}
 		}
 		
+		@SuppressWarnings("unused")
 		public static void main(String[] args)
 		{
 			GameModel gameModel = new GameModel();

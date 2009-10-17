@@ -188,11 +188,13 @@ public final class GameModelPanel extends JPanel implements Observer
 		/**
 		 * The player A icon representation.
 		 */
+		@SuppressWarnings("unused")
 		public final static PlayerColorRepresentation PLAYER_A_REPRESENTATION = new PlayerColorRepresentation(PlayerMark.PLAYER_A_MARK, Color.YELLOW);
 		
 		/**
 		 * The player B icon representation.
 		 */
+		@SuppressWarnings("unused")
 		public final static PlayerColorRepresentation PLAYER_B_REPRESENTATION = new PlayerColorRepresentation(PlayerMark.PLAYER_B_MARK, Color.RED);
 	}
 	
@@ -202,7 +204,6 @@ public final class GameModelPanel extends JPanel implements Observer
 	 * 
 	 * @author Julien Aubin
 	 */
-	@SuppressWarnings("serial")
 	private final static class GamePlayerPanel extends JPanel
 	{				
 		/**
@@ -307,7 +308,6 @@ public final class GameModelPanel extends JPanel implements Observer
 	 * 
 	 * @author Julien Aubin
 	 */
-	@SuppressWarnings("serial")
 	private final static class GameModelDrawPanel extends JPanel implements MouseListener
 	{	
 		/**

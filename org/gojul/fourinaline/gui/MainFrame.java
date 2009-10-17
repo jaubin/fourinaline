@@ -62,7 +62,6 @@ public final class MainFrame extends JFrame implements Observer, WindowListener,
 	 * 
 	 * @author Julien Aubin
 	 */
-	@SuppressWarnings("serial")
 	private final static class NewGameAction extends AbstractAction
 	{ 
 		
@@ -136,7 +135,6 @@ public final class MainFrame extends JFrame implements Observer, WindowListener,
 	 * 
 	 * @author Julien Aubin
 	 */
-	@SuppressWarnings("serial")
 	private final static class EndGameAction extends AbstractAction
 	{ 
 		
@@ -198,7 +196,6 @@ public final class MainFrame extends JFrame implements Observer, WindowListener,
 	 * 
 	 * @author Julien Aubin
 	 */
-	@SuppressWarnings("serial")
 	private final static class QuitAction extends AbstractAction
 	{	 
 		
@@ -234,7 +231,6 @@ public final class MainFrame extends JFrame implements Observer, WindowListener,
 	 * 
 	 * @author Julien Aubin
 	 */
-	@SuppressWarnings("serial")
 	private final static class AboutAction extends AbstractAction
 	{ 
 		
