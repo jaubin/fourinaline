@@ -7,7 +7,7 @@ In order to insert chips in the game window, just click on the column on which y
 
 System requirements
 ===================
-Any operating system with a JVM 1.6 or later available at http://java.sun.com or as packages in Linux distributions.
+Any operating system with a JVM 1.5 or later available at http://java.sun.com or as packages in Linux distributions.
 
 Game startup
 ============
