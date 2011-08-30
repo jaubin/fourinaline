@@ -28,7 +28,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
- * The <code>GUIFrameMessages</code> class contains
+ * The <code>GUIMessages</code> class contains
  * the messages of the GUI, localized in English.<br/>
  * The messages can be easily translated to another language
  * using a property file named :<br/>
