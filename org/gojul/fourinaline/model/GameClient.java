@@ -61,13 +61,7 @@ public abstract class GameClient extends Observable implements Runnable
 	 * @author Julien Aubin
 	 */
 	private final static class GameServerCaller implements Runnable
-	{
-		
-		/**
-		 * The serial version UID.
-		 */
-		final static long serialVersionUID = 1;
-		
+	{		
 		/**
 		 * The call period in milliseconds.
 		 */

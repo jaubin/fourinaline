@@ -448,12 +448,12 @@ final class PlayerSelectionFrame extends JDialog implements Runnable, WindowList
 				if (aiServerTicket == null)
 					aiServerTicket = gameServer.getTicket();
 				
-				String playerName = "Computer";
+				String playerName = GUIMessages.COMPUTER_ADVERSORY_TEXT.toString();
 				
 				if (computerPlayerIndex != 0)
 					playerName += " " + computerPlayerIndex;
 				
-				GameClient AIclient = new AIGameClient(gameServer, aiServerTicket, GUIMessages.COMPUTER_ADVERSORY_TEXT.toString(), new DefaultEvalScore(), aiPlayerGameLevel.getLevel());
+				GameClient AIclient = new AIGameClient(gameServer, aiServerTicket, playerName, new DefaultEvalScore(), aiPlayerGameLevel.getLevel());
 				new Thread(AIclient).start();
 				continueTryingCreateAIGameClient = false;
 			}
