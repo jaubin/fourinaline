@@ -632,7 +632,7 @@ public final class GameModelPanel extends JPanel implements Observer
 		/**
 		 * Updates the model this panel paints.
 		 * @param model the model to update.
-		 * @throws NullPointerException if 
+		 * @throws NullPointerException if {@code model} is null
 		 */
 		public synchronized void updateModel(final GameModel model)
 			throws NullPointerException
